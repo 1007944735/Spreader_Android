@@ -1,5 +1,7 @@
 package com.sgevf.spreader.http.api;
 
+import com.sgevf.spreader.http.okhttp.OKHttpManager;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -12,6 +14,7 @@ public abstract class BaseApi<T,S> implements ObserverOnNextListener<S>{
     public T service;
     public BaseApi(String url){
         Retrofit retrofit=new Retrofit.Builder()
+                .client(OKHttpManager.getClient())
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
