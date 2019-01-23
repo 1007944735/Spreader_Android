@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">轨迹动画</string>
+
+    <string name="time_small">10</string>
+    <string name="time1">1000</string>
+
+</resources>

@@ -1,6 +1,9 @@
 package com.sgevf.spreader.http.api;
 
+import android.app.Activity;
+
 import com.sgevf.spreader.http.okhttp.OKHttpManager;
+import com.sgevf.spreader.http.utils.NetConfig;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -12,7 +15,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseApi<T,S> implements ObserverOnNextListener<S>{
     public T service;
-    public BaseApi(String url){
+    public Activity mActivity;
+    public BaseApi(Activity mActivity){
+        this(mActivity, NetConfig.URL);
+    }
+    public BaseApi(Activity mActivity,String url){
+        this.mActivity=mActivity;
         Retrofit retrofit=new Retrofit.Builder()
                 .client(OKHttpManager.getClient())
                 .baseUrl(url)
@@ -26,6 +34,7 @@ public abstract class BaseApi<T,S> implements ObserverOnNextListener<S>{
         }
         subscribe(setObservable(),setObserver());
     }
+
     private void subscribe(Observable observable,Observer observer){
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -35,10 +44,10 @@ public abstract class BaseApi<T,S> implements ObserverOnNextListener<S>{
 
     public abstract Class getCls();
 
-    public abstract Observable setObservable();
+    protected abstract Observable setObservable();
 
-    protected Observer setObserver(){
-        SimpleObserver<S> observer=new SimpleObserver<>();
+    private Observer setObserver(){
+        SimpleObserver<S> observer=new SimpleObserver<>(mActivity);
         observer.setListener(this);
         return observer;
     }
