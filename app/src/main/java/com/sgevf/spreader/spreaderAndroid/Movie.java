@@ -1,4 +1,4 @@
-package com.sgevf.spreader.spreader_android;
+package com.sgevf.spreader.spreaderAndroid;
 
 public class Movie {
     public  int count;

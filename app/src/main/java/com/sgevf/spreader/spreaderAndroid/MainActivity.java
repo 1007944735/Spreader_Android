@@ -1,4 +1,4 @@
-package com.sgevf.spreader.spreader_android;
+package com.sgevf.spreader.spreaderAndroid;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,8 +6,6 @@ import android.widget.TextView;
 
 
 import com.sgevf.spreader.http.base.BaseLoadingActivity;
-
-import utils.PropertiesUtils;
 
 public class MainActivity extends BaseLoadingActivity<Movie> {
     TextView textView;

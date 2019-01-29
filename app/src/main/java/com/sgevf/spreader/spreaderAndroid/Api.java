@@ -1,4 +1,4 @@
-package com.sgevf.spreader.spreader_android;
+package com.sgevf.spreader.spreaderAndroid;
 
 import android.app.Activity;
 import android.util.Log;
@@ -6,7 +6,6 @@ import android.util.Log;
 import com.sgevf.spreader.http.api.BaseApi;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 
 public class Api extends BaseApi<ApiService,Movie>{
 

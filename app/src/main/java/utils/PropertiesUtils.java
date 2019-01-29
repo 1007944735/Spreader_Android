@@ -2,7 +2,7 @@ package utils;
 
 import android.content.Context;
 
-import com.sgevf.spreader.spreader_android.R;
+import com.sgevf.spreader.spreaderAndroid.R;
 
 import java.io.IOException;
 import java.util.Properties;

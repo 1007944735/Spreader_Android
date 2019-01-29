@@ -1,15 +1,10 @@
-package com.sgevf.spreader.spreader_android;
+package com.sgevf.spreader.spreaderAndroid;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import com.sgevf.spreader.http.base.BaseActivity;
