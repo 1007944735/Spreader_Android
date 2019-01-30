@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -22,7 +23,9 @@ public class LoggingInterceptor implements Interceptor {
         Request request=chain.request();
         long startTime=System.nanoTime();
         Log.d("Http","发送请求Url："+request.url());
-        Log.d("Http","发送请求："+bodyToString(request.body()));
+        if(!(request.body() instanceof MultipartBody)) {
+            Log.d("Http", "发送请求：" + bodyToString(request.body()));
+        }
         Response response=chain.proceed(request);
         long endTime=System.nanoTime();
         ResponseBody body=response.peekBody(1024*1024);

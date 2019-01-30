@@ -11,4 +11,6 @@ public interface ApiService{
     @POST("user/top")
     @FormUrlEncoded
     Observable<BaseResult<Movie>> getTopMovie(@Field(value = "count") String key);
+
+
 }
