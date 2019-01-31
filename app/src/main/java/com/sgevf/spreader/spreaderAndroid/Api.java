@@ -6,6 +6,7 @@ import android.util.Log;
 import com.sgevf.spreader.http.api.BaseApi;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 public class Api extends BaseApi<ApiService,Movie>{
 
@@ -14,9 +15,10 @@ public class Api extends BaseApi<ApiService,Movie>{
     }
 
     @Override
-    public Class getCls() {
+    protected Class getCls() {
         return ApiService.class;
     }
+
 
     @Override
     protected Observable setObservable() {
@@ -25,6 +27,7 @@ public class Api extends BaseApi<ApiService,Movie>{
         movie.title="妈卖批";
         return service.getTopMovie("妈卖批");
     }
+
 
 
     @Override

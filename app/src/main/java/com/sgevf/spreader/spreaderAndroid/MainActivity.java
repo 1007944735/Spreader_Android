@@ -1,28 +1,23 @@
 package com.sgevf.spreader.spreaderAndroid;
 
-import android.content.ContentResolver;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.sgevf.spreader.http.base.BaseLoadingActivity;
+import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 import com.sgevf.spreader.http.utils.NetConfig;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 
-import java.io.File;
-import java.io.InputStream;
-
 import utils.PropertiesUtils;
 
-public class MainActivity extends BaseLoadingActivity<Movie> {
+public class MainActivity extends BaseLoadingActivity<Movie> implements UploadProgressListener {
     TextView textView;
     ImageView imageView;
+    ProgressBar progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +25,11 @@ public class MainActivity extends BaseLoadingActivity<Movie> {
         NetConfig.URL = PropertiesUtils.getUrl(this);
         textView = findViewById(R.id.back);
         imageView=findViewById(R.id.show);
+        progress=findViewById(R.id.progress);
     }
 
     public void click(View view) {
-        new Api(this);
+        new Api(this).request();
     }
 
     @Override
@@ -47,6 +43,12 @@ public class MainActivity extends BaseLoadingActivity<Movie> {
     }
 
     public void upload(View view) {
-        new UploadApi(this);
+        new UploadApi(this, this).request();
+    }
+
+    @Override
+    public void progress(long currentBytesCount, long totalBytesCount) {
+        progress.setMax((int) totalBytesCount);
+        progress.setProgress((int) currentBytesCount);
     }
 }

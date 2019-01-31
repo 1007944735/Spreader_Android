@@ -2,9 +2,10 @@ package com.sgevf.spreader.spreaderAndroid;
 
 import android.app.Activity;
 import android.os.Environment;
-import android.util.Log;
 
 import com.sgevf.spreader.http.api.BaseApi;
+import com.sgevf.spreader.http.base.ProgressRequestBody;
+import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 
 import java.io.File;
 
@@ -15,29 +16,28 @@ import okhttp3.RequestBody;
 
 public class UploadApi extends BaseApi<UploadImage,Movie> {
 
-    public UploadApi(Activity mActivity) {
-        super(mActivity);
+    public UploadApi(Activity mActivity, UploadProgressListener listener) {
+        super(mActivity, listener);
     }
 
     @Override
-    public Class getCls() {
+    protected Class getCls() {
         return UploadImage.class;
     }
 
-    @Override
-    protected Observable setObservable() {
-        String url= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/Camera/IMG_20181129_144117.jpg";
 
-        File file=new File(url);
-        RequestBody requestBody=RequestBody.create(MediaType.parse("image/jpeg"),file);
-        MultipartBody.Part part=MultipartBody.Part.createFormData("fileName",file.getName(),new ProgressRequestBody(requestBody, new UploadProgressListener() {
-            @Override
-            public void progress(long currentBytesCount, long totalBytesCount) {
-                Log.d("TAG", "progress: "+currentBytesCount);
-            }
-        }));
+    @Override
+    protected Observable setObservable(MultipartBody.Part part) {
         return service.uploadImage(part);
     }
+
+
+    @Override
+    public String filePath() {
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/Camera/IMG_20181129_144117.jpg";
+    }
+
+
 
     @Override
     public void onNext(Movie movie) {
@@ -45,4 +45,5 @@ public class UploadApi extends BaseApi<UploadImage,Movie> {
             ((MainActivity) mActivity).finish(movie);
         }
     }
+
 }

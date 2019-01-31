@@ -1,6 +1,8 @@
-package com.sgevf.spreader.spreaderAndroid;
+package com.sgevf.spreader.http.base;
 
 import android.support.annotation.Nullable;
+
+import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 
 import java.io.IOException;
 
