@@ -3,7 +3,6 @@ package com.sgevf.spreader.http.okhttp;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OKHttpManager {
     private static final long DEFAULT_CONNECT_TIMEOUT = 6;

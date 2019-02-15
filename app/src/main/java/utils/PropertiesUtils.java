@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertiesUtils {
-    public static final String URL = "url";
+    private static final String URL = "url";
 
-    public static final String getUrl(Context c) {
+    public static String getUrl(Context c) {
         try {
             Properties pro = new Properties();
             pro.load(c.getResources().openRawResource(R.raw.http_config));

@@ -2,16 +2,15 @@ package com.sgevf.spreader.http.api;
 
 import android.app.Activity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.sgevf.spreader.http.base.impl.OnLoadingDialogListener;
-import com.sgevf.spreader.http.entity.BaseResult;
+import com.sgevf.spreader.http.entity.BasicResult;
 import com.sgevf.spreader.http.utils.ToastUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class SimpleObserver<T> implements Observer<BaseResult<T>> {
+public class SimpleObserver<T> implements Observer<BasicResult<T>> {
     private static final String TAG="SimpleObserver";
     public ObserverOnNextListener<T> listener;
     private Activity mActivity;
@@ -28,8 +27,8 @@ public class SimpleObserver<T> implements Observer<BaseResult<T>> {
     }
 
     @Override
-    public void onNext(BaseResult<T> tBaseResult) {
-        listener.onNext(tBaseResult.data);
+    public void onNext(BasicResult<T> tBasicResult) {
+        listener.onNext(tBasicResult.data);
     }
 
 

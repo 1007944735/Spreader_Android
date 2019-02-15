@@ -3,4 +3,28 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    
+    <!--底层背景色-->
+    <color name="colorBackground">#f4f4f4</color>
+    <!--内容背景色-->
+    <color name="colorContentBackground">#ffffff</color>
+    <color name="colorHintText">#A6A6A6</color>
+    <!--主题色-->
+    <color name="colorTheme">#D13D4B</color>
+    <color name="colorNormal">#006DCC</color>
+    <color name="colorInfo">#49afcd</color>
+    <color name="colorSuccess">#5BB75B</color>
+    <color name="colorWarning">#FAA732</color>
+    <color name="colorDanger">#DA4F49</color>
+    <color name="colorLink">#0088CC</color>
+    <!--禁用颜色-->
+    <color name="colorDisable">#EFF3F8</color>
+    <color name="colorPress">#C43643</color>
+    <color name="colorEnable">#80D13D4B</color>
+    <color name="colorCancel">#c6c6c6</color>
+    <!--标题颜色-->
+    <color name="colorHeaderViewTitle">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorBorder">#E8E6E8</color>
 </resources>

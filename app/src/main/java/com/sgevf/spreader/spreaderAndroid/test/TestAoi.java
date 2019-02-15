@@ -1,12 +1,12 @@
-package com.sgevf.spreader.spreaderAndroid;
+package com.sgevf.spreader.spreaderAndroid.test;
 
 import android.app.Activity;
 
-import com.sgevf.spreader.http.api.BaseApi;
+import com.sgevf.spreader.http.api.BasicApi;
 
 import io.reactivex.Observable;
 
-public class TestAoi extends BaseApi<Api,Movie> {
+public class TestAoi extends BasicApi<Api,Movie> {
     public TestAoi(Activity mActivity) {
         super(mActivity);
     }

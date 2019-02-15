@@ -1,4 +1,4 @@
-package com.sgevf.spreader.spreaderAndroid;
+package com.sgevf.spreader.spreaderAndroid.test;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -7,14 +7,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.sgevf.spreader.http.base.BaseLoadingActivity;
 import com.sgevf.spreader.http.base.impl.UploadProgressListener;
-import com.sgevf.spreader.http.utils.NetConfig;
+import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 
-import utils.PropertiesUtils;
-
-public class MainActivity extends BaseLoadingActivity<Movie> implements UploadProgressListener {
+public class MActivity extends BaseLoadingActivity<Movie> implements UploadProgressListener {
     TextView textView;
     ImageView imageView;
     ProgressBar progress;
@@ -22,7 +20,7 @@ public class MainActivity extends BaseLoadingActivity<Movie> implements UploadPr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        NetConfig.URL = PropertiesUtils.getUrl(this);
+//        HttpConfig.init(getApplicationContext());
         textView = findViewById(R.id.back);
         imageView=findViewById(R.id.show);
         progress=findViewById(R.id.progress);

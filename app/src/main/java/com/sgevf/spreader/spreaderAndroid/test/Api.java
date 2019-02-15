@@ -1,14 +1,13 @@
-package com.sgevf.spreader.spreaderAndroid;
+package com.sgevf.spreader.spreaderAndroid.test;
 
 import android.app.Activity;
 import android.util.Log;
 
-import com.sgevf.spreader.http.api.BaseApi;
+import com.sgevf.spreader.http.api.BasicApi;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 
-public class Api extends BaseApi<ApiService,Movie>{
+public class Api extends BasicApi<ApiService,Movie> {
 
     public Api(Activity mActivity) {
         super(mActivity);
@@ -33,8 +32,8 @@ public class Api extends BaseApi<ApiService,Movie>{
     @Override
     public void onNext(Movie movie) {
         Log.d("TAG", "onNext: "+movie.title);
-        if(mActivity instanceof MainActivity){
-            ((MainActivity) mActivity).onLoadFinish(movie);
+        if(mActivity instanceof MActivity){
+            ((MActivity) mActivity).onLoadFinish(movie);
         }
     }
 

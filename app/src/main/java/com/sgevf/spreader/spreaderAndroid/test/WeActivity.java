@@ -1,4 +1,4 @@
-package com.sgevf.spreader.spreaderAndroid;
+package com.sgevf.spreader.spreaderAndroid.test;
 
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -7,17 +7,18 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.sgevf.spreader.http.base.BaseActivity;
+import com.sgevf.spreader.http.base.BasicActivity;
 import com.sgevf.spreader.http.utils.NetConfig;
+import com.sgevf.spreader.spreaderAndroid.R;
 
 import utils.PropertiesUtils;
 
-public class WelcomeActivity extends BaseActivity {
+public class WeActivity extends BasicActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_welcome);
+        setContentView(R.layout.layout_we);
 //        init();
         initView();
     }

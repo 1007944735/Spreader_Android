@@ -21,28 +21,28 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public abstract class BaseApi<T, S> implements ObserverOnNextListener<S> {
+public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
     public T service;
     public Activity mActivity;
 
     private UploadProgressListener listener;
     private String uploadFileName="fileName";
     private String mediaType="image/jpeg";
-    public BaseApi(Activity mActivity) {
+    public BasicApi(Activity mActivity) {
         this(mActivity, NetConfig.URL);
     }
 
-    public BaseApi(Activity mActivity, String url) {
+    public BasicApi(Activity mActivity, String url) {
         this(mActivity, url, null);
 
     }
 
-    public BaseApi(Activity mActivity, UploadProgressListener listener) {
+    public BasicApi(Activity mActivity, UploadProgressListener listener) {
         this(mActivity, NetConfig.URL, listener);
 
     }
 
-    public BaseApi(Activity mActivity, String url, UploadProgressListener listener) {
+    public BasicApi(Activity mActivity, String url, UploadProgressListener listener) {
         this.mActivity = mActivity;
         this.listener = listener;
         Retrofit retrofit = new Retrofit.Builder()
@@ -74,17 +74,17 @@ public abstract class BaseApi<T, S> implements ObserverOnNextListener<S> {
                 if (o != null) {
                     subscribe(o, setObserver());
                 } else {
-                    Log.d("BaseApi", "setObservable(MultipartBody.Part part)");
+                    Log.d("BasicApi", "setObservable(MultipartBody.Part part)");
                 }
             } else {
-                Log.d("BaseApi", "url 不存在");
+                Log.d("BasicApi", "url 不存在");
             }
         } else {
             Observable o = setObservable();
             if (o != null) {
                 subscribe(o, setObserver());
             } else {
-                Log.d("BaseApi", "没有重写setObservable()");
+                Log.d("BasicApi", "没有重写setObservable()");
             }
         }
     }

@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Spreader_Android</string>
+    <!--home-->
+    <string name="home_title">首页</string>
+    <string name="home_fixed_red_packet">固定红包</string>
+    <string name="home_random_red_packet">随机红包</string>
+    <string name="home_release_msg">发布信息</string>
+    <string name="home_find_money">发现红包</string>
+    <string name="home_red_packet_number">红包个数</string>
+    <string name="home_total_money">总金额</string>
+    <string name="home_single_money">单个金额</string>
+    <string name="home_start_time">开始时间</string>
+    <string name="home_end_time">结束时间</string>
+    <string name="home_release_address">发布地点</string>
+    <string name="home_hint_red_packet_number">输入个数</string>
+    <string name="home_hint_total_money">输入金额</string>
+    <string name="home_hint_time">请选择时间</string>
+    <string name="home_hint_address">请选择地点</string>
+    <string name="home_expand_tip">推广信息</string>
+    <string name="home_upload_image">上传图片</string>
+    <string name="home_hint_expand_tip">请输入推广信息（100字以内）</string>
+    <string name="home_put_money">塞钱</string>
+
+    <string name="home_unit_pieces">个</string>
+    <string name="home_unit_yuan">元</string>
 </resources>

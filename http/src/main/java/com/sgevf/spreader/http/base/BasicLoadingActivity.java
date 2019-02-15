@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.sgevf.spreader.http.base.dialog.DialogHelper;
 import com.sgevf.spreader.http.base.impl.OnLoadingDialogListener;
 
-public abstract class BaseLoadingActivity<T> extends BaseActivity implements OnLoadingDialogListener<T>{
+public abstract class BasicLoadingActivity<T> extends BasicActivity implements OnLoadingDialogListener<T>{
     protected Dialog loading;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
