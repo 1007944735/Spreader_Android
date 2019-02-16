@@ -2,16 +2,16 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'defaultKey'
+        spreader {
+            keyAlias 'defaultkey'
             keyPassword '123456'
-            storeFile file('D:/AndroidProject/Spreader_Android/default.jks')
+            storeFile file('F:/Git/Spreader_Android/default.jks')
             storePassword '123456'
         }
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.sgevf.spreader.spreader_android"
+        applicationId "com.sgevf.spreader.spreaderAndroid"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -24,8 +24,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.spreader
         }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    productFlavors {
     }
 }
 
@@ -43,4 +50,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
     implementation 'com.android.support:design:28.0.0'
+
+    implementation ('com.github.hotchemi:permissionsdispatcher:2.1.3'){
+        exclude module: 'support-v4'
+    }
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
+
 }
