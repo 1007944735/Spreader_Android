@@ -5,7 +5,11 @@ import android.util.Log;
 
 import com.sgevf.spreader.http.api.BasicApi;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.Observable;
+import utils.JsonUtils;
 
 public class Api extends BasicApi<ApiService,Movie> {
 
@@ -24,7 +28,9 @@ public class Api extends BasicApi<ApiService,Movie> {
         Movie movie=new Movie();
         movie.count=10;
         movie.title="妈卖批";
-        return service.getTopMovie("妈卖批");
+        Map<String,Object> map=new HashMap<>();
+        map.put("name","王嘉杰");
+        return service.getTopMovie(JsonUtils.createJson(map));
     }
 
 

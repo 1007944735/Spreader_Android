@@ -12,6 +12,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
+/**
+ * 暂时弃用
+ */
+@Deprecated
 public class HeaderInterceptor implements Interceptor {
     private static final String GET = "GET";
     private static final String POST = "POST";

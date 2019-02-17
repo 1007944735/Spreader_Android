@@ -24,7 +24,7 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.layout_welcome);
         new HeaderView(this).setTitle("欢迎");
         HttpConfig.init(getApplicationContext());
-        
+        WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
     }
 
     public void skip(View view) {

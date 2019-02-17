@@ -14,7 +14,7 @@ public class OKHttpManager {
                 .connectTimeout(DEFAULT_CONNECT_TIMEOUT,TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_READ_TIMEOUT,TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_WRITE_TIMEOUT,TimeUnit.SECONDS)
-                .addInterceptor(new HeaderInterceptor())
+//                .addInterceptor(new HeaderInterceptor())
                 .addInterceptor(new LoggingInterceptor())
                 .build();
         return client;

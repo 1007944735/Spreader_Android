@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
+import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 
 public class MActivity extends BaseLoadingActivity<Movie> implements UploadProgressListener {
@@ -20,7 +21,7 @@ public class MActivity extends BaseLoadingActivity<Movie> implements UploadProgr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        HttpConfig.init(getApplicationContext());
+        HttpConfig.init(getApplicationContext());
         textView = findViewById(R.id.back);
         imageView=findViewById(R.id.show);
         progress=findViewById(R.id.progress);
