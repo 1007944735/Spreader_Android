@@ -85,15 +85,15 @@ public class PickerView extends View {
         super(context, attrs, defStyleAttr);
         this.context = context;
         init();
-        TypedArray t= context.obtainStyledAttributes(attrs,R.styleable.PickerView);
-        selectColor=t.getColor(R.styleable.PickerView_selectColor,Color.parseColor("#cccccc"));
+        TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.PickerView);
+        selectColor = t.getColor(R.styleable.PickerView_selectColor, Color.parseColor("#cccccc"));
         t.recycle();
     }
 
     private void init() {
         timer = new Timer();
         dataList = new ArrayList<>();
-        sourceList=new ArrayList<>();
+        sourceList = new ArrayList<>();
         curPaint = new Paint();
         curPaint.setAntiAlias(true);
         curPaint.setStyle(Paint.Style.FILL);
@@ -122,7 +122,7 @@ public class PickerView extends View {
 
     public void setData(List<String> list) {
         this.dataList = list;
-        ParseUtils.copyList(list,sourceList);
+        ParseUtils.copyList(list, sourceList);
         currentItem = list.size() / 4;
         selectItem = currentItem;
         invalidate();
@@ -135,7 +135,7 @@ public class PickerView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (isInit&&!dataList.isEmpty()) {
+        if (isInit && !dataList.isEmpty()) {
             drawData(canvas);
         }
     }
@@ -276,18 +276,24 @@ public class PickerView extends View {
         if (selectListener != null) {
             selectListener.onSelect(sourceList.get(selectItem));
         }
-        Toast.makeText(context, selectItem+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, selectItem + "", Toast.LENGTH_SHORT).show();
     }
 
-    public String getSelect(){
+    public String getSelect() {
         return sourceList.get(selectItem);
     }
 
     public void setSelectItem(int selected) {
         if (selected >= 0 && selected < dataList.size()) {
+            String result=sourceList.get(selected);
+            for(int i=0;i<dataList.size();i++){
+                if(result.equals(dataList.get(i))){
+                    currentItem = i;
+                    break;
+                }
+            }
             selectItem = selected;
-            currentItem = selected;
-        }else {
+        } else {
             return;
         }
         if (loop) {
@@ -307,12 +313,15 @@ public class PickerView extends View {
         invalidate();
     }
 
-    public void selectLast(){
-        setSelectItem(selectItem--);
+    public void selectLast() {
+        selectItem--;
+        selectItem=selectItem<0?selectItem+dataList.size():selectItem;
+        setSelectItem(selectItem);
     }
-
-    public void selectNext(){
-        setSelectItem(selectItem++);
+    public void selectNext() {
+        selectItem++;
+        selectItem=selectItem%dataList.size();
+        setSelectItem(selectItem);
     }
 
     public interface OnSelectListener {
