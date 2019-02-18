@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
+import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import permissions.dispatcher.NeedsPermission;
@@ -27,9 +29,15 @@ public class WelcomeActivity extends BaseActivity {
         WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
     }
 
-    public void skip(View view) {
+    public void skip(final View view) {
 //        startActivity(new Intent(this,HomeActivity.class));
-        DialogUtils.showConfirm(this,"测试dialog","测试测试","确定","取消",null,null);
+//        DialogUtils.showConfirm(this,"测试dialog","测试测试","确定","取消",null,null);
+        DialogUtils.showSelectTime(this, new DatePickerDialog.OnConfirmListener() {
+            @Override
+            public void select(String time) {
+                ((Button) view).setText(time);
+            }
+        });
     }
 
 

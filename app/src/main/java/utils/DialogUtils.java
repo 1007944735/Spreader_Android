@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 
 public class DialogUtils {
     public static Dialog showConfirm(Context context, String title, String msg, String confirm, String cancel, View.OnClickListener confirmOnClick, View.OnClickListener cancelOnClick) {
@@ -44,6 +45,13 @@ public class DialogUtils {
 
     public static Dialog showTips(Context context, String title, String msg, String confirm, View.OnClickListener confirmOnClick) {
         return showConfirm(context, title, msg, confirm, null, confirmOnClick, null);
+    }
+
+    public static Dialog showSelectTime(Context context, DatePickerDialog.OnConfirmListener confirmListener){
+        DatePickerDialog dialog=new DatePickerDialog(context);
+        dialog.setConfirmListener(confirmListener);
+        dialog.show();
+        return dialog;
     }
 
 }

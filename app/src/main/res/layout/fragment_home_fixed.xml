@@ -26,6 +26,7 @@
                 android:textColor="@color/colorBlack"/>
 
             <EditText
+                android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -59,6 +60,7 @@
                 android:textColor="@color/colorBlack"/>
 
             <EditText
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -76,6 +78,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/start_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -100,6 +103,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/end_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -124,6 +128,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/release_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
