@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,12 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.map.MapActivity;
+import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import utils.DialogUtils;
 
 public class HomeFixedFragment extends Fragment {
     private Context context;
@@ -22,6 +27,10 @@ public class HomeFixedFragment extends Fragment {
     public EditText count;
     @BindView(R.id.price)
     public EditText price;
+    @BindView(R.id.start)
+    public TextView start;
+    @BindView(R.id.end)
+    public TextView end;
 
     public static HomeFixedFragment newInstance() {
 
@@ -53,16 +62,26 @@ public class HomeFixedFragment extends Fragment {
 
     @OnClick(R.id.start_time)
     public void startTime() {
-
+        DialogUtils.showSelectTime(context, new DatePickerDialog.OnConfirmListener() {
+            @Override
+            public void select(String time) {
+                start.setText(time);
+            }
+        });
     }
 
     @OnClick(R.id.end_time)
     public void endTime() {
-
+        DialogUtils.showSelectTime(context, new DatePickerDialog.OnConfirmListener() {
+            @Override
+            public void select(String time) {
+                end.setText(time);
+            }
+        });
     }
 
     @OnClick(R.id.release_address)
     public void releaseAddress() {
-
+        startActivity(new Intent(context, MapActivity.class));
     }
 }

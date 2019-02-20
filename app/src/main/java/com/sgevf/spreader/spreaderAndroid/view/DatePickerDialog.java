@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 
+import utils.CalendarUtils;
 import utils.ParseUtils;
 
 public class DatePickerDialog extends Dialog implements View.OnClickListener {
@@ -23,6 +25,9 @@ public class DatePickerDialog extends Dialog implements View.OnClickListener {
     private PickerView minute;
     private OnConfirmListener confirmListener;
 
+    private boolean leapYear = false;
+    private int twoMon = 0;// 1、大月 31天  2、小月 30天 3、二月
+
     public DatePickerDialog(@NonNull Context context) {
         super(context);
         this.context = context;
@@ -34,8 +39,8 @@ public class DatePickerDialog extends Dialog implements View.OnClickListener {
         setContentView(R.layout.dialog_date_picker_style);
         init();
         initData();
+        rule();
     }
-
 
     private void init() {
         confirm = findViewById(R.id.confirm);
@@ -47,7 +52,6 @@ public class DatePickerDialog extends Dialog implements View.OnClickListener {
         minute = findViewById(R.id.minute);
         confirm.setOnClickListener(this);
         cancel.setOnClickListener(this);
-
     }
 
     private void initData() {
@@ -56,19 +60,62 @@ public class DatePickerDialog extends Dialog implements View.OnClickListener {
         cancel.setTextColor(csl);
         year.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.year)));
         month.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.month)));
-        day.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.day_30)));
+        day.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.day_31)));
         hour.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.hour)));
         minute.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.minute)));
-        month.setSelectItem(11);
-        day.setSelectItem(10);
+        initDefaultTime();
+    }
+
+    private void rule() {
+
+        year.setOnSelectListener(new PickerView.OnSelectListener() {
+            @Override
+            public void onSelect(String text) {
+                leapYear = isLeapYear(text);
+                change(leapYear, twoMon);
+            }
+        });
+
         month.setOnSelectListener(new PickerView.OnSelectListener() {
             @Override
             public void onSelect(String text) {
-                if("3".equals(text)){
-                    day.selectNext();
+                if ("2".equals(text)) {
+                    twoMon = 3;
+                } else if ("7".equals(text) || "8".equals(text)) {
+                    twoMon = 1;
+                } else if (Integer.valueOf(text) % 2 == 1) {
+                    twoMon = 1;
+                } else {
+                    twoMon = 2;
                 }
+                change(leapYear, twoMon);
             }
         });
+    }
+
+    /**
+     * 设置当前的时间
+     */
+    private void initDefaultTime() {
+        year.setSelectItem(CalendarUtils.getYear() + "");
+        month.setSelectItem(CalendarUtils.getMonth() + "");
+        day.setSelectItem(CalendarUtils.getDay() + "");
+        hour.setSelectItem(CalendarUtils.getHour() + "");
+        minute.setSelectItem(CalendarUtils.getMinute() + "");
+    }
+
+    private boolean isLeapYear(int year) {
+        if (year % 4 == 0 && year % 100 != 0) {
+            return true;
+        }
+        if (year % 400 == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isLeapYear(String year) {
+        return isLeapYear(Integer.valueOf(year));
     }
 
 
@@ -79,9 +126,9 @@ public class DatePickerDialog extends Dialog implements View.OnClickListener {
             String m = month.getSelect();
             String d = day.getSelect();
             String h = hour.getSelect();
-            String mm=minute.getSelect();
-            if(confirmListener!=null){
-                confirmListener.select(y+"年"+m+"月"+d+"日"+h+":"+mm);
+            String mm = minute.getSelect();
+            if (confirmListener != null) {
+                confirmListener.select(y + "年" + m + "月" + d + "日" + h + ":" + mm);
             }
             dismiss();
         }
@@ -90,11 +137,27 @@ public class DatePickerDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    public interface OnConfirmListener{
+    private void change(boolean bool, int var) {
+        if (bool && var == 3) {
+            //闰年 2月 29天
+            day.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.day_29)));
+        } else if (!bool && var == 3) {
+            //平年 2月 28天
+            day.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.day_28)));
+        } else if (var == 1) {
+            //大月 31天
+            day.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.day_31)));
+        } else if (var == 2) {
+            //小月 30天
+            day.setData(ParseUtils.arrayToList(context.getResources().getStringArray(R.array.day_30)));
+        }
+    }
+
+    public interface OnConfirmListener {
         void select(String time);
     }
 
-    public void setConfirmListener(OnConfirmListener confirmListener){
-        this.confirmListener=confirmListener;
+    public void setConfirmListener(OnConfirmListener confirmListener) {
+        this.confirmListener = confirmListener;
     }
 }

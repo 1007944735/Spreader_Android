@@ -16,7 +16,7 @@ public class DialogUtils {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_common_style);
         WindowManager.LayoutParams p = dialog.getWindow().getAttributes();
-        p.width = (int) (WindowHelper.getScreentWidth(context) * 0.9);
+        p.width = (int) (WindowHelper.getScreenWidth(context) * 0.9);
         dialog.getWindow().setAttributes(p);
         dialog.setCanceledOnTouchOutside(false);
         if (!TextUtils.isEmpty(title)) {

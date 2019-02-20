@@ -2,19 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <com.amap.api.maps.MapView
         android:id="@+id/aMap"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </com.amap.api.maps.MapView>
-
-    <include
-        layout="@layout/layout_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_14"
-        android:layout_marginTop="@dimen/margin_36"
-        android:layout_marginRight="@dimen/margin_14" />
 </RelativeLayout>

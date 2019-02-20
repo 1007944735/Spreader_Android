@@ -276,18 +276,34 @@ public class PickerView extends View {
         if (selectListener != null) {
             selectListener.onSelect(sourceList.get(selectItem));
         }
-        Toast.makeText(context, selectItem + "", Toast.LENGTH_SHORT).show();
     }
 
     public String getSelect() {
         return sourceList.get(selectItem);
     }
 
+    /**
+     * 选择选中的内容
+     * @param selected
+     */
+    public void setSelectItem(String selected) {
+        for (int i = 0; i < sourceList.size(); i++) {
+            if (selected.equals(sourceList.get(i))) {
+                setSelectItem(i);
+                break;
+            }
+        }
+    }
+
+    /**
+     * 选择选中的内容
+     * @param selected
+     */
     public void setSelectItem(int selected) {
         if (selected >= 0 && selected < dataList.size()) {
-            String result=sourceList.get(selected);
-            for(int i=0;i<dataList.size();i++){
-                if(result.equals(dataList.get(i))){
+            String result = sourceList.get(selected);
+            for (int i = 0; i < dataList.size(); i++) {
+                if (result.equals(dataList.get(i))) {
                     currentItem = i;
                     break;
                 }
@@ -315,12 +331,13 @@ public class PickerView extends View {
 
     public void selectLast() {
         selectItem--;
-        selectItem=selectItem<0?selectItem+dataList.size():selectItem;
+        selectItem = selectItem < 0 ? selectItem + dataList.size() : selectItem;
         setSelectItem(selectItem);
     }
+
     public void selectNext() {
         selectItem++;
-        selectItem=selectItem%dataList.size();
+        selectItem = selectItem % dataList.size();
         setSelectItem(selectItem);
     }
 

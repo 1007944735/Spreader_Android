@@ -3,33 +3,20 @@ package com.sgevf.spreader.spreaderAndroid.map;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.services.help.Tip;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
-import com.sgevf.spreader.spreaderAndroid.adapter.InputTipsAdapter;
-import com.sgevf.spreader.spreaderAndroid.view.SearchView;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MapActivity extends BaseActivity {
+public class MapDuplicateActivity extends BaseActivity {
     @BindView(R.id.aMap)
     MapView mapView;
 
@@ -37,72 +24,15 @@ public class MapActivity extends BaseActivity {
 
     MyLocationStyle myLocationStyle;
 
-    UiSettings settings;
-
     private boolean followMove = true;
-
-    private SearchView searchView;
-
-    private InputTipsAdapter adapter;
-    private List<Tip> list;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_map);
+        setContentView(R.layout.layout_map_duplicate);
         ButterKnife.bind(this);
         //创建地图
         initMap(savedInstanceState);
-        initSetting();
-
-        list=new ArrayList<>();
-        adapter=new InputTipsAdapter(this,list);
-        searchView=new SearchView(this)
-                .setHint("搜地名,搜地址")
-                .setOnSearchListener(new SearchView.OnSearchListener() {
-                    @Override
-                    public void search(String values) {
-                        if(!TextUtils.isEmpty(values)){
-                            new MapPoiSearch(MapActivity.this)
-                                    .searchKeyPoi(values,"","",0);
-                        }
-                    }
-                })
-                .setAdapter(adapter)
-                .setOnTipExpandListener(new SearchView.OnTipExpandListener() {
-                    @Override
-                    public void showTip(String key) {
-                        if (!TextUtils.isEmpty(key)) {
-                            new MapPoiSearch(MapActivity.this)
-                                    .setOnFinishListener(new MapPoiSearch.OnFinishListener() {
-                                        @Override
-                                        public void finish(List<Tip> list) {
-                                            MapActivity.this.list.clear();
-                                            MapActivity.this.list.addAll(list);
-                                            adapter.notifyDataSetChanged();
-                                        }
-                                    })
-                                    .searchAutoTips(key);
-                        }else {
-                            MapActivity.this.list.clear();
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-
-        searchView.getTipList().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-    }
-
-    private void initSetting() {
-        settings = aMap.getUiSettings();
-        //隐藏定位图标
-        settings.setMyLocationButtonEnabled(false);
     }
 
     private void initMap(Bundle savedInstanceState) {

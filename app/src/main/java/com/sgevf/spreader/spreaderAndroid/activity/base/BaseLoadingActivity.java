@@ -5,12 +5,12 @@ import android.support.annotation.Nullable;
 
 import com.sgevf.spreader.http.base.BasicLoadingActivity;
 
-import utils.StatusBarUtils;
+import utils.WindowHelper;
 
 public abstract class BaseLoadingActivity<T> extends BasicLoadingActivity<T> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtils.fullScreen(this);
+        WindowHelper.fullScreen(this);
     }
 }

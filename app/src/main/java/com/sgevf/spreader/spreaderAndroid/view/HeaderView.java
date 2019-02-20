@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.HomeActivity;
 
-import utils.StatusBarUtils;
+import utils.WindowHelper;
 
 public class HeaderView implements View.OnClickListener {
     private Toolbar toolbar;
@@ -21,7 +21,7 @@ public class HeaderView implements View.OnClickListener {
         this.activity=activity;
         toolbar=activity.findViewById(R.id.toolbar);
         title=activity.findViewById(R.id.title);
-        StatusBarUtils.setViewPaddingTop(activity,toolbar);
+        WindowHelper.setViewPaddingTop(activity,toolbar);
         toolbar.setNavigationOnClickListener(this);
         if(isHomeActivity()){
             toolbar.setNavigationIcon(R.mipmap.icon_header_menu);

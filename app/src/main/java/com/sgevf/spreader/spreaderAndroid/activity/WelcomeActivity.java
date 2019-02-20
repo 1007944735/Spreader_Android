@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,14 +31,14 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     public void skip(final View view) {
-//        startActivity(new Intent(this,HomeActivity.class));
+        startActivity(new Intent(this,HomeActivity.class));
 //        DialogUtils.showConfirm(this,"测试dialog","测试测试","确定","取消",null,null);
-        DialogUtils.showSelectTime(this, new DatePickerDialog.OnConfirmListener() {
-            @Override
-            public void select(String time) {
-                ((Button) view).setText(time);
-            }
-        });
+//        DialogUtils.showSelectTime(this, new DatePickerDialog.OnConfirmListener() {
+//            @Override
+//            public void select(String time) {
+//                ((Button) view).setText(time);
+//            }
+//        });
     }
 
 
