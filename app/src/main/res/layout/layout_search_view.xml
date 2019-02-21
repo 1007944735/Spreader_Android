@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/searchView"
+        android:id="@id/searchView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/bg_radius_white"
@@ -14,27 +14,27 @@
         android:padding="@dimen/padding_8">
 
         <ImageView
-            android:id="@+id/location"
+            android:id="@id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_search_view_location" />
 
         <ImageView
-            android:id="@+id/left"
+            android:id="@id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_search_view_left"
             android:visibility="gone" />
 
         <EditText
-            android:id="@+id/values"
+            android:id="@id/values"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null" />
 
         <View
-            android:id="@+id/line"
+            android:id="@id/line"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_6"
@@ -43,7 +43,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/search"
+            android:id="@id/search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -53,9 +53,11 @@
             android:visibility="gone" />
     </LinearLayout>
     <ListView
-        android:id="@+id/tipList"
+        android:id="@id/tipList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:background="@drawable/bg_radius_white"
+        android:divider="@null">
     </ListView>
 </LinearLayout>

@@ -1,18 +1,16 @@
 package com.sgevf.spreader.spreaderAndroid.map;
 
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.help.Tip;
 import com.sgevf.spreader.spreaderAndroid.R;
@@ -20,14 +18,12 @@ import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.InputTipsAdapter;
 import com.sgevf.spreader.spreaderAndroid.view.SearchView;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import utils.MapUtils;
 
 public class MapActivity extends BaseActivity {
     @BindView(R.id.aMap)
@@ -45,6 +41,7 @@ public class MapActivity extends BaseActivity {
 
     private InputTipsAdapter adapter;
     private List<Tip> list;
+    private PoiOverlay poiOverlay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,16 +52,16 @@ public class MapActivity extends BaseActivity {
         initMap(savedInstanceState);
         initSetting();
 
-        list=new ArrayList<>();
-        adapter=new InputTipsAdapter(this,list);
-        searchView=new SearchView(this)
+        list = new ArrayList<>();
+        adapter = new InputTipsAdapter(this, list);
+        searchView = new SearchView(this)
                 .setHint("搜地名,搜地址")
                 .setOnSearchListener(new SearchView.OnSearchListener() {
                     @Override
                     public void search(String values) {
-                        if(!TextUtils.isEmpty(values)){
+                        if (!TextUtils.isEmpty(values)) {
                             new MapPoiSearch(MapActivity.this)
-                                    .searchKeyPoi(values,"","",0);
+                                    .searchKeyPoi(values, "", "", 0);
                         }
                     }
                 })
@@ -83,19 +80,30 @@ public class MapActivity extends BaseActivity {
                                         }
                                     })
                                     .searchAutoTips(key);
-                        }else {
+                        } else {
                             MapActivity.this.list.clear();
                             adapter.notifyDataSetChanged();
                         }
                     }
+                })
+                .setOnItemClickListener(new SearchView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object item, int position) {
+                        followMove = false;
+                        Toast.makeText(MapActivity.this, ((Tip) item).getPoint().getLongitude() + "", Toast.LENGTH_SHORT).show();
+                        double latitude = ((Tip) item).getPoint().getLatitude();
+                        double longitude = ((Tip) item).getPoint().getLongitude();
+                        poiOverlay.addMapMarker(new MapMarker.Builder()
+                                .position(latitude, longitude)
+                                .icon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_map_coord))
+                                .anchor(0.5f, 1f)
+                                .build());
+                        MapUtils.moveToSpan(aMap, latitude, longitude);
+                        MapActivity.this.list.clear();
+                        adapter.notifyDataSetChanged();
+                        searchView.clearValuesFocus(((Tip) item).getName());
+                    }
                 });
-
-        searchView.getTipList().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
 
     }
 
@@ -110,7 +118,7 @@ public class MapActivity extends BaseActivity {
         if (aMap == null) {
             aMap = mapView.getMap();
         }
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
+        poiOverlay=new PoiOverlay(aMap);
         myLocationStyle = new MyLocationStyle();
         //连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);
@@ -127,8 +135,7 @@ public class MapActivity extends BaseActivity {
             @Override
             public void onMyLocationChange(Location location) {
                 if (followMove) {
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    aMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    MapUtils.moveToSpan(aMap, location.getLatitude(), location.getLongitude(), 16f);
                 }
             }
         });

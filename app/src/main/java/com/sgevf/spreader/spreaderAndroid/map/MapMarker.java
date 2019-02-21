@@ -69,7 +69,7 @@ public class MapMarker {
         return builder.icon;
     }
 
-    public boolean isInfoWindowEnable(){
+    public boolean isInfoWindowEnable() {
         return builder.infoWindowEnable;
     }
 
@@ -85,7 +85,7 @@ public class MapMarker {
         private float anchorV = 0.5f;
         private float alpha = 255f;//透明度
         private Bitmap icon = null;
-        private boolean infoWindowEnable=false;//infoWindow是否可见
+        private boolean infoWindowEnable = false;//infoWindow是否可见
 
         public Builder position(double latitude, double longitude) {
             this.latitude = latitude;
@@ -129,8 +129,8 @@ public class MapMarker {
             return this;
         }
 
-        public Builder infoWindowEnable(boolean enable){
-            this.infoWindowEnable=enable;
+        public Builder infoWindowEnable(boolean enable) {
+            this.infoWindowEnable = enable;
             return this;
         }
 

@@ -1,10 +1,8 @@
 package com.sgevf.spreader.spreaderAndroid.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.amap.api.services.help.Tip;
@@ -16,67 +14,46 @@ import java.util.List;
  * 输入提示adapter，展示item名称和地址
  * Created by ligen on 16/11/25.
  */
-public class InputTipsAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<Tip> mListTips;
-
-    public InputTipsAdapter(Context context, List<Tip> tipList) {
-        mContext = context;
-        mListTips = tipList;
+public class InputTipsAdapter extends FactoryAdapter<Tip> {
+    public InputTipsAdapter(Context context, List<Tip> items) {
+        super(context, items);
     }
 
     @Override
-    public int getCount() {
-        if (mListTips != null) {
-            return mListTips.size();
-        }
-        return 0;
-    }
-
-
-    @Override
-    public Object getItem(int i) {
-        if (mListTips != null) {
-            return mListTips.get(i);
-        }
-        return null;
+    protected ViewHolderFactory<Tip> createFactory(View view) {
+        return new ViewHolder(view);
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public int getLayoutResourceId() {
+        return R.layout.adapter_inputtips;
     }
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Holder holder;
-        if (view == null) {
-            holder = new Holder();
-            view = LayoutInflater.from(mContext).inflate(R.layout.adapter_inputtips, null);
-            holder.mName = (TextView) view.findViewById(R.id.name);
-            holder.mAddress = (TextView) view.findViewById(R.id.adress);
-            view.setTag(holder);
-        } else {
-            holder = (Holder) view.getTag();
-        }
-        if (mListTips == null) {
-            return view;
+    class ViewHolder implements ViewHolderFactory<Tip> {
+        TextView name;
+        TextView address;
+        View divider;
+
+        public ViewHolder(View view) {
+            name = view.findViewById(R.id.name);
+            address = view.findViewById(R.id.address);
+            divider = view.findViewById(R.id.divider);
         }
 
-        holder.mName.setText(mListTips.get(i).getName());
-        String address = mListTips.get(i).getAddress();
-        if (address == null || address.equals("")) {
-            holder.mAddress.setVisibility(View.GONE);
-        } else {
-            holder.mAddress.setVisibility(View.VISIBLE);
-            holder.mAddress.setText(address);
+        @Override
+        public void init(Tip item, int position, FactoryAdapter<Tip> adapter) {
+            name.setText(item.getName());
+            if (!TextUtils.isEmpty(item.getAddress())) {
+                address.setVisibility(View.VISIBLE);
+                address.setText(item.getAddress());
+            }else {
+                address.setVisibility(View.GONE);
+            }
+            if (position == adapter.getCount() - 1) {
+                divider.setVisibility(View.GONE);
+            }else {
+                divider.setVisibility(View.VISIBLE);
+            }
         }
-
-        return view;
-    }
-
-    class Holder {
-        TextView mName;
-        TextView mAddress;
     }
 }
