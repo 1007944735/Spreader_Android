@@ -3,12 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.amap.api.maps.MapView
-        android:id="@+id/aMap"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.amap.api.maps.MapView>
+        <com.amap.api.maps.MapView
+            android:id="@+id/aMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.amap.api.maps.MapView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/colorContentBackground">
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <include
         layout="@layout/layout_search_view"

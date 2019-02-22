@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
@@ -93,6 +94,7 @@ public class MapActivity extends BaseActivity {
                         Toast.makeText(MapActivity.this, ((Tip) item).getPoint().getLongitude() + "", Toast.LENGTH_SHORT).show();
                         double latitude = ((Tip) item).getPoint().getLatitude();
                         double longitude = ((Tip) item).getPoint().getLongitude();
+                        poiOverlay.clearAllMarker();
                         poiOverlay.addMapMarker(new MapMarker.Builder()
                                 .position(latitude, longitude)
                                 .icon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_map_coord))

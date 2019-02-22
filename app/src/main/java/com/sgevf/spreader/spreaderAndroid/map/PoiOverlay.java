@@ -3,6 +3,8 @@ package com.sgevf.spreader.spreaderAndroid.map;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.animation.Animation;
+import com.amap.api.maps.model.animation.ScaleAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,18 @@ public class PoiOverlay {
         mapMarkers.add(options);
         Marker marker = aMap.addMarker(options);
         markers.add(marker);
+        addMarkerAnimation(marker);
+    }
+
+    /**
+     * marker添加上浮效果
+     * @param marker
+     */
+    private void addMarkerAnimation(Marker marker){
+        Animation markerAnimation=new ScaleAnimation(0,1,0,1);
+        markerAnimation.setDuration(1000);
+        marker.setAnimation(markerAnimation);
+        marker.startAnimation();
     }
 
     /**
