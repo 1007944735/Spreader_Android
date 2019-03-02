@@ -11,16 +11,18 @@
         <com.amap.api.maps.MapView
             android:id="@+id/aMap"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="350dp">
 
         </com.amap.api.maps.MapView>
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/location_list"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/colorContentBackground">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_radius_white"
+            android:divider="@null">
 
-        </LinearLayout>
+        </ListView>
 
     </LinearLayout>
 

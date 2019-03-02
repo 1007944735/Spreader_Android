@@ -27,6 +27,13 @@ public class GlideManager {
         showImage(context,url,view,new CircleTransform());
     }
 
+    public static void circleImage(Context context, int resId,ImageView view){
+        GlideApp.with(context)
+                .load(resId)
+                .apply(new GlideConfig().init().transition(new CircleTransform()))
+                .into(view);
+    }
+
     public static void roundImage(Context context, String url,ImageView view,float raduis){
         roundImage(context,url,view,raduis,raduis);
     }

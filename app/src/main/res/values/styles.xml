@@ -9,12 +9,18 @@
         <item name="android:windowBackground">@color/colorBackground</item>
     </style>
     
-    <style name="headerViewTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="HeaderViewTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textColor">@color/colorHeaderViewTitle</item>
         <item name="android:textSize">@dimen/dimen_20</item>
     </style>
+
+    <style name="HeaderViewRightText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/colorHeaderViewTitle</item>
+        <item name="android:textSize">@dimen/dimen_18</item>
+        <item name="android:layout_marginRight">@dimen/margin_18</item>
+    </style>
     
-    <style name="tabLayoutStyle" parent="Base.Widget.Design.TabLayout">
+    <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
         <item name="android:textColor">@color/colorHintText</item>
         <item name="android:textSize">@dimen/dimen_20</item>
         <item name="tabSelectedTextColor">@color/colorTheme</item>
@@ -24,5 +30,37 @@
     <declare-styleable name="PickerView">
         <attr name="selectColor" format="color"/>
     </declare-styleable>
+
+    <style name="RadioButton">
+        <item name="android:minHeight">33dp</item>
+        <item name="android:minWidth">70dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:padding">@dimen/padding_8</item>
+        <item name="hintTextAppearance">@style/HintTextAppearance</item>
+    </style>
+
+    <style name="HintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">?android:textColorHint</item>
+    </style>
+
+    <style name="EditText" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:textCursorDrawable">@drawable/cursor_edit_style</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="ConfirmButton">
+        <item name="android:background">@drawable/bg_btn_selector</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/dimen_20</item>
+    </style>
+
+
 
 </resources>

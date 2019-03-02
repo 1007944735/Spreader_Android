@@ -8,9 +8,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
+import com.amap.api.location.AMapLocation;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
+import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
+import com.sgevf.spreader.spreaderAndroid.map.MapLocationHelper;
 import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
@@ -21,24 +24,30 @@ import utils.DialogUtils;
 
 @RuntimePermissions
 public class WelcomeActivity extends BaseActivity {
+    private MapLocationHelper helper;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_welcome);
         new HeaderView(this).setTitle("欢迎");
         HttpConfig.init(getApplicationContext());
+        initMap();
         WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
+    }
+
+    private void initMap() {
+        helper=new MapLocationHelper(this);
+        helper.setLocationListener(new MapLocationHelper.LocationListener() {
+            @Override
+            public void onLocationChange(AMapLocation location) {
+                UserConfig.setAdCode(WelcomeActivity.this,location.getAdCode());
+            }
+        });
+        helper.startOnceLocation();
     }
 
     public void skip(final View view) {
         startActivity(new Intent(this,HomeActivity.class));
-//        DialogUtils.showConfirm(this,"测试dialog","测试测试","确定","取消",null,null);
-//        DialogUtils.showSelectTime(this, new DatePickerDialog.OnConfirmListener() {
-//            @Override
-//            public void select(String time) {
-//                ((Button) view).setText(time);
-//            }
-//        });
     }
 
 
@@ -50,5 +59,17 @@ public class WelcomeActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         WelcomeActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        helper.stopLocation();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        helper.destroyLocation();
     }
 }

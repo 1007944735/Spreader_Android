@@ -12,28 +12,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/padding_10"
+            android:layout_marginBottom="@dimen/margin_8"
             android:background="@drawable/bg_border_white"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_10">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/home_red_packet_number"
-                android:textSize="@dimen/dimen_18"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_18" />
 
             <EditText
                 android:id="@+id/count"
+                style="@style/EditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
+                android:ems="4"
                 android:hint="@string/home_hint_red_packet_number"
                 android:inputType="number"
-                android:ems="4"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,160 +47,167 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/padding_10"
+            android:layout_marginBottom="@dimen/margin_8"
             android:background="@drawable/bg_border_white"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_10">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/home_total_money"
-                android:textSize="@dimen/dimen_18"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_18" />
 
             <EditText
                 android:id="@+id/price"
+                style="@style/EditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
+                android:ems="4"
                 android:hint="@string/home_hint_total_money"
                 android:inputType="number"
-                android:ems="4"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/home_unit_yuan"
-                android:textSize="@dimen/dimen_18"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_18" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/start_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/padding_10"
+            android:layout_marginBottom="@dimen/margin_8"
             android:background="@drawable/bg_border_white"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_10">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/home_start_time"
-                android:textSize="@dimen/dimen_18"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_18" />
 
             <TextView
                 android:id="@+id/start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_18"
+                android:hint="@string/home_hint_time"
                 android:textColor="@color/colorBlack"
-                android:hint="@string/home_hint_time"/>
+                android:textSize="@dimen/dimen_18" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/end_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/padding_10"
+            android:layout_marginBottom="@dimen/margin_8"
             android:background="@drawable/bg_border_white"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_10">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/home_end_time"
-                android:textSize="@dimen/dimen_18"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_18" />
 
             <TextView
                 android:id="@+id/end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_18"
+                android:hint="@string/home_hint_time"
                 android:textColor="@color/colorBlack"
-                android:hint="@string/home_hint_time"/>
+                android:textSize="@dimen/dimen_18" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/release_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_border_white"
             android:orientation="horizontal"
-            android:padding="@dimen/padding_10"
-            android:background="@drawable/bg_border_white">
+            android:padding="@dimen/padding_10">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/home_release_address"
-                android:textSize="@dimen/dimen_18"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_18" />
 
             <TextView
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_18"
+                android:gravity="right"
+                android:hint="@string/home_hint_address"
                 android:textColor="@color/colorBlack"
-                android:hint="@string/home_hint_address"/>
+                android:textSize="@dimen/dimen_18" />
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_expand_tip"
-            android:layout_margin="@dimen/margin_8"/>
+            android:layout_margin="@dimen/margin_8"
+            android:text="@string/home_expand_tip" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <EditText
+                style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@color/colorContentBackground"
-                android:padding="@dimen/padding_10"
+                android:gravity="top"
                 android:hint="@string/home_hint_expand_tip"
-                android:textSize="@dimen/dimen_14"
-                android:gravity="top"/>
+                android:padding="@dimen/padding_10"
+                android:textSize="@dimen/dimen_14" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_8"
                 android:background="@color/colorContentBackground"
                 android:gravity="end"
                 android:paddingRight="@dimen/padding_8"
-                android:text="8/100"
-                android:layout_marginBottom="@dimen/margin_8"/>
+                android:text="8/100" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_8">
+
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/icon_home_upload"
+                android:background="@drawable/bg_radius_white"
                 android:scaleType="fitCenter"
-                android:background="@drawable/bg_radius_white"/>
+                android:src="@mipmap/icon_home_upload" />
         </LinearLayout>
 
         <Button
+            style="@style/ConfirmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_put_money"
+            android:layout_marginStart="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_14"
-            android:textColor="@color/colorContentBackground"
-            android:background="@drawable/bg_btn_selector"
             android:layout_marginEnd="@dimen/margin_10"
-            android:layout_marginStart="@dimen/margin_10"/>
+            android:text="@string/home_put_money" />
     </LinearLayout>
 </ScrollView>

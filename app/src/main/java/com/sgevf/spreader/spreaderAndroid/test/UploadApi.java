@@ -15,10 +15,10 @@ public class UploadApi extends BasicApi<UploadImage,Movie> {
         super(mActivity, listener);
     }
 
-    @Override
-    protected Class getCls() {
-        return UploadImage.class;
-    }
+//    @Override
+//    protected Class getCls() {
+//        return UploadImage.class;
+//    }
 
 
     @Override

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTheme"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_14">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wallet_balance"
+            android:textColor="@color/colorHintText"
+            android:textSize="@dimen/dimen_16" />
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:text="0.00"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dimen_74" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/withdraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:foreground="@drawable/fg_ripple_general"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_14">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/icon_wallet_withdraw"
+            android:layout_marginRight="@dimen/margin_4"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/wallet_withdraw"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/dimen_18" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_24"
+            android:src="@mipmap/icon_right" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/margin_14"
+        android:background="@color/colorHintText" />
+
+    <LinearLayout
+        android:id="@+id/history_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:foreground="@drawable/fg_ripple_general"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_14">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_24"
+            android:scaleType="center"
+            android:src="@mipmap/icon_wallet_history_details"
+            android:layout_marginRight="@dimen/margin_4"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/wallet_history_details"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/dimen_18" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_24"
+            android:src="@mipmap/icon_right" />
+    </LinearLayout>
+</LinearLayout>

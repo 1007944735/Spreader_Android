@@ -6,9 +6,16 @@ import android.util.Log;
 import com.sgevf.spreader.http.base.ProgressRequestBody;
 import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 import com.sgevf.spreader.http.okhttp.OKHttpManager;
+import com.sgevf.spreader.http.utils.JsonUtils;
 import com.sgevf.spreader.http.utils.NetConfig;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -24,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
     public T service;
     public Activity mActivity;
+    public Map<String,Object> map;
 
     private UploadProgressListener listener;
     private String uploadFileName="fileName";
@@ -43,6 +51,7 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
     }
 
     public BasicApi(Activity mActivity, String url, UploadProgressListener listener) {
+        map=new HashMap<>();
         this.mActivity = mActivity;
         this.listener = listener;
         Retrofit retrofit = new Retrofit.Builder()
@@ -80,7 +89,7 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
                 Log.d("BasicApi", "url 不存在");
             }
         } else {
-            Observable o = setObservable();
+            Observable o = setObservable(JsonUtils.createJson(map));
             if (o != null) {
                 subscribe(o, setObserver());
             } else {
@@ -96,9 +105,12 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
                 .subscribe(observer);
     }
 
-    protected abstract Class getCls();
+    private  Class<T> getCls(){
+        Class c= (Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        return c;
+    }
 
-    protected Observable setObservable() {
+    protected Observable setObservable(JSONObject json) {
         return null;
     }
 

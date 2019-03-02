@@ -15,48 +15,79 @@ import utils.WindowHelper;
 public class HeaderView implements View.OnClickListener {
     private Toolbar toolbar;
     private TextView title;
+    private TextView right;
     private DrawerLayout drawerLayout;
     private Activity activity;
-    public HeaderView(Activity activity){
-        this.activity=activity;
-        toolbar=activity.findViewById(R.id.toolbar);
-        title=activity.findViewById(R.id.title);
-        WindowHelper.setViewPaddingTop(activity,toolbar);
+
+    public HeaderView(Activity activity) {
+        this.activity = activity;
+        toolbar = activity.findViewById(R.id.toolbar);
+        title = activity.findViewById(R.id.title);
+        right = activity.findViewById(R.id.right);
+        WindowHelper.setViewPaddingTop(activity, toolbar);
         toolbar.setNavigationOnClickListener(this);
-        if(isHomeActivity()){
+        if (isHomeActivity()) {
             toolbar.setNavigationIcon(R.mipmap.icon_header_menu);
         }
     }
 
-    public HeaderView setTitle(String str){
+    public HeaderView setRight(String str) {
+        setRight(str,null);
+        return this;
+    }
+
+    public HeaderView setRight(int resId) {
+        setRight(resId,null);
+        return this;
+    }
+
+    public HeaderView setRight(String str, View.OnClickListener onclick) {
+        right.setText(str);
+        if(onclick!=null){
+            right.setOnClickListener(onclick);
+        }
+        return this;
+    }
+
+    public HeaderView setRight(int resId, View.OnClickListener onclick) {
+        right.setText(resId);
+        if(onclick!=null){
+            right.setOnClickListener(onclick);
+        }
+        return this;
+    }
+
+
+    public HeaderView setTitle(String str) {
         title.setText(str);
         return this;
     }
 
-    public HeaderView setTitle(int resId){
+    public HeaderView setTitle(int resId) {
         title.setText(resId);
         return this;
     }
 
     @Override
     public void onClick(View v) {
-        if(isHomeActivity()){
-            drawerLayout=activity.findViewById(R.id.drawer);
-            if(drawerLayout.isDrawerOpen(Gravity.START)) {
+        if (isHomeActivity()) {
+            drawerLayout = activity.findViewById(R.id.drawer);
+            if (drawerLayout.isDrawerOpen(Gravity.START)) {
                 drawerLayout.closeDrawer(Gravity.START);
-            }else {
+            } else {
                 drawerLayout.openDrawer(Gravity.START);
             }
-        }else {
+        } else {
             activity.finish();
         }
     }
 
     /**
      * 判断是否是homeActivity
+     *
      * @return
      */
-    private boolean isHomeActivity(){
+    private boolean isHomeActivity() {
         return activity instanceof HomeActivity;
     }
 

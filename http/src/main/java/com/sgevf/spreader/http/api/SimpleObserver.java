@@ -28,7 +28,11 @@ public class SimpleObserver<T> implements Observer<BasicResult<T>> {
 
     @Override
     public void onNext(BasicResult<T> tBasicResult) {
-        listener.onNext(tBasicResult.data);
+        if(tBasicResult.code==200){
+            listener.onNext(tBasicResult.data);
+        }else if(tBasicResult.code==-1){
+            ToastUtils.Toast(mActivity,tBasicResult.msg);
+        }
     }
 
 

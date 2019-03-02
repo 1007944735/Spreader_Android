@@ -8,7 +8,8 @@
     <color name="colorBackground">#f4f4f4</color>
     <!--内容背景色-->
     <color name="colorContentBackground">#ffffff</color>
-    <color name="colorHintText">#A6A6A6</color>
+    <color name="colorHintText">#f3f3f3</color>
+    <color name="colorRipple">#cdcdcd</color>
     <!--主题色-->
     <color name="colorTheme">#D13D4B</color>
     <color name="colorNormal">#006DCC</color>
@@ -27,4 +28,5 @@
     <color name="colorBlack">#000000</color>
 
     <color name="colorBorder">#E8E6E8</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

@@ -5,40 +5,31 @@ import android.util.Log;
 
 import com.sgevf.spreader.http.api.BasicApi;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONObject;
 
 import io.reactivex.Observable;
-import utils.JsonUtils;
 
-public class Api extends BasicApi<ApiService,Movie> {
+public class Api extends BasicApi<ApiService, Movie> {
 
     public Api(Activity mActivity) {
         super(mActivity);
     }
 
-    @Override
-    protected Class getCls() {
-        return ApiService.class;
+
+    public Api setClass() {
+        map.put("name", "王嘉杰");
+        return this;
     }
 
-
     @Override
-    protected Observable setObservable() {
-        Movie movie=new Movie();
-        movie.count=10;
-        movie.title="妈卖批";
-        Map<String,Object> map=new HashMap<>();
-        map.put("name","王嘉杰");
-        return service.getTopMovie(JsonUtils.createJson(map));
+    protected Observable setObservable(JSONObject json) {
+        return service.getTopMovie(json);
     }
-
-
 
     @Override
     public void onNext(Movie movie) {
-        Log.d("TAG", "onNext: "+movie.title);
-        if(mActivity instanceof MActivity){
+        Log.d("TAG", "onNext: " + movie.title);
+        if (mActivity instanceof MActivity) {
             ((MActivity) mActivity).onLoadFinish(movie);
         }
     }

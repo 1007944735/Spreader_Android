@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/colorContentBackground"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00fff0"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_14">
+
+                <ImageView
+                    android:id="@+id/head_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_10" />
+
+                <TextView
+                    android:id="@+id/nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:text="@string/hone_click_login"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/dimen_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/user_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_14"
+                android:paddingTop="@dimen/padding_8"
+                android:paddingRight="@dimen/padding_14"
+                android:paddingBottom="@dimen/padding_8"
+                android:foreground="@drawable/fg_ripple_general">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_home_user_center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:text="@string/home_slip_user_center"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_14"
+                android:paddingTop="@dimen/padding_8"
+                android:paddingRight="@dimen/padding_14"
+                android:paddingBottom="@dimen/padding_8"
+                android:foreground="@drawable/fg_ripple_general">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_home_wallet" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:text="@string/home_slip_wallet"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/history_release"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_14"
+                android:paddingTop="@dimen/padding_8"
+                android:paddingRight="@dimen/padding_14"
+                android:paddingBottom="@dimen/padding_8"
+                android:foreground="@drawable/fg_ripple_general">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_home_history_release" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:text="@string/home_slip_history_release"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_16" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorContentBackground"
+        android:drawableStart="@mipmap/icon_home_exit"
+        android:padding="@dimen/padding_8"
+        android:text="@string/home_exit"
+        android:foreground="@drawable/fg_ripple_general"/>
+</LinearLayout>

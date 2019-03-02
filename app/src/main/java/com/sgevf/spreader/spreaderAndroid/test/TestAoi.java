@@ -11,18 +11,13 @@ public class TestAoi extends BasicApi<Api,Movie> {
         super(mActivity);
     }
 
-    @Override
-    protected Class getCls() {
-        return null;
-    }
+//    @Override
+//    protected Class getCls() {
+//        return null;
+//    }
 
     @Override
     public void onNext(Movie movie) {
 
-    }
-
-    @Override
-    protected Observable setObservable() {
-        return super.setObservable();
     }
 }

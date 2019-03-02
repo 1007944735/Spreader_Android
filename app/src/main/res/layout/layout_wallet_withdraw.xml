@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head_view" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWarning"
+        android:drawableStart="@mipmap/icon_wallet_withdraw_trumpet"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="@string/wallet_withdraw_warning"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorContentBackground"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_14">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wallet_withdraw_money" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="￥"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_24" />
+
+            <EditText
+                android:id="@+id/count"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_40"
+                android:digits="0123456789."/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/margin_16"
+            android:background="@color/colorHintText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前可用余额0.00元"
+            android:textSize="@dimen/dimen_16" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/confirm"
+        style="@style/ConfirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_14"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_14"
+        android:text="@string/wallet_withdraw_confirm" />
+</LinearLayout>

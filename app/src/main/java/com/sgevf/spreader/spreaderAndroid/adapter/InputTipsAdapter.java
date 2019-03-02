@@ -26,7 +26,7 @@ public class InputTipsAdapter extends FactoryAdapter<Tip> {
 
     @Override
     public int getLayoutResourceId() {
-        return R.layout.adapter_inputtips;
+        return R.layout.item_inputtips;
     }
 
     class ViewHolder implements ViewHolderFactory<Tip> {

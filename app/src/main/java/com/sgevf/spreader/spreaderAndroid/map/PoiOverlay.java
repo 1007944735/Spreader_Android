@@ -39,10 +39,11 @@ public class PoiOverlay {
 
     /**
      * marker添加上浮效果
+     *
      * @param marker
      */
-    private void addMarkerAnimation(Marker marker){
-        Animation markerAnimation=new ScaleAnimation(0,1,0,1);
+    private void addMarkerAnimation(Marker marker) {
+        Animation markerAnimation = new ScaleAnimation(0, 1, 0, 1);
         markerAnimation.setDuration(1000);
         marker.setAnimation(markerAnimation);
         marker.startAnimation();
@@ -67,6 +68,12 @@ public class PoiOverlay {
             marker.remove();
         }
         markers.clear();
+    }
+
+    public Marker getFirstMarker() {
+        if (markers != null && markers.size() > 0)
+            return markers.get(0);
+        return null;
     }
 
 

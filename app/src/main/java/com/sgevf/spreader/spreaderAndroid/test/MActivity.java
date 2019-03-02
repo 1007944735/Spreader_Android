@@ -28,7 +28,7 @@ public class MActivity extends BaseLoadingActivity<Movie> implements UploadProgr
     }
 
     public void click(View view) {
-        new Api(this).request();
+        new Api(this).setClass().request();
     }
 
     @Override

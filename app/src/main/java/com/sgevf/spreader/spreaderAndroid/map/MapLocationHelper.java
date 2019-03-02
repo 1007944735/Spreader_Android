@@ -64,7 +64,7 @@ public class MapLocationHelper {
         });
     }
 
-    interface LocationListener {
+    public interface LocationListener {
         void onLocationChange(AMapLocation location);
     }
 

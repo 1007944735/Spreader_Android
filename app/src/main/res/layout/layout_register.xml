@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin_14"
+        android:layout_marginTop="@dimen/margin_28"
+        android:layout_marginRight="@dimen/margin_14"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/username"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_radius_white_top"
+            android:hint="@string/register_username"
+            android:padding="@dimen/padding_8"
+            android:textSize="@dimen/dimen_20" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorContentBackground"
+            android:hint="@string/register_password"
+            android:padding="@dimen/padding_8"
+            android:textSize="@dimen/dimen_20" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/re_password"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_radius_white"
+            android:hint="@string/register_re_password"
+            android:padding="@dimen/padding_8"
+            android:textSize="@dimen/dimen_20"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_radius_white_bottom"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/code"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="@string/register_image_code"
+                android:padding="@dimen/padding_8"
+                android:textSize="@dimen/dimen_20" />
+
+            <ImageView
+                android:id="@+id/image_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_14"
+            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginRight="@dimen/margin_14"
+            android:background="@drawable/bg_btn_selector"
+            android:text="@string/register"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dimen_20" />
+    </LinearLayout>
+</LinearLayout>
