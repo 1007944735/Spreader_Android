@@ -287,7 +287,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent=new Intent();
         intent.putExtra("poi",poiData.get(position));
-        setResult(2000,intent);
+        setResult(1001,intent);
         finish();
     }
 }

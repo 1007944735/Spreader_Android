@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -164,41 +163,35 @@
             android:text="@string/home_expand_tip" />
 
         <LinearLayout
+            android:id="@+id/expand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <EditText
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/colorContentBackground"
-                android:gravity="top"
-                android:hint="@string/home_hint_expand_tip"
-                android:padding="@dimen/padding_10"
-                android:textSize="@dimen/dimen_14" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_8"
-                android:background="@color/colorContentBackground"
-                android:gravity="end"
-                android:paddingRight="@dimen/padding_8"
-                android:text="8/100" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_8">
+            android:background="@drawable/bg_border_white"
+            android:foreground="@drawable/fg_ripple_general"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_14">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/bg_radius_white"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="@dimen/margin_4"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/icon_home_upload" />
+                android:src="@mipmap/icon_home_expand" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/home_expand_add_tip"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_18" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_24"
+                android:src="@mipmap/icon_right" />
+
         </LinearLayout>
 
         <Button

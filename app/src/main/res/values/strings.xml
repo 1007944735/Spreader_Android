@@ -17,6 +17,7 @@
     <string name="home_hint_time">请选择时间</string>
     <string name="home_hint_address">请选择地点</string>
     <string name="home_expand_tip">推广信息</string>
+    <string name="home_expand_add_tip">添加推广信息</string>
     <string name="home_upload_image">上传图片</string>
     <string name="home_hint_expand_tip">请输入推广信息（100字以内）</string>
     <string name="home_put_money">塞钱</string>
@@ -69,4 +70,6 @@
     <!--推广信息-->
     <string name="history_release">推广信息</string>
     <string name="history_release_details">详细信息</string>
+    <string name="history_release_picture">相册</string>
+    <string name="history_release_video">视频</string>
 </resources>

@@ -12,6 +12,7 @@
     <color name="colorRipple">#cdcdcd</color>
     <!--主题色-->
     <color name="colorTheme">#D13D4B</color>
+    <!--<color name="colorTheme">#ff4646</color>-->
     <color name="colorNormal">#006DCC</color>
     <color name="colorInfo">#49afcd</color>
     <color name="colorSuccess">#5BB75B</color>

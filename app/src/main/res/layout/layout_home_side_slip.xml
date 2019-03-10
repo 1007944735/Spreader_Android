@@ -9,7 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@drawable/bg_slip_shadow">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,7 +20,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00fff0"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/padding_14">
@@ -66,9 +66,13 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/padding_8"
                     android:text="@string/home_slip_user_center"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_16" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorHintText"/>
 
             <LinearLayout
                 android:id="@+id/wallet"
@@ -93,9 +97,13 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/padding_8"
                     android:text="@string/home_slip_wallet"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_16" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorHintText"/>
 
             <LinearLayout
                 android:id="@+id/history_release"
@@ -120,9 +128,14 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/padding_8"
                     android:text="@string/home_slip_history_release"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_16" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorHintText"/>
+
         </LinearLayout>
     </ScrollView>
 

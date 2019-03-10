@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.amap.api.services.core.PoiItem;
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.activity.ExpandActivity;
 import com.sgevf.spreader.spreaderAndroid.map.MapActivity;
 import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 
@@ -88,11 +89,18 @@ public class HomeFixedFragment extends Fragment {
         startActivityForResult(new Intent(context, MapActivity.class), 1000);
     }
 
+    @OnClick(R.id.expand)
+    public void expand(){
+        startActivityForResult(new Intent(context, ExpandActivity.class),2000);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1000 && resultCode == 2000) {
+        if (requestCode == 1000 && resultCode == 1001) {
             PoiItem poi = data.getParcelableExtra("poi");
             address.setText(poi.getTitle());
+        }else if(requestCode == 2000 && resultCode == 2001){
+
         }
     }
 }

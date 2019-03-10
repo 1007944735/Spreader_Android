@@ -1,1 +1,1 @@
-include ':app', ':http',':PeppaPig'
+include ':app', ':http',':PeppaPig', ':multimedia'

@@ -9,4 +9,24 @@
         android:layout_height="wrap_content"
         android:text="跳转"
         android:onClick="skip"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="相机"
+        android:onClick="camera"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视频"
+        android:onClick="video"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统相册"
+        android:onClick="systemPhoto"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义相册"
+        android:onClick="customPhoto"/>
 </LinearLayout>

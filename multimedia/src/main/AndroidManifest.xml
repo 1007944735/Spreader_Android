@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sgevf.multimedia" >
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <application>
+        <activity android:name=".TestActivity" />
+        <activity android:name=".video.VideoActivity" />
+        <activity android:name=".video.VideoOneActivity" />
+        <activity android:name=".video.VideoTwoActivity" />
+        <activity android:name=".video.VideoThreeActivity" />
+    </application>
+</manifest>
