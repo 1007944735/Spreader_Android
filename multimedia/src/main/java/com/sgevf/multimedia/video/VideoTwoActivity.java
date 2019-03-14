@@ -22,7 +22,8 @@ import com.sgevf.multimedia.utils.TimeUtils;
 import java.io.IOException;
 @Deprecated
 public class VideoTwoActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnInfoListener, MediaPlayer.OnVideoSizeChangedListener {
-    private static final String url="http://vfx.mtime.cn/Video/2019/03/01/mp4/190301141332024373.mp4";
+//    private static final String url="http://vfx.mtime.cn/Video/2019/03/01/mp4/190301141332024373.mp4";
+    private static final String url="/storage/emulated/0/DCIM/Camera/1551941276299_weibo.mp4";
     private TextureView surface;
     private MediaPlayer player;
     private VideoController control;

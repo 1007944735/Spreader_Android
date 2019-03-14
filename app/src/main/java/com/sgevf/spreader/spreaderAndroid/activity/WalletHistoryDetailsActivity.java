@@ -51,6 +51,6 @@ public class WalletHistoryDetailsActivity extends BaseLoadingActivity<List<Histo
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(this,WalletHistoryMoreDetails.class));
+        startActivity(new Intent(this, WalletHistoryMoreDetailsActivity.class));
     }
 }

@@ -18,6 +18,7 @@ public class GlideManager {
 
     public static void showImage(Context context, String url, ImageView view, Transformation transition){
         GlideApp.with(context)
+                .asBitmap()
                 .load(url)
                 .apply(new GlideConfig().init().transition(transition))
                 .into(view);
@@ -29,6 +30,7 @@ public class GlideManager {
 
     public static void circleImage(Context context, int resId,ImageView view){
         GlideApp.with(context)
+                .asBitmap()
                 .load(resId)
                 .apply(new GlideConfig().init().transition(new CircleTransform()))
                 .into(view);
@@ -48,6 +50,7 @@ public class GlideManager {
 
     public static void showImage(Activity activity, String url, ImageView view, Transformation transition){
         GlideApp.with(activity)
+                .asBitmap()
                 .load(url)
                 .apply(new GlideConfig().init().transition(transition))
                 .into(view);
@@ -71,6 +74,7 @@ public class GlideManager {
 
     public static void showImage(Fragment fragment, String url, ImageView view, Transformation transition){
         GlideApp.with(fragment)
+                .asBitmap()
                 .load(url)
                 .apply(new GlideConfig().init().transition(transition))
                 .into(view);
@@ -94,6 +98,7 @@ public class GlideManager {
 
     public static void showImage(View view, String url, ImageView target, Transformation transition){
         GlideApp.with(view)
+                .asBitmap()
                 .load(url)
                 .apply(new GlideConfig().init().transition(transition))
                 .into(target);

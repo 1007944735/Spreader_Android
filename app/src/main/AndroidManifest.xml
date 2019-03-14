@@ -56,13 +56,15 @@
         <activity android:name=".activity.HistoryReleaseActivity" />
         <activity android:name=".activity.UpdateUserActivity" />
         <activity android:name=".activity.WalletHistoryDetailsActivity" />
-        <activity android:name=".activity.WalletHistoryMoreDetails" />
+        <activity android:name=".activity.WalletHistoryMoreDetailsActivity" />
         <activity android:name=".activity.WalletWithdrawActivity" />
-        <activity android:name=".activity.HistoryReleaseDetails" />
+        <activity android:name=".activity.HistoryReleaseDetailsActivity" />
         <activity android:name="com.sgevf.multimedia.camera.CameraActivity" />
         <activity android:name=".activity.ExpandActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".activity.CustomPhotoActivity" />
+        <activity android:name=".activity.SinglePictureDetailActivity" />
+        <activity android:name=".activity.CustomVideoActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

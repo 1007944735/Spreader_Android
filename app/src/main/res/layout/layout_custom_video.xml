@@ -6,8 +6,12 @@
     <include layout="@layout/layout_head_view"/>
 
     <ListView
-        android:id="@+id/history"
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:choiceMode="singleChoice"
+        android:listSelector="@android:color/transparent">
+
     </ListView>
 </LinearLayout>

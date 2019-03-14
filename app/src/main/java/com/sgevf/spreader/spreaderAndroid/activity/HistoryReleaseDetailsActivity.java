@@ -5,22 +5,22 @@ import android.support.annotation.Nullable;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
-import com.sgevf.spreader.spreaderAndroid.model.WalletHistoryMoreDetailsModel;
+import com.sgevf.spreader.spreaderAndroid.model.HistoryReleaseDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import butterknife.ButterKnife;
 
-public class WalletHistoryMoreDetails extends BaseLoadingActivity<WalletHistoryMoreDetailsModel> {
+public class HistoryReleaseDetailsActivity extends BaseLoadingActivity<HistoryReleaseDetailsModel> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_wallet_history_more_details);
+        setContentView(R.layout.layout_history_release_details);
         ButterKnife.bind(this);
-        new HeaderView(this).setTitle(R.string.wallet_history_more_details);
+        new HeaderView(this).setTitle(R.string.history_release_details);
     }
 
     @Override
-    public void onLoadFinish(WalletHistoryMoreDetailsModel walletHistoryMoreDetailsModel) {
+    public void onLoadFinish(HistoryReleaseDetailsModel historyReleaseDetailsModel) {
 
     }
 }

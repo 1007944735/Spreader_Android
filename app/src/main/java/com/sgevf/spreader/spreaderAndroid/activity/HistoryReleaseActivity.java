@@ -45,7 +45,7 @@ public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryRele
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(this,HistoryReleaseDetails.class));
+        startActivity(new Intent(this, HistoryReleaseDetailsActivity.class));
     }
 
     @Override

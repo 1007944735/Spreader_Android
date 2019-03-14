@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public abstract class FactoryAdapter<E> extends BaseAdapter {
             holder= (ViewHolderFactory<E>) convertView.getTag();
         }
         holder.init(getItem(position),position,this);
+        Log.d("TAG", "getView: "+position);
         return convertView;
     }
 

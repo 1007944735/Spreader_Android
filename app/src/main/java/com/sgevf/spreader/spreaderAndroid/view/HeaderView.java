@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.view;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -80,6 +81,11 @@ public class HeaderView implements View.OnClickListener {
         } else {
             activity.finish();
         }
+    }
+
+    public HeaderView setToolbarBackground(int resid){
+        toolbar.setBackgroundColor(resid);
+        return this;
     }
 
     /**
