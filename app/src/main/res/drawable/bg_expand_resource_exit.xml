@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="#80cbcbcb" />
+            <corners android:bottomLeftRadius="3dp" />
+        </shape>
+    </item>
+    <item>
+        <bitmap android:src="@mipmap/icon_expand_resource_exit" />
+    </item>
+</layer-list>

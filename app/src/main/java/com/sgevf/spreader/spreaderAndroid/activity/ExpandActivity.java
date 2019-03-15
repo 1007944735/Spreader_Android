@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sgevf.multimedia.utils.TimeUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
@@ -88,39 +90,73 @@ public class ExpandActivity extends BaseActivity {
             gridLayoutWidth = gridLayout.getWidth();
             gridLayout.removeAllViews();
             for (ExpandPhotoModel model : pictures) {
-                ImageView imageView = createImageView();
-                GlideManager.showImage(this, model.path, imageView);
-                gridLayout.addView(imageView);
+                createImageView(false, model.path);
             }
-            ImageView imageView = createImageView();
-            imageView.setImageResource(R.mipmap.icon_expand_add);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivityForResult(new Intent(ExpandActivity.this, CustomPhotoActivity.class), 1000);
-                }
-            });
-            gridLayout.addView(imageView);
+            createImageView(true,null);
         } else if (requestCode == 2000 && resultCode == 2001 && data != null) {
             ExpandVideoModel video = data.getParcelableExtra("video");
             videoBox.removeAllViews();
             View view = LayoutInflater.from(this).inflate(R.layout.layout_video_expand, videoBox, true);
-            ImageView  thumbVideo=view.findViewById(R.id.thumbVideo);
-            TextView duration=view.findViewById(R.id.duration);
-            GlideManager.showImage(this,video.path,thumbVideo);
+            ImageView thumbVideo = view.findViewById(R.id.thumbVideo);
+            TextView duration = view.findViewById(R.id.duration);
+            ImageView exit = view.findViewById(R.id.exit);
+            GlideManager.showImage(this, video.path, thumbVideo);
             duration.setText(TimeUtils.formatTime(video.duration));
+            exit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    videoBox.removeAllViews();
+                }
+            });
         }
     }
 
     /**
      * 创建imageView
      */
-    private ImageView createImageView() {
-        ImageView imageView = new ImageView(this);
+    private void createImageView(boolean first, String url) {
+        final FrameLayout frameLayout = new FrameLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((gridLayoutWidth - 6 * 5) / 3, (gridLayoutWidth - 6 * 5) / 3);
         params.setMargins(5, 5, 5, 5);
-        imageView.setLayoutParams(params);
+        frameLayout.setLayoutParams(params);
+
+        ImageView imageView = new ImageView(this);
+        FrameLayout.LayoutParams ivParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        imageView.setLayoutParams(ivParams);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        return imageView;
+        if(first) {
+            imageView.setImageResource(R.mipmap.icon_photo_more);
+            imageView.setBackgroundResource(R.drawable.bg_photo_more);
+            imageView.setScaleType(ImageView.ScaleType.CENTER);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivityForResult(new Intent(ExpandActivity.this, CustomPhotoActivity.class), 1000);
+                }
+            });
+        }else {
+            GlideManager.showImage(this, url, imageView);
+        }
+        frameLayout.addView(imageView);
+
+        if (!first) {
+            ImageView exit = new ImageView(this);
+            FrameLayout.LayoutParams eParams = new FrameLayout.LayoutParams(40, 40);
+            eParams.gravity = Gravity.END;
+            exit.setImageResource(R.drawable.bg_expand_resource_exit);
+            exit.setLayoutParams(eParams);
+            exit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(gridLayout.getChildCount()>2) {
+                        gridLayout.removeView(frameLayout);
+                    }else {
+                        gridLayout.removeAllViews();
+                    }
+                }
+            });
+            frameLayout.addView(exit);
+        }
+        gridLayout.addView(frameLayout);
     }
 }

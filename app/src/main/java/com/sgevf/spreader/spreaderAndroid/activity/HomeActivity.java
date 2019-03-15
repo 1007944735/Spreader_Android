@@ -20,6 +20,7 @@ import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.fragment.HomeFixedFragment;
 import com.sgevf.spreader.spreaderAndroid.fragment.HomeRandomFragment;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
+import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import java.util.ArrayList;
@@ -48,7 +49,14 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
         ButterKnife.bind(this);
-        new HeaderView(this).setTitle(R.string.home_title);
+        new HeaderView(this)
+                .setTitle(R.string.home_title)
+                .setRightIcon(R.mipmap.icon_home_found, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(HomeActivity.this, MapDiscoverActivity.class));
+                    }
+                });
         init();
     }
 

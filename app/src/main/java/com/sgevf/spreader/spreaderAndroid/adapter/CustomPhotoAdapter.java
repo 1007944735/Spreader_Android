@@ -44,10 +44,12 @@ public class CustomPhotoAdapter extends RecyclerView.Adapter<CustomPhotoAdapter.
         params.height = WindowHelper.getScreenWidth(context) / 4;
         viewHolder.picture.setLayoutParams(params);
         if (i == 0) {
-            viewHolder.picture.setImageResource(R.mipmap.icon_expand_add);
+            viewHolder.picture.setImageResource(R.mipmap.icon_photo_camera);
+            viewHolder.picture.setScaleType(ImageView.ScaleType.CENTER);
             viewHolder.selected.setVisibility(View.GONE);
         } else {
             GlideManager.showImage(context, list.get(i - 1).path, viewHolder.picture);
+            viewHolder.picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
             viewHolder.selected.setVisibility(View.VISIBLE);
         }
         viewHolder.picture.setOnClickListener(new View.OnClickListener() {

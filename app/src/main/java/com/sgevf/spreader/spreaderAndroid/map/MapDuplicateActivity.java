@@ -15,6 +15,7 @@ import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import utils.MapUtils;
 
 public class MapDuplicateActivity extends BaseActivity {
     @BindView(R.id.aMap)
@@ -23,8 +24,6 @@ public class MapDuplicateActivity extends BaseActivity {
     AMap aMap;
 
     MyLocationStyle myLocationStyle;
-
-    private boolean followMove = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,10 +39,10 @@ public class MapDuplicateActivity extends BaseActivity {
         if (aMap == null) {
             aMap = mapView.getMap();
         }
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
+
         myLocationStyle = new MyLocationStyle();
         //连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);
         myLocationStyle.interval(2000);
 
         myLocationStyle.radiusFillColor(0);
@@ -56,19 +55,7 @@ public class MapDuplicateActivity extends BaseActivity {
         aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
-                if (followMove) {
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    aMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                }
-            }
-        });
-
-        aMap.setOnMapTouchListener(new AMap.OnMapTouchListener() {
-            @Override
-            public void onTouch(MotionEvent motionEvent) {
-                if (followMove) {
-                    followMove = false;
-                }
+                MapUtils.moveToSpan(aMap, location.getLatitude(), location.getLongitude(), 18);
             }
         });
     }

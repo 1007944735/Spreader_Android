@@ -3,6 +3,7 @@
     <item name="toolbar" type="id"/>
     <item name="title" type="id"/>
     <item name="right" type="id"/>
+    <item name="rightIcon" type="id"/>
     <item name="searchView" type="id"/>
     <item name="location" type="id"/>
     <item name="left" type="id"/>

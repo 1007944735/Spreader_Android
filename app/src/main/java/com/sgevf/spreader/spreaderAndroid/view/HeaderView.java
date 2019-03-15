@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
@@ -17,6 +18,7 @@ public class HeaderView implements View.OnClickListener {
     private Toolbar toolbar;
     private TextView title;
     private TextView right;
+    private ImageView rightIcon;
     private DrawerLayout drawerLayout;
     private Activity activity;
 
@@ -25,6 +27,7 @@ public class HeaderView implements View.OnClickListener {
         toolbar = activity.findViewById(R.id.toolbar);
         title = activity.findViewById(R.id.title);
         right = activity.findViewById(R.id.right);
+        rightIcon = activity.findViewById(R.id.rightIcon);
         WindowHelper.setViewPaddingTop(activity, toolbar);
         toolbar.setNavigationOnClickListener(this);
         if (isHomeActivity()) {
@@ -95,6 +98,15 @@ public class HeaderView implements View.OnClickListener {
      */
     private boolean isHomeActivity() {
         return activity instanceof HomeActivity;
+    }
+
+    public HeaderView setRightIcon(int resid, View.OnClickListener listener){
+        rightIcon.setVisibility(View.VISIBLE);
+        rightIcon.setImageResource(resid);
+        if(listener!=null){
+            rightIcon.setOnClickListener(listener);
+        }
+        return this;
     }
 
 }
