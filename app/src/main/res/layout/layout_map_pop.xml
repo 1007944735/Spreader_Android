@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mask"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#35000000"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/tab_1"
+        layout="@layout/layout_map_pop_order"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/tab_2"
+        layout="@layout/layout_map_pop_filter"
+        android:visibility="gone" />
+</LinearLayout>

@@ -8,10 +8,16 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
@@ -30,8 +36,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.MapUtils;
+import utils.WindowHelper;
 
 public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> {
+    private String[] titles = {"排序", "筛选"};
     @BindView(R.id.aMap)
     MapView mapView;
     @BindView(R.id.bottom_sheet)
@@ -49,6 +57,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     boolean onlyOnce = true;
     UiSettings settings;
     BottomSheetBehavior bottomSheetBehavior;
+    private int maxHeight;
+    private PopupWindow popupWindow;
+    private LinearLayout tab_1;
+    private LinearLayout tab_2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +71,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
         initMap(savedInstanceState);
         initSetting();
         initRecyclerView();
+        initResultFilter();
+
     }
+
 
     private void initRecyclerView() {
         List<String> list = new ArrayList<>();
@@ -76,31 +91,127 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
             public void onStateChanged(@NonNull View view, int i) {
                 if (i == BottomSheetBehavior.STATE_COLLAPSED) {
                     resultTip.setVisibility(View.VISIBLE);
-                    resultFilter.setVisibility(View.GONE);
-                } else if (i == BottomSheetBehavior.STATE_EXPANDED) {
-                    resultTip.setVisibility(View.GONE);
-                    resultFilter.setVisibility(View.VISIBLE);
                 } else {
                     resultTip.setVisibility(View.GONE);
-                    resultFilter.setVisibility(View.GONE);
+                }
+                maxHeight = (int) (WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.6f);
+                ViewGroup.LayoutParams params = view.getLayoutParams();
+                if (view.getHeight() > maxHeight) {
+                    params.height = maxHeight;
+                    view.setLayoutParams(params);
                 }
             }
 
             @Override
             public void onSlide(@NonNull View view, float v) {
+                Log.d("TAG", "scroll: " + scroll.getHeight());
                 float distance;
-                if (v > 0) {
-                    distance = view.getHeight() * v;
+                float secMax = view.getHeight() - bottomSheetBehavior.getPeekHeight() - resultFilter.getHeight();
+                if (v >= 0) {
+                    distance = (view.getHeight() - bottomSheetBehavior.getPeekHeight()) * v;
                 } else {
                     distance = bottomSheetBehavior.getPeekHeight() * v;
                 }
-                if (distance <= bottomSheetBehavior.getPeekHeight() && distance > 0) {
+                if (distance <= view.getHeight() * 0.4f && distance > 0) {
                     mapView.setTranslationY(-distance);
                 } else if (distance < 0) {
                     mapView.setTranslationY(0);
                 }
+                if (distance >= secMax) {
+                    resultFilter.setTranslationY(-distance + secMax - distance);
+                } else {
+                    resultFilter.setTranslationY(-distance);
+                }
             }
         });
+    }
+
+    private void initResultFilter() {
+        for (int i = 0; i < titles.length; i++) {
+            View view = makeView(i);
+            view.setTag(i);
+            resultFilter.addView(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.isSelected()) {
+                        v.setSelected(false);
+                        //消失
+                        if (popupWindow != null && popupWindow.isShowing()) {
+                            popupWindow.dismiss();
+                        }
+                        popupWindow = null;
+                    } else {
+                        clearAllSelected();
+                        v.setSelected(true);
+                        //出现
+                        if (popupWindow == null)
+                            createPopup();
+                        int i = (int) v.getTag();
+                        if (i == 0) {
+                            tab_1.setVisibility(View.VISIBLE);
+                            tab_2.setVisibility(View.GONE);
+                            if (!popupWindow.isShowing()) {
+                                popupWindow.showAsDropDown(resultFilter);
+                            }
+                        } else if (i == 1) {
+                            tab_1.setVisibility(View.GONE);
+                            tab_2.setVisibility(View.VISIBLE);
+                            if (!popupWindow.isShowing()) {
+                                popupWindow.showAsDropDown(resultFilter);
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+    }
+
+    private void clearAllSelected(){
+        for(int i=0;i<resultFilter.getChildCount();i++){
+            ((View) resultFilter.getChildAt(i)).setSelected(false);
+        }
+    }
+
+    private void createPopup() {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_map_pop, null);
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, scroll.getHeight());
+//        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        popupWindow.setOutsideTouchable(true);
+        popupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
+        View mask = view.findViewById(R.id.mask);
+        tab_1 = view.findViewById(R.id.tab_1);
+        tab_2 = view.findViewById(R.id.tab_2);
+        tab_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MapDiscoverActivity.this, "123", Toast.LENGTH_SHORT).show();
+            }
+        });
+        tab_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MapDiscoverActivity.this, "321", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+
+    private View makeView(int i) {
+        View view = LayoutInflater.from(this).inflate(R.layout.item_map_tab_layout, null);
+        LinearLayout.LayoutParams params= new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.weight=1;
+        view.setLayoutParams(params);
+        TextView title = view.findViewById(R.id.title);
+        title.setText(titles[i]);
+        return view;
     }
 
     private void initSetting() {
@@ -161,6 +272,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
         super.onDestroy();
         //销毁地图
         mapView.onDestroy();
+        if (popupWindow != null&&popupWindow.isShowing()) {
+            popupWindow.dismiss();
+        }
+        popupWindow = null;
     }
 
     @Override
@@ -175,6 +290,15 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
         super.onSaveInstanceState(outState);
         //保存地图当前的状态
         mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
