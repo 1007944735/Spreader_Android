@@ -72,4 +72,10 @@
     <string name="history_release_details">详细信息</string>
     <string name="history_release_picture">相册</string>
     <string name="history_release_video">视频</string>
+
+    <!--发现红包-->
+    <string name="discover_order_smart">智能排序</string>
+    <string name="discover_order_max_people">人数最多</string>
+    <string name="discover_order_max_count">金额最大</string>
+    <string name="discover_order_min_distance">离我最近</string>
 </resources>

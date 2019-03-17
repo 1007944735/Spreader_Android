@@ -6,42 +6,48 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/smartOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_border_gray_bottom_selector"
+        android:foreground="@drawable/fg_ripple_general"
         android:paddingLeft="@dimen/padding_10"
         android:paddingTop="@dimen/padding_14"
-        android:paddingBottom="@dimen/padding_14"
         android:paddingRight="@dimen/padding_10"
-        android:text="智能排序"
+        android:paddingBottom="@dimen/padding_14"
+        android:text="@string/discover_order_smart"
         android:textColor="@color/bg_map_tab_layout_title_selector"
-        android:textSize="@dimen/dimen_16"
-        android:foreground="@drawable/fg_ripple_general"/>
+        android:textSize="@dimen/dimen_16" />
+
     <TextView
+        android:id="@+id/maxPeople"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_border_gray_bottom_selector"
+        android:foreground="@drawable/fg_ripple_general"
         android:paddingLeft="@dimen/padding_10"
         android:paddingTop="@dimen/padding_14"
-        android:paddingBottom="@dimen/padding_14"
         android:paddingRight="@dimen/padding_10"
-        android:text="智能排序"
+        android:paddingBottom="@dimen/padding_14"
+        android:text="@string/discover_order_max_people"
         android:textColor="@color/bg_map_tab_layout_title_selector"
-        android:textSize="@dimen/dimen_16"
-        android:foreground="@drawable/fg_ripple_general"/>
+        android:textSize="@dimen/dimen_16" />
+
     <TextView
+        android:id="@+id/maxCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_border_gray_bottom_selector"
+        android:foreground="@drawable/fg_ripple_general"
         android:paddingLeft="@dimen/padding_10"
         android:paddingTop="@dimen/padding_14"
-        android:paddingBottom="@dimen/padding_14"
         android:paddingRight="@dimen/padding_10"
-        android:text="智能排序"
+        android:paddingBottom="@dimen/padding_14"
+        android:text="@string/discover_order_max_count"
         android:textColor="@color/bg_map_tab_layout_title_selector"
-        android:textSize="@dimen/dimen_16"
-        android:foreground="@drawable/fg_ripple_general"/>
+        android:textSize="@dimen/dimen_16" />
     <TextView
+        android:id="@+id/minDistance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_border_gray_bottom_selector"
@@ -49,7 +55,7 @@
         android:paddingTop="@dimen/padding_14"
         android:paddingBottom="@dimen/padding_14"
         android:paddingRight="@dimen/padding_10"
-        android:text="智能排序"
+        android:text="@string/discover_order_min_distance"
         android:textColor="@color/bg_map_tab_layout_title_selector"
         android:textSize="@dimen/dimen_16"
         android:foreground="@drawable/fg_ripple_general"/>

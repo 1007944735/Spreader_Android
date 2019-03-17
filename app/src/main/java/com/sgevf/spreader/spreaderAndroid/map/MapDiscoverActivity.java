@@ -38,7 +38,7 @@ import butterknife.OnClick;
 import utils.MapUtils;
 import utils.WindowHelper;
 
-public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> {
+public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> implements View.OnClickListener {
     private String[] titles = {"排序", "筛选"};
     @BindView(R.id.aMap)
     MapView mapView;
@@ -61,9 +61,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     private PopupWindow popupWindow;
     private LinearLayout tab_1;
     private LinearLayout tab_2;
+    private TextView curSelecedOrder;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_map_discover);
         ButterKnife.bind(this);
@@ -72,7 +73,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
         initSetting();
         initRecyclerView();
         initResultFilter();
-
     }
 
 
@@ -140,7 +140,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
                         if (popupWindow != null && popupWindow.isShowing()) {
                             popupWindow.dismiss();
                         }
-                        popupWindow = null;
                     } else {
                         clearAllSelected();
                         v.setSelected(true);
@@ -168,8 +167,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
         }
     }
 
-    private void clearAllSelected(){
-        for(int i=0;i<resultFilter.getChildCount();i++){
+    private void clearAllSelected() {
+        for (int i = 0; i < resultFilter.getChildCount(); i++) {
             ((View) resultFilter.getChildAt(i)).setSelected(false);
         }
     }
@@ -183,31 +182,36 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
         View mask = view.findViewById(R.id.mask);
         tab_1 = view.findViewById(R.id.tab_1);
         tab_2 = view.findViewById(R.id.tab_2);
-        tab_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MapDiscoverActivity.this, "123", Toast.LENGTH_SHORT).show();
-            }
-        });
-        tab_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MapDiscoverActivity.this, "321", Toast.LENGTH_SHORT).show();
-            }
-        });
+        initOrder(view);
+        initFilter(view);
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
+                clearAllSelected();
             }
         });
+    }
+
+    private void initOrder(View view) {
+        TextView smartOrder=view.findViewById(R.id.smartOrder);
+        TextView maxPeople=view.findViewById(R.id.maxPeople);
+        TextView maxCount=view.findViewById(R.id.maxCount);
+        TextView minDistance=view.findViewById(R.id.minDistance);
+        smartOrder.setOnClickListener(this);
+        maxPeople.setOnClickListener(this);
+        maxCount.setOnClickListener(this);
+        minDistance.setOnClickListener(this);
+    }
+
+    private void initFilter(View view) {
     }
 
 
     private View makeView(int i) {
         View view = LayoutInflater.from(this).inflate(R.layout.item_map_tab_layout, null);
-        LinearLayout.LayoutParams params= new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.weight=1;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.weight = 1;
         view.setLayoutParams(params);
         TextView title = view.findViewById(R.id.title);
         title.setText(titles[i]);
@@ -272,7 +276,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
         super.onDestroy();
         //销毁地图
         mapView.onDestroy();
-        if (popupWindow != null&&popupWindow.isShowing()) {
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
         popupWindow = null;
@@ -295,6 +299,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     @Override
     public void onBackPressed() {
         if (popupWindow != null && popupWindow.isShowing()) {
+            clearAllSelected();
             popupWindow.dismiss();
         } else {
             super.onBackPressed();
@@ -304,5 +309,38 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     @Override
     public void onLoadFinish(MapRedResultModel mapRedResultModel) {
 
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.smartOrder:
+                ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(titles[0]);
+                selectOne(v);
+                break;
+            case R.id.maxPeople:
+                ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_max_people);
+                selectOne(v);
+                break;
+            case R.id.maxCount:
+                ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_max_count);
+                selectOne(v);
+                break;
+            case R.id.minDistance:
+                ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_min_distance);
+                selectOne(v);
+                break;
+        }
+    }
+
+    private void selectOne(View view) {
+        if(curSelecedOrder==null){
+            view.setSelected(true);
+        }else {
+            view.setSelected(true);
+            curSelecedOrder.setSelected(false);
+        }
+        curSelecedOrder= (TextView) view;
     }
 }
