@@ -9,7 +9,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-public interface ApiService{
+public interface ApiService {
     @POST("user/top")
     @FormUrlEncoded
     Observable<BasicResult<Movie>> getTopMovie(@Field("params") JSONObject json);

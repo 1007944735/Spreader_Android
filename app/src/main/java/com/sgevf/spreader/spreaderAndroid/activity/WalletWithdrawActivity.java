@@ -28,7 +28,7 @@ public class WalletWithdrawActivity extends BaseActivity {
     }
 
     @OnClick(R.id.confirm)
-    public void confirm(View view){
-        String m=count.getText().toString().trim();
+    public void confirm(View view) {
+        String m = count.getText().toString().trim();
     }
 }

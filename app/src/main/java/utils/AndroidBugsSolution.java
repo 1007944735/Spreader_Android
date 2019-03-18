@@ -31,10 +31,9 @@ public class AndroidBugsSolution {
     private OnKeyboardListener mListener;
 
     /**
-     *
      * @param activity
      * @param isSubOffset 是否需要偏移
-     * @param listener 软键盘监听 监听隐藏，显示
+     * @param listener    软键盘监听 监听隐藏，显示
      */
     private AndroidBugsSolution(final Activity activity, boolean isSubOffset, OnKeyboardListener listener) {
         this.mSubOffset = isSubOffset;
@@ -56,7 +55,7 @@ public class AndroidBugsSolution {
         // Log.i("III", "usableHeightNow " + usableHeightNow + ", r " + r.toString());
         if (usableHeightNow != mCurrHeight) {
             int usableHeightSansKeyboard = r.bottom;
-            if(mSubOffset) {
+            if (mSubOffset) {
                 usableHeightSansKeyboard -= r.top;
             }
             // android.util.Log.i("III", "usableHeightSansKeyboard " + usableHeightSansKeyboard + ", r " + r.toString());

@@ -5,7 +5,7 @@ android {
         spreader {
             keyAlias 'defaultkey'
             keyPassword '123456'
-            storeFile file('D:/AndroidProject/Spreader_Android/default.jks')
+            storeFile file('F:/Git/Spreader_Android/default.jks')
             storePassword '123456'
         }
     }

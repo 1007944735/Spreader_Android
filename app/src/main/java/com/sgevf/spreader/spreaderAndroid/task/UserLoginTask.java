@@ -18,9 +18,9 @@ public class UserLoginTask extends BasicApi<UserService, UserModel> {
     }
 
 
-    public UserLoginTask setClass(String userName, String password){
-        map.put("userName",userName);
-        map.put("password",password);
+    public UserLoginTask setClass(String userName, String password) {
+        map.put("userName", userName);
+        map.put("password", password);
         return this;
     }
 
@@ -31,7 +31,7 @@ public class UserLoginTask extends BasicApi<UserService, UserModel> {
 
     @Override
     public void onNext(UserModel userModel) {
-        if(mActivity instanceof LoginActivity){
+        if (mActivity instanceof LoginActivity) {
             ((LoginActivity) mActivity).onLoadFinish(userModel);
         }
     }

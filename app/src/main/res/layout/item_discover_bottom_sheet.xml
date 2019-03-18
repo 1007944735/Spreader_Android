@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorContentBackground"
+    android:foreground="@drawable/fg_ripple_general"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_14"
+    android:id="@+id/box">
+
+    <ImageView
+        android:id="@+id/expand_picture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="@dimen/margin_10"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="#2f2f2f"
+            android:textSize="@dimen/dimen_18"
+            android:layout_marginBottom="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/advertisement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="#484848"
+            android:layout_marginBottom="@dimen/margin_2"/>
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#787878"
+            android:textSize="@dimen/dimen_12"/>
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#a8a8a8"
+            android:textSize="@dimen/dimen_12"
+            android:drawableLeft="@mipmap/icon_discover_time"/>
+
+    </LinearLayout>
+</LinearLayout>

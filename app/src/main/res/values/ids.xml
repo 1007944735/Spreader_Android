@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="toolbar" type="id"/>
-    <item name="title" type="id"/>
-    <item name="right" type="id"/>
-    <item name="rightIcon" type="id"/>
-    <item name="searchView" type="id"/>
-    <item name="location" type="id"/>
-    <item name="left" type="id"/>
-    <item name="values" type="id"/>
-    <item name="line" type="id"/>
-    <item name="search" type="id"/>
-    <item name="tipList" type="id"/>
+    <item name="toolbar" type="id" />
+    <item name="title" type="id" />
+    <item name="right" type="id" />
+    <item name="rightIcon" type="id" />
+    <item name="searchView" type="id" />
+    <item name="location" type="id" />
+    <item name="left" type="id" />
+    <item name="values" type="id" />
+    <item name="line" type="id" />
+    <item name="search" type="id" />
+    <item name="tipList" type="id" />
 </resources>

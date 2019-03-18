@@ -5,32 +5,37 @@
     android:orientation="horizontal"
     android:padding="@dimen/padding_14"
     android:gravity="center_vertical">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/way"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="红包"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlack" />
+
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2019-02-27"/>
+            android:text="2019-02-27" />
     </LinearLayout>
+
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+1.00"
         android:textSize="@dimen/dimen_18"
-        android:textColor="@color/colorBlack"/>
+        android:textColor="@color/colorBlack" />
 
 </LinearLayout>

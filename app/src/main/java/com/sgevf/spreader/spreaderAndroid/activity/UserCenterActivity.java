@@ -39,37 +39,37 @@ public class UserCenterActivity extends BaseActivity {
     }
 
     private void init() {
-        GlideManager.circleImage(this,UserConfig.getUserHead(this),head);
+        GlideManager.circleImage(this, UserConfig.getUserHead(this), head);
         userName.setText(UserConfig.getUserName(this));
         nickName.setText(UserConfig.getNickName(this));
-        String p=UserConfig.getUserPhone(this);
-        phone.setText(p.substring(0,3)+"****"+p.substring(7));
+        String p = UserConfig.getUserPhone(this);
+        phone.setText(p.substring(0, 3) + "****" + p.substring(7));
     }
 
     @OnClick(R.id.p_nickName)
-    public void updateNickName(View view){
-        Intent intent=new Intent(this,UpdateUserActivity.class);
-        intent.putExtra("type",1);
-        startActivityForResult(intent,1000);
+    public void updateNickName(View view) {
+        Intent intent = new Intent(this, UpdateUserActivity.class);
+        intent.putExtra("type", 1);
+        startActivityForResult(intent, 1000);
 
     }
 
     @OnClick(R.id.p_phone)
-    public void updatePhone(View view){
-        Intent intent=new Intent(this,UpdateUserActivity.class);
-        intent.putExtra("type",2);
-        startActivityForResult(intent,2000);
+    public void updatePhone(View view) {
+        Intent intent = new Intent(this, UpdateUserActivity.class);
+        intent.putExtra("type", 2);
+        startActivityForResult(intent, 2000);
     }
 
     @OnClick(R.id.ali)
-    public void bindAli(View view){
+    public void bindAli(View view) {
 
     }
 
     @OnClick(R.id.resetPassword)
-    public void resetPassword(View view){
-        Intent intent=new Intent(this,UpdateUserActivity.class);
-        intent.putExtra("type",3);
-        startActivityForResult(intent,3000);
+    public void resetPassword(View view) {
+        Intent intent = new Intent(this, UpdateUserActivity.class);
+        intent.putExtra("type", 3);
+        startActivityForResult(intent, 3000);
     }
 }

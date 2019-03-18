@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,28 +17,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModel;
+import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
 
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import utils.DialogUtils;
 import utils.MapUtils;
 import utils.WindowHelper;
 
-public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> implements View.OnClickListener {
+public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> implements View.OnClickListener, MapDiscoverBottomSheetAdapter.OnItemClickListener {
     private String[] titles = {"排序", "筛选"};
     @BindView(R.id.aMap)
     MapView mapView;
@@ -61,28 +64,43 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     private PopupWindow popupWindow;
     private LinearLayout tab_1;
     private LinearLayout tab_2;
-    private TextView curSelecedOrder;
+    private TextView curSelectedOrder;
+    private FilterOptionView number;
+    private FilterOptionView money;
+    private FilterOptionView type;
+    private String[] numberData;
+    private String[] moneyData;
+    private String[] typeData;
+    private MapDiscoverBottomSheetAdapter adapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState){
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_map_discover);
         ButterKnife.bind(this);
         //创建地图
+        init();
         initMap(savedInstanceState);
         initSetting();
         initRecyclerView();
         initResultFilter();
     }
 
+    private void init() {
+        numberData=getResources().getStringArray(R.array.discover_order_number);
+        moneyData=getResources().getStringArray(R.array.discover_order_money);
+        typeData=getResources().getStringArray(R.array.discover_order_type);
+    }
 
     private void initRecyclerView() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             list.add(i + "");
         }
-        MapDiscoverBottomSheetAdapter adapter = new MapDiscoverBottomSheetAdapter(this, list);
+        adapter = new MapDiscoverBottomSheetAdapter(this, list);
+        adapter.setOnItemClickListener(this);
         bottomSheet.setLayoutManager(new LinearLayoutManager(this));
+        bottomSheet.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         bottomSheet.setAdapter(adapter);
 
         bottomSheetBehavior = BottomSheetBehavior.from(scroll);
@@ -94,6 +112,14 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
                 } else {
                     resultTip.setVisibility(View.GONE);
                 }
+                if(i==BottomSheetBehavior.STATE_EXPANDED){
+                    mapView.setTranslationY(-WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.3f);
+                    location(null);
+
+                }else {
+                    mapView.setTranslationY(0);
+                    location(null);
+                }
                 maxHeight = (int) (WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.6f);
                 ViewGroup.LayoutParams params = view.getLayoutParams();
                 if (view.getHeight() > maxHeight) {
@@ -104,7 +130,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
 
             @Override
             public void onSlide(@NonNull View view, float v) {
-                Log.d("TAG", "scroll: " + scroll.getHeight());
                 float distance;
                 float secMax = view.getHeight() - bottomSheetBehavior.getPeekHeight() - resultFilter.getHeight();
                 if (v >= 0) {
@@ -112,11 +137,11 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
                 } else {
                     distance = bottomSheetBehavior.getPeekHeight() * v;
                 }
-                if (distance <= view.getHeight() * 0.4f && distance > 0) {
-                    mapView.setTranslationY(-distance);
-                } else if (distance < 0) {
-                    mapView.setTranslationY(0);
-                }
+//                if (distance <= view.getHeight() * 0.4f && distance > 0) {
+//                    mapView.setTranslationY(-distance);
+//                } else if (distance < 0) {
+//                    mapView.setTranslationY(0);
+//                }
                 if (distance >= secMax) {
                     resultFilter.setTranslationY(-distance + secMax - distance);
                 } else {
@@ -194,10 +219,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     }
 
     private void initOrder(View view) {
-        TextView smartOrder=view.findViewById(R.id.smartOrder);
-        TextView maxPeople=view.findViewById(R.id.maxPeople);
-        TextView maxCount=view.findViewById(R.id.maxCount);
-        TextView minDistance=view.findViewById(R.id.minDistance);
+        TextView smartOrder = view.findViewById(R.id.smartOrder);
+        TextView maxPeople = view.findViewById(R.id.maxPeople);
+        TextView maxCount = view.findViewById(R.id.maxCount);
+        TextView minDistance = view.findViewById(R.id.minDistance);
         smartOrder.setOnClickListener(this);
         maxPeople.setOnClickListener(this);
         maxCount.setOnClickListener(this);
@@ -205,6 +230,14 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     }
 
     private void initFilter(View view) {
+        number=view.findViewById(R.id.number);
+        money=view.findViewById(R.id.money);
+        type=view.findViewById(R.id.type);
+        view.findViewById(R.id.reset).setOnClickListener(this);
+        view.findViewById(R.id.confirm).setOnClickListener(this);
+        number.setData(numberData);
+        money.setData(moneyData);
+        type.setData(typeData);
     }
 
 
@@ -314,7 +347,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.smartOrder:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(titles[0]);
                 selectOne(v);
@@ -331,16 +364,38 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_min_distance);
                 selectOne(v);
                 break;
+            case R.id.reset:
+                number.reset();
+                money.reset();
+                type.reset();
+                break;
+            case R.id.confirm:
+                List<Integer> n=number.getResult();
+                List<Integer> m=money.getResult();
+                List<Integer> t=type.getResult();
+                ToastUtils.Toast(this,n.toString()+":"+m.toString()+":"+t.toString());
+                break;
         }
     }
 
     private void selectOne(View view) {
-        if(curSelecedOrder==null){
+        if (curSelectedOrder == null) {
             view.setSelected(true);
-        }else {
+        } else {
             view.setSelected(true);
-            curSelecedOrder.setSelected(false);
+            curSelectedOrder.setSelected(false);
         }
-        curSelecedOrder= (TextView) view;
+        curSelectedOrder = (TextView) view;
+    }
+
+    @Override
+    public void onItemClick(MapDiscoverBottomSheetAdapter.ViewHolder viewHolder, int position) {
+        ToastUtils.Toast(this,""+ position);
+        DialogUtils.showRedPacket(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.Toast(MapDiscoverActivity.this,"1231321");
+            }
+        });
     }
 }

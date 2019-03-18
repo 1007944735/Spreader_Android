@@ -10,10 +10,11 @@ import java.util.List;
 public class HomeFragmentViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
     private String[] titles;
-    public HomeFragmentViewPagerAdapter(FragmentManager fm, List<Fragment> fragments,String...titles) {
+
+    public HomeFragmentViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, String... titles) {
         super(fm);
-        this.fragments=fragments;
-        this.titles=titles;
+        this.fragments = fragments;
+        this.titles = titles;
     }
 
     @Override

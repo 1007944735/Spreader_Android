@@ -27,6 +27,7 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class WelcomeActivity extends BaseActivity {
     private MapLocationHelper helper;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,23 +39,24 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void initMap() {
-        helper=new MapLocationHelper(this);
+        helper = new MapLocationHelper(this);
         helper.setLocationListener(new MapLocationHelper.LocationListener() {
             @Override
             public void onLocationChange(AMapLocation location) {
-                UserConfig.setAdCode(WelcomeActivity.this,location.getAdCode());
+                UserConfig.setAdCode(WelcomeActivity.this, location.getAdCode());
             }
         });
         helper.startOnceLocation();
     }
 
     public void skip(final View view) {
-        startActivity(new Intent(this,HomeActivity.class));
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
     public void camera(View view) {
         startActivity(new Intent(this, CameraActivity.class));
     }
+
     public void video(View view) {
         startActivity(new Intent(this, VideoActivity.class));
     }
@@ -83,9 +85,9 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     public void systemPhoto(View view) {
-        Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-        startActivityForResult(intent,1000);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, 1000);
     }
 
     public void customPhoto(View view) {

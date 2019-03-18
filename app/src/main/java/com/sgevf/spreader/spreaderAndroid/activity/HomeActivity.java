@@ -95,7 +95,7 @@ public class HomeActivity extends BaseActivity {
 
     @OnClick(R.id.exit)
     public void exit(View view) {
-        if(UserConfig.isLogin(this)) {
+        if (UserConfig.isLogin(this)) {
             UserConfig.setLoginStatus(this, false);
             startActivity(new Intent(this, LoginActivity.class));
         }
@@ -103,28 +103,28 @@ public class HomeActivity extends BaseActivity {
 
     @OnClick(R.id.user_center)
     public void userCenter(View view) {
-        if(UserConfig.isLogin(this)){
-            startActivity(new Intent(this,UserCenterActivity.class));
-        }else {
-            startActivity(new Intent(this,LoginActivity.class));
+        if (UserConfig.isLogin(this)) {
+            startActivity(new Intent(this, UserCenterActivity.class));
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 
     @OnClick(R.id.wallet)
     public void wallet(View view) {
-        if(UserConfig.isLogin(this)){
-            startActivity(new Intent(this,WalletActivity.class));
-        }else {
-            startActivity(new Intent(this,LoginActivity.class));
+        if (UserConfig.isLogin(this)) {
+            startActivity(new Intent(this, WalletActivity.class));
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 
     @OnClick(R.id.history_release)
     public void historyRelease(View view) {
-        if(UserConfig.isLogin(this)){
-            startActivity(new Intent(this,HistoryReleaseActivity.class));
-        }else {
-            startActivity(new Intent(this,LoginActivity.class));
+        if (UserConfig.isLogin(this)) {
+            startActivity(new Intent(this, HistoryReleaseActivity.class));
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 

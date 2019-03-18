@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_16">
+
     <ImageView
         android:id="@+id/thumbVideo"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/colorBlack"
         android:scaleType="fitCenter" />
+
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
@@ -17,17 +19,18 @@
         android:paddingRight="@dimen/margin_4"
         android:text="00:00"
         android:textColor="@color/white"
-        android:layout_gravity="end|bottom"
-        />
+        android:layout_gravity="end|bottom" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@mipmap/icon_video_play"/>
+        android:src="@mipmap/icon_video_play" />
+
     <ImageView
         android:id="@+id/exit"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/bg_expand_resource_exit"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right" />
 </FrameLayout>

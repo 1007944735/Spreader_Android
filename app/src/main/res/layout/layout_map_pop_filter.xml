@@ -1,23 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/padding_14"
-    android:background="@drawable/bg_border_gray_bottom">
+    android:background="@drawable/bg_border_gray_bottom"
+    android:orientation="vertical">
+
     <TextView
-        android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="12113212"
-        android:textSize="@dimen/dimen_20"/>
+        android:layout_marginLeft="@dimen/margin_14"
+        android:layout_marginTop="@dimen/margin_14"
+        android:layout_marginRight="@dimen/margin_14"
+        android:text="@string/discover_order_number"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/dimen_14" />
+
+    <com.sgevf.spreader.spreaderAndroid.view.FilterOptionView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_14"
+        app:mode="multiple" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorHintText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_14"
+        android:layout_marginTop="@dimen/margin_14"
+        android:layout_marginRight="@dimen/margin_14"
+        android:text="@string/discover_order_money"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/dimen_14" />
+
+    <com.sgevf.spreader.spreaderAndroid.view.FilterOptionView
+        android:id="@+id/money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_14"
+        app:mode="multiple" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorHintText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_14"
+        android:layout_marginTop="@dimen/margin_14"
+        android:layout_marginRight="@dimen/margin_14"
+        android:text="@string/discover_order_type"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/dimen_14" />
+
+    <com.sgevf.spreader.spreaderAndroid.view.FilterOptionView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_14" />
     <LinearLayout
-        android:id="@+id/option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
+        android:padding="@dimen/padding_14"
+        android:background="@color/colorBackground">
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            android:text="@string/discover_order_reset"
+            android:textColor="@color/bg_filter_option_text_selector"
+            android:background="@drawable/bg_filter_option_selector"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            android:text="@string/discover_order_confirm"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/bg_btn_confirm_selector"/>
     </LinearLayout>
-
 </LinearLayout>

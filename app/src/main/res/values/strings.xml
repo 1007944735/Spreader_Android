@@ -45,7 +45,7 @@
     <string name="register_password">密码</string>
     <string name="register_re_password">二次密码</string>
     <string name="register_image_code">图形验证码</string>
-    
+
     <!--个人中心-->
     <string name="user_center">个人中心</string>
     <string name="user_center_accounts">帐号</string>
@@ -57,7 +57,7 @@
     <string name="user_center_old_pass">旧密码</string>
     <string name="user_center_new_pass">新密码</string>
     <string name="user_center_re_pass">再次输入新密码</string>
-    
+
     <!--钱包-->
     <string name="wallet_balance">余额账户(元)</string>
     <string name="wallet_withdraw">提现</string>
@@ -78,4 +78,9 @@
     <string name="discover_order_max_people">人数最多</string>
     <string name="discover_order_max_count">金额最大</string>
     <string name="discover_order_min_distance">离我最近</string>
+    <string name="discover_order_type">红包类型</string>
+    <string name="discover_order_number">人数</string>
+    <string name="discover_order_money">金额</string>
+    <string name="discover_order_reset">重置</string>
+    <string name="discover_order_confirm">确定</string>
 </resources>

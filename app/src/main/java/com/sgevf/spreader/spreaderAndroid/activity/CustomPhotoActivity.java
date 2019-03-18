@@ -41,9 +41,9 @@ public class CustomPhotoActivity extends BaseActivity {
                 .setRight(R.string.user_center_complete, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent();
-                        intent.putParcelableArrayListExtra("pictures",adapter.getPictures());
-                        setResult(1001,intent);
+                        Intent intent = new Intent();
+                        intent.putParcelableArrayListExtra("pictures", adapter.getPictures());
+                        setResult(1001, intent);
                         finish();
                     }
                 });
@@ -81,8 +81,8 @@ public class CustomPhotoActivity extends BaseActivity {
         ContentResolver resolver = getContentResolver();
         Cursor cursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null);
         while (cursor.moveToNext()) {
-            ExpandPhotoModel model=new ExpandPhotoModel();
-            model.path=cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            ExpandPhotoModel model = new ExpandPhotoModel();
+            model.path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
             Log.d("pathPhoto", model.path);
             list.add(model);
         }

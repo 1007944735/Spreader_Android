@@ -13,13 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="测试"
-        android:onClick="click"/>
+        android:onClick="click" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="上传"
-        android:onClick="upload"/>
+        android:onClick="upload" />
 
     <ImageView
         android:id="@+id/show"
@@ -30,7 +30,6 @@
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        />
+        style="@android:style/Widget.ProgressBar.Horizontal" />
 
 </LinearLayout>

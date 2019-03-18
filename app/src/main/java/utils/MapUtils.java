@@ -33,9 +33,9 @@ public class MapUtils {
         aMap.moveCamera(CameraUpdateFactory.newLatLng(point));
     }
 
-    public static void moveToSpan(AMap aMap, double latitude, double longitude,float v,float v1,float v2) {
+    public static void moveToSpan(AMap aMap, double latitude, double longitude, float v, float v1, float v2) {
         if (aMap == null) return;
         LatLng point = new LatLng(latitude, longitude);
-        aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(point,v,v1,v2)));
+        aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(point, v, v1, v2)));
     }
 }

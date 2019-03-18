@@ -10,16 +10,16 @@ import org.json.JSONObject;
 
 import io.reactivex.Observable;
 
-public class UserRegisterTask extends BasicApi<UserService,String> {
+public class UserRegisterTask extends BasicApi<UserService, String> {
     public UserRegisterTask(Activity mActivity) {
         super(mActivity);
     }
 
-    public UserRegisterTask setClass(String username,String password,String uuid,String code){
-        map.put("userName",username);
-        map.put("password",password);
-        map.put("uuid",uuid);
-        map.put("code",code);
+    public UserRegisterTask setClass(String username, String password, String uuid, String code) {
+        map.put("userName", username);
+        map.put("password", password);
+        map.put("uuid", uuid);
+        map.put("code", code);
         return this;
     }
 
@@ -30,7 +30,7 @@ public class UserRegisterTask extends BasicApi<UserService,String> {
 
     @Override
     public void onNext(String s) {
-        if(mActivity instanceof RegisterActivity){
+        if (mActivity instanceof RegisterActivity) {
             ((RegisterActivity) mActivity).onLoadFinish(s);
         }
     }

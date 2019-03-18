@@ -284,6 +284,7 @@ public class PickerView extends View {
 
     /**
      * 选择选中的内容
+     *
      * @param selected
      */
     public void setSelectItem(String selected) {
@@ -297,6 +298,7 @@ public class PickerView extends View {
 
     /**
      * 选择选中的内容
+     *
      * @param selected
      */
     public void setSelectItem(int selected) {

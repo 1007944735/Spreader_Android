@@ -64,7 +64,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     private List<PoiItem> poiData;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState){
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_map);
         ButterKnife.bind(this);
@@ -160,9 +160,9 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
                         double latitude = ((Tip) item).getPoint().getLatitude();
                         double longitude = ((Tip) item).getPoint().getLongitude();
                         poiOverlay.clearAllMarker();
-                        if(poiOverlay.getFirstMarker()!=null) {
+                        if (poiOverlay.getFirstMarker() != null) {
                             poiOverlay.getFirstMarker().setPosition(new LatLng(latitude, longitude));
-                        }else {
+                        } else {
                             poiOverlay.addMapMarker(new MapMarker.Builder()
                                     .position(latitude, longitude)
                                     .icon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_map_location))
@@ -192,8 +192,8 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         }
         poiOverlay = new PoiOverlay(aMap);
 
-        poiData=new ArrayList<>();
-        lrAdapter=new LocationResultAdapter(this,poiData);
+        poiData = new ArrayList<>();
+        lrAdapter = new LocationResultAdapter(this, poiData);
         locationList.setAdapter(lrAdapter);
         locationList.setOnItemClickListener(this);
 
@@ -214,12 +214,12 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
             @Override
             public void onMyLocationChange(Location location) {
 //                if (followMove) {
-                    MapUtils.moveToSpan(aMap, location.getLatitude(), location.getLongitude(), 18);
-                    poiOverlay.addMapMarker(new MapMarker.Builder()
-                            .position(location.getLatitude(), location.getLongitude())
-                            .icon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_map_location))
-                            .anchor(0.5f, 0.5f)
-                            .build());
+                MapUtils.moveToSpan(aMap, location.getLatitude(), location.getLongitude(), 18);
+                poiOverlay.addMapMarker(new MapMarker.Builder()
+                        .position(location.getLatitude(), location.getLongitude())
+                        .icon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_map_location))
+                        .anchor(0.5f, 0.5f)
+                        .build());
 //                }
             }
         });
@@ -243,7 +243,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
         LatLonPoint p = new LatLonPoint(cameraPosition.target.latitude, cameraPosition.target.longitude);
         new MapPoiSearch(MapActivity.this)
-                .searchGeocoder(p,200)
+                .searchGeocoder(p, 200)
                 .setKeyFinishListener(new MapPoiSearch.OnKeyFinishListener() {
                     @Override
                     public void finish(List<PoiItem> pois) {
@@ -285,9 +285,9 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent=new Intent();
-        intent.putExtra("poi",poiData.get(position));
-        setResult(1001,intent);
+        Intent intent = new Intent();
+        intent.putExtra("poi", poiData.get(position));
+        setResult(1001, intent);
         finish();
     }
 }

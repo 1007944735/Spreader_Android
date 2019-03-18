@@ -19,11 +19,11 @@ import java.util.Locale;
 
 public class WindowHelper {
 
-    public static int getScreenWidth(Context c){
+    public static int getScreenWidth(Context c) {
         return c.getResources().getDisplayMetrics().widthPixels;
     }
 
-    public static int getScreenHeight(Context c){
+    public static int getScreenHeight(Context c) {
         return c.getResources().getDisplayMetrics().heightPixels;
     }
 
@@ -62,36 +62,38 @@ public class WindowHelper {
     }
 
 
-
     /**
      * 为view设置paddingTop
+     *
      * @param activity
      * @param view
      */
-    public static void setViewPaddingTop(Activity activity, View view){
-        setViewPaddingTop(view,WindowHelper.getStatusBarHeight(activity));
+    public static void setViewPaddingTop(Activity activity, View view) {
+        setViewPaddingTop(view, WindowHelper.getStatusBarHeight(activity));
     }
 
-    public static void setViewPaddingTop(View view,int paddingTop){
-        view.setPadding(view.getPaddingLeft(),paddingTop,view.getPaddingRight(),view.getPaddingBottom());
+    public static void setViewPaddingTop(View view, int paddingTop) {
+        view.setPadding(view.getPaddingLeft(), paddingTop, view.getPaddingRight(), view.getPaddingBottom());
     }
 
     /**
      * 利用反射获取状态栏高度
+     *
      * @param activity
      * @return
      */
-    public static int getStatusBarHeight(Activity activity){
-        int result=0;
-        int resourceId=activity.getResources().getIdentifier("status_bar_height","dimen","android");
-        if(resourceId>0){
-            result=activity.getResources().getDimensionPixelSize(resourceId);
+    public static int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = activity.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
     }
 
     /**
      * 检查SHA1
+     *
      * @param context
      * @return
      */
@@ -112,7 +114,7 @@ public class WindowHelper {
                 hexString.append(":");
             }
             String result = hexString.toString();
-            return result.substring(0, result.length()-1);
+            return result.substring(0, result.length() - 1);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -124,16 +126,16 @@ public class WindowHelper {
     /**
      * 显示软键盘
      */
-    public static void showSoftInput(Activity context,View view){
-        InputMethodManager imm= (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
+    public static void showSoftInput(Activity context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 
     /**
      * 隐藏软键盘
      */
-    public static void hideSoftInput(Activity context){
-        InputMethodManager imm= (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(context.getWindow().getDecorView().getWindowToken(),0);
+    public static void hideSoftInput(Activity context) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(context.getWindow().getDecorView().getWindowToken(), 0);
     }
 }

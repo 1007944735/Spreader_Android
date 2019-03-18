@@ -24,7 +24,7 @@ public class ValidateCodeTask extends BasicApi<UserService, ValidateCodeModel> {
 
     @Override
     public void onNext(ValidateCodeModel validateCodeModel) {
-        if(mActivity instanceof RegisterActivity){
+        if (mActivity instanceof RegisterActivity) {
             ((RegisterActivity) mActivity).show(validateCodeModel);
         }
     }

@@ -17,14 +17,15 @@ public class MActivity extends BaseLoadingActivity<Movie> implements UploadProgr
     TextView textView;
     ImageView imageView;
     ProgressBar progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         HttpConfig.init(getApplicationContext());
         textView = findViewById(R.id.back);
-        imageView=findViewById(R.id.show);
-        progress=findViewById(R.id.progress);
+        imageView = findViewById(R.id.show);
+        progress = findViewById(R.id.progress);
     }
 
     public void click(View view) {
@@ -38,7 +39,7 @@ public class MActivity extends BaseLoadingActivity<Movie> implements UploadProgr
 
     public void finish(Movie movie) {
         textView.setText(movie.title);
-        GlideManager.showImage(this,Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/Camera/IMG_20181129_144117.jpg",imageView);
+        GlideManager.showImage(this, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/Camera/IMG_20181129_144117.jpg", imageView);
     }
 
     public void upload(View view) {

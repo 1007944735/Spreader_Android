@@ -47,35 +47,36 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
 
     private void init() {
         userName.setText(UserConfig.getUserName(this));
-        if(UserConfig.isRememberPass(this)){
+        if (UserConfig.isRememberPass(this)) {
             rememberPass.setChecked(true);
             password.setText(UserConfig.getPassword(this));
-        }else {
+        } else {
             rememberPass.setChecked(false);
         }
         autoLogin.setChecked(UserConfig.isAutoLogin(this));
-        SpannableString s=SpannableString.valueOf(getResources().getString(R.string.login_go_to_register));
-        s.setSpan(new ForegroundColorSpan(Color.parseColor("#0099EE")),5,9, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        SpannableString s = SpannableString.valueOf(getResources().getString(R.string.login_go_to_register));
+        s.setSpan(new ForegroundColorSpan(Color.parseColor("#0099EE")), 5, 9, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         register.setText(s);
     }
 
     @OnClick(R.id.login)
     public void login(View view) {
-        String un=userName.getText().toString().trim();
-        String pw=password.getText().toString().trim();
-        boolean rp=rememberPass.isChecked();
-        boolean al=autoLogin.isChecked();
+        String un = userName.getText().toString().trim();
+        String pw = password.getText().toString().trim();
+        boolean rp = rememberPass.isChecked();
+        boolean al = autoLogin.isChecked();
         //登录,密码需加密
-        UserConfig.setUserName(this,un);
-        UserConfig.setRememberPass(this,rp);
-        UserConfig.setAutoLogin(this,al);
+        UserConfig.setUserName(this, un);
+        UserConfig.setRememberPass(this, rp);
+        UserConfig.setAutoLogin(this, al);
 
-        new UserLoginTask(this).setClass(un,pw).request();
+        new UserLoginTask(this).setClass(un, pw).request();
 
     }
+
     @OnClick(R.id.register)
-    public void register(View view){
-        startActivity(new Intent(this,RegisterActivity.class));
+    public void register(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 
     @Override
@@ -85,7 +86,7 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
         UserConfig.setUserId(this, userModel.userId);
         UserConfig.setUserHead(this, userModel.userHead);
         UserConfig.setUserPhone(this, userModel.userPhone);
-        UserConfig.setLoginStatus(this,true);
-        startActivity(new Intent(this,HomeActivity.class));
+        UserConfig.setLoginStatus(this, true);
+        startActivity(new Intent(this, HomeActivity.class));
     }
 }

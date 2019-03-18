@@ -46,7 +46,7 @@ public class CustomVideoActivity extends BaseActivity implements AdapterView.OnI
                         Intent intent = new Intent();
                         int i = list.getCheckedItemPosition();
 //                        Toast.makeText(CustomVideoActivity.this, "" + i, Toast.LENGTH_SHORT).show();
-                        intent.putExtra("video",videos.get(i));
+                        intent.putExtra("video", videos.get(i));
                         setResult(2001, intent);
                         finish();
                     }

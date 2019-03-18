@@ -19,12 +19,12 @@ public abstract class BaseActivity extends BasicActivity {
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        overridePendingTransition(R.anim.activity_open_enter,R.anim.activity_open_exit);
+        overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit);
     }
 
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.activity_close_enter,R.anim.activity_close_exit);
+        overridePendingTransition(R.anim.activity_close_enter, R.anim.activity_close_exit);
     }
 }

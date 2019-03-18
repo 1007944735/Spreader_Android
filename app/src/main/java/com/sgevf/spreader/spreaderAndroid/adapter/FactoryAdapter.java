@@ -62,16 +62,16 @@ public abstract class FactoryAdapter<E> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolderFactory<E> holder=null;
-        if(convertView==null){
-            convertView=inflater.inflate(getLayoutResourceId(),parent,false);
-            holder=createFactory(convertView);
+        ViewHolderFactory<E> holder = null;
+        if (convertView == null) {
+            convertView = inflater.inflate(getLayoutResourceId(), parent, false);
+            holder = createFactory(convertView);
             convertView.setTag(holder);
-        }else {
-            holder= (ViewHolderFactory<E>) convertView.getTag();
+        } else {
+            holder = (ViewHolderFactory<E>) convertView.getTag();
         }
-        holder.init(getItem(position),position,this);
-        Log.d("TAG", "getView: "+position);
+        holder.init(getItem(position), position, this);
+        Log.d("TAG", "getView: " + position);
         return convertView;
     }
 
@@ -79,7 +79,7 @@ public abstract class FactoryAdapter<E> extends BaseAdapter {
 
     public abstract int getLayoutResourceId();
 
-    public interface ViewHolderFactory<E>{
-        void init(E item,int position,FactoryAdapter<E> adapter);
+    public interface ViewHolderFactory<E> {
+        void init(E item, int position, FactoryAdapter<E> adapter);
     }
 }

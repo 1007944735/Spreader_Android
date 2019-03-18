@@ -36,18 +36,18 @@ public class HeaderView implements View.OnClickListener {
     }
 
     public HeaderView setRight(String str) {
-        setRight(str,null);
+        setRight(str, null);
         return this;
     }
 
     public HeaderView setRight(int resId) {
-        setRight(resId,null);
+        setRight(resId, null);
         return this;
     }
 
     public HeaderView setRight(String str, View.OnClickListener onclick) {
         right.setText(str);
-        if(onclick!=null){
+        if (onclick != null) {
             right.setOnClickListener(onclick);
         }
         return this;
@@ -55,7 +55,7 @@ public class HeaderView implements View.OnClickListener {
 
     public HeaderView setRight(int resId, View.OnClickListener onclick) {
         right.setText(resId);
-        if(onclick!=null){
+        if (onclick != null) {
             right.setOnClickListener(onclick);
         }
         return this;
@@ -86,7 +86,7 @@ public class HeaderView implements View.OnClickListener {
         }
     }
 
-    public HeaderView setToolbarBackground(int resid){
+    public HeaderView setToolbarBackground(int resid) {
         toolbar.setBackgroundColor(resid);
         return this;
     }
@@ -100,10 +100,10 @@ public class HeaderView implements View.OnClickListener {
         return activity instanceof HomeActivity;
     }
 
-    public HeaderView setRightIcon(int resid, View.OnClickListener listener){
+    public HeaderView setRightIcon(int resid, View.OnClickListener listener) {
         rightIcon.setVisibility(View.VISIBLE);
         rightIcon.setImageResource(resid);
-        if(listener!=null){
+        if (listener != null) {
             rightIcon.setOnClickListener(listener);
         }
         return this;

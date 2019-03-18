@@ -21,7 +21,8 @@
         android:layout_height="25dp"
         android:layout_gravity="right"
         android:scaleType="fitCenter"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
     <TextView
         android:id="@id/right"
         style="@style/HeaderViewRightText"
@@ -29,7 +30,6 @@
         android:layout_height="wrap_content"
 
         android:layout_gravity="right" />
-
 
 
 </android.support.v7.widget.Toolbar>

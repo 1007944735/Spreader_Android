@@ -69,10 +69,11 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_16" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorHintText"/>
+                android:background="@color/colorHintText" />
 
             <LinearLayout
                 android:id="@+id/wallet"
@@ -100,10 +101,11 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_16" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorHintText"/>
+                android:background="@color/colorHintText" />
 
             <LinearLayout
                 android:id="@+id/history_release"
@@ -131,10 +133,11 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_16" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorHintText"/>
+                android:background="@color/colorHintText" />
 
         </LinearLayout>
     </ScrollView>
@@ -147,5 +150,5 @@
         android:drawableStart="@mipmap/icon_home_exit"
         android:padding="@dimen/padding_8"
         android:text="@string/home_exit"
-        android:foreground="@drawable/fg_ripple_general"/>
+        android:foreground="@drawable/fg_ripple_general" />
 </LinearLayout>

@@ -92,7 +92,7 @@ public class ExpandActivity extends BaseActivity {
             for (ExpandPhotoModel model : pictures) {
                 createImageView(false, model.path);
             }
-            createImageView(true,null);
+            createImageView(true, null);
         } else if (requestCode == 2000 && resultCode == 2001 && data != null) {
             ExpandVideoModel video = data.getParcelableExtra("video");
             videoBox.removeAllViews();
@@ -124,7 +124,7 @@ public class ExpandActivity extends BaseActivity {
         FrameLayout.LayoutParams ivParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(ivParams);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        if(first) {
+        if (first) {
             imageView.setImageResource(R.mipmap.icon_photo_more);
             imageView.setBackgroundResource(R.drawable.bg_photo_more);
             imageView.setScaleType(ImageView.ScaleType.CENTER);
@@ -134,7 +134,7 @@ public class ExpandActivity extends BaseActivity {
                     startActivityForResult(new Intent(ExpandActivity.this, CustomPhotoActivity.class), 1000);
                 }
             });
-        }else {
+        } else {
             GlideManager.showImage(this, url, imageView);
         }
         frameLayout.addView(imageView);
@@ -148,9 +148,9 @@ public class ExpandActivity extends BaseActivity {
             exit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(gridLayout.getChildCount()>2) {
+                    if (gridLayout.getChildCount() > 2) {
                         gridLayout.removeView(frameLayout);
-                    }else {
+                    } else {
                         gridLayout.removeAllViews();
                     }
                 }

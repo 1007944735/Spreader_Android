@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite">
+
     <ImageView
         android:id="@+id/picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <CheckBox
         android:id="@+id/selected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        style="@style/CheckBoxStyle"/>
+        style="@style/CheckBoxStyle" />
 </FrameLayout>

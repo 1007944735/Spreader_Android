@@ -9,7 +9,7 @@ import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 
-public class UploadApi extends BasicApi<UploadImage,Movie> {
+public class UploadApi extends BasicApi<UploadImage, Movie> {
 
     public UploadApi(Activity mActivity, UploadProgressListener listener) {
         super(mActivity, listener);
@@ -29,14 +29,13 @@ public class UploadApi extends BasicApi<UploadImage,Movie> {
 
     @Override
     public String filePath() {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/Camera/IMG_20181129_144117.jpg";
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/Camera/IMG_20181129_144117.jpg";
     }
-
 
 
     @Override
     public void onNext(Movie movie) {
-        if( mActivity instanceof MActivity){
+        if (mActivity instanceof MActivity) {
             ((MActivity) mActivity).finish(movie);
         }
     }

@@ -35,8 +35,8 @@ public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryRele
 
     private void init() {
         history.setOnItemClickListener(this);
-        List<HistoryReleaseModel> list=new ArrayList<>();
-        for(int i=0;i<10;i++){
+        List<HistoryReleaseModel> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
             list.add(new HistoryReleaseModel());
         }
         adapter = new HistoryReleaseListAdapter(this, list);

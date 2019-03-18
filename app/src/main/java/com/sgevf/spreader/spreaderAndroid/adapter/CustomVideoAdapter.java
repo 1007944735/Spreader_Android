@@ -58,9 +58,9 @@ public class CustomVideoAdapter extends FactoryAdapter<ExpandVideoModel> {
             createTime.setText(long2String(item.createTime));
         }
 
-        private String long2String(long curTime){
-            String formatType="yyyy年MM月dd日 HH:mm";
-            Date date=new Date(curTime);
+        private String long2String(long curTime) {
+            String formatType = "yyyy年MM月dd日 HH:mm";
+            Date date = new Date(curTime);
             return new SimpleDateFormat(formatType).format(date);
         }
     }

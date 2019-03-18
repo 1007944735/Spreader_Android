@@ -28,7 +28,7 @@ public class CustomPhotoAdapter extends RecyclerView.Adapter<CustomPhotoAdapter.
     public CustomPhotoAdapter(Context context, List<ExpandPhotoModel> list) {
         this.list = list;
         this.context = context;
-        pictures=new ArrayList<>();
+        pictures = new ArrayList<>();
     }
 
     @NonNull
@@ -63,9 +63,9 @@ public class CustomPhotoAdapter extends RecyclerView.Adapter<CustomPhotoAdapter.
         viewHolder.selected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     pictures.add(list.get(i - 1));
-                }else {
+                } else {
                     pictures.remove(list.get(i - 1));
                 }
             }
@@ -97,7 +97,7 @@ public class CustomPhotoAdapter extends RecyclerView.Adapter<CustomPhotoAdapter.
         this.onItemClickListener = onItemClickListener;
     }
 
-    public ArrayList<ExpandPhotoModel> getPictures(){
+    public ArrayList<ExpandPhotoModel> getPictures() {
         return pictures;
     }
 

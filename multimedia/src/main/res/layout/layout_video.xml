@@ -18,4 +18,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MediaPlayer+SurfaceView+MediaController"/>
+
+    <com.sgevf.spreader.spreaderAndroid.view.FilterOptionView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_filter_option_selector"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_4"
+            android:paddingRight="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_4"
+            android:text="113212"
+            android:textColor="@color/bg_filter_option_text_selector"
+            android:textSize="@dimen/dimen_18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_filter_option_selector"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_4"
+            android:paddingRight="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_4"
+            android:text="15616165"
+            android:textColor="@color/bg_filter_option_text_selector"
+            android:textSize="@dimen/dimen_18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_filter_option_selector"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_4"
+            android:paddingRight="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_4"
+            android:text="1561"
+            android:textColor="@color/bg_filter_option_text_selector"
+            android:textSize="@dimen/dimen_18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_filter_option_selector"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_4"
+            android:paddingRight="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_4"
+            android:text="1651"
+            android:textColor="@color/bg_filter_option_text_selector"
+            android:textSize="@dimen/dimen_18" />
+    </com.sgevf.spreader.spreaderAndroid.view.FilterOptionView>
 </LinearLayout>

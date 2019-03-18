@@ -46,12 +46,12 @@ public class InputTipsAdapter extends FactoryAdapter<Tip> {
             if (!TextUtils.isEmpty(item.getAddress())) {
                 address.setVisibility(View.VISIBLE);
                 address.setText(item.getAddress());
-            }else {
+            } else {
                 address.setVisibility(View.GONE);
             }
             if (position == adapter.getCount() - 1) {
                 divider.setVisibility(View.GONE);
-            }else {
+            } else {
                 divider.setVisibility(View.VISIBLE);
             }
         }

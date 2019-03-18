@@ -24,6 +24,7 @@ public class WalletHistoryDetailsActivity extends BaseLoadingActivity<List<Histo
     public ListView history;
 
     private WalletHistoryDetailsAdapter adapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +36,17 @@ public class WalletHistoryDetailsActivity extends BaseLoadingActivity<List<Histo
 
     private void init() {
         history.setOnItemClickListener(this);
-        List<HistoryDetailsModel> list=new ArrayList<>();
-        for(int i=0;i<20;i++){
+        List<HistoryDetailsModel> list = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
             list.add(new HistoryDetailsModel());
         }
-        adapter=new WalletHistoryDetailsAdapter(this,list);
+        adapter = new WalletHistoryDetailsAdapter(this, list);
         history.setAdapter(adapter);
     }
 
     @Override
     public void onLoadFinish(List<HistoryDetailsModel> historyDetailsModels) {
-        adapter=new WalletHistoryDetailsAdapter(this,historyDetailsModels);
+        adapter = new WalletHistoryDetailsAdapter(this, historyDetailsModels);
         history.setAdapter(adapter);
     }
 

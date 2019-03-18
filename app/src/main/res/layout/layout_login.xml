@@ -58,11 +58,13 @@
                 android:id="@+id/remember_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_remember_pass"/>
+                android:text="@string/login_remember_pass" />
+
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <CheckBox
                 android:id="@+id/auto_login"
                 android:layout_width="wrap_content"
@@ -78,13 +80,14 @@
             android:layout_marginRight="@dimen/margin_14"
             android:text="@string/login"
             android:layout_marginTop="@dimen/margin_10"
-            style="@style/ConfirmButton"/>
+            style="@style/ConfirmButton" />
+
         <TextView
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_go_to_register"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_10"/>
+            android:layout_marginTop="@dimen/margin_10" />
     </LinearLayout>
 </LinearLayout>

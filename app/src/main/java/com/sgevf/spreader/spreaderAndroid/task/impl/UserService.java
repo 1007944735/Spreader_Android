@@ -14,15 +14,15 @@ import retrofit2.http.POST;
 public interface UserService {
     @POST("/SV0001")
     @FormUrlEncoded
-    Observable<BasicResult<UserModel>> login(@Field("params")JSONObject json);
+    Observable<BasicResult<UserModel>> login(@Field("params") JSONObject json);
 
     @POST("/SV0002")
     @FormUrlEncoded
-    Observable<BasicResult<ValidateCodeModel>> code(@Field("params")JSONObject json);
+    Observable<BasicResult<ValidateCodeModel>> code(@Field("params") JSONObject json);
 
     @POST("/SV0003")
     @FormUrlEncoded
-    Observable<BasicResult<String>> register(@Field("params")JSONObject json);
+    Observable<BasicResult<String>> register(@Field("params") JSONObject json);
 
 
 }

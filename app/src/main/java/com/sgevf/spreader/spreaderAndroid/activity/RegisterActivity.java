@@ -50,21 +50,21 @@ public class RegisterActivity extends BaseLoadingActivity<String> {
 
     @OnClick(R.id.register)
     public void register(View view) {
-        String un=userName.getText().toString().trim();
-        String pw=password.getText().toString().trim();
-        String c=code.getText().toString().trim();
+        String un = userName.getText().toString().trim();
+        String pw = password.getText().toString().trim();
+        String c = code.getText().toString().trim();
 
-        new UserRegisterTask(this).setClass(un,pw,uuid,c).request();
+        new UserRegisterTask(this).setClass(un, pw, uuid, c).request();
     }
 
-    public void show(ValidateCodeModel model){
-        uuid=model.uuid;
-        GlideManager.showImage(this,model.url,imageCode);
+    public void show(ValidateCodeModel model) {
+        uuid = model.uuid;
+        GlideManager.showImage(this, model.url, imageCode);
     }
 
     @Override
     public void onLoadFinish(String s) {
-        ToastUtils.Toast(this,"注册成功");
+        ToastUtils.Toast(this, "注册成功");
         finish();
     }
 }

@@ -28,11 +28,13 @@ public class WalletHistoryDetailsAdapter extends FactoryAdapter<HistoryDetailsMo
         private TextView way;
         private TextView date;
         private TextView money;
-        public ViewHolder(View view){
-            way=view.findViewById(R.id.way);
-            date=view.findViewById(R.id.date);
-            money=view.findViewById(R.id.money);
+
+        public ViewHolder(View view) {
+            way = view.findViewById(R.id.way);
+            date = view.findViewById(R.id.date);
+            money = view.findViewById(R.id.money);
         }
+
         @Override
         public void init(HistoryDetailsModel item, int position, FactoryAdapter<HistoryDetailsModel> adapter) {
 

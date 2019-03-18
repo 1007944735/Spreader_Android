@@ -52,12 +52,12 @@
             android:textSize="@dimen/dimen_18"
             android:visibility="gone" />
     </LinearLayout>
+
     <ListView
         android:id="@id/tipList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_20"
         android:background="@drawable/bg_radius_white"
-        android:divider="@null">
-    </ListView>
+        android:divider="@null"></ListView>
 </LinearLayout>

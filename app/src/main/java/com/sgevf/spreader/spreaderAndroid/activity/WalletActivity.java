@@ -22,16 +22,16 @@ public class WalletActivity extends BaseLoadingActivity<Object> {
         new HeaderView(this).setTitle(R.string.home_slip_wallet);
 
     }
+
     @OnClick(R.id.withdraw)
-    public void withdraw(View view){
-        startActivity(new Intent(this,WalletWithdrawActivity.class));
+    public void withdraw(View view) {
+        startActivity(new Intent(this, WalletWithdrawActivity.class));
     }
 
     @OnClick(R.id.history_details)
-    public void historyDetails(View view){
-        startActivity(new Intent(this,WalletHistoryDetailsActivity.class));
+    public void historyDetails(View view) {
+        startActivity(new Intent(this, WalletHistoryDetailsActivity.class));
     }
-
 
 
     @Override

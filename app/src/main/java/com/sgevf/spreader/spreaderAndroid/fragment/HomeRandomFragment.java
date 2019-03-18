@@ -91,8 +91,8 @@ public class HomeRandomFragment extends Fragment {
     }
 
     @OnClick(R.id.expand)
-    public void expand(){
-        startActivityForResult(new Intent(context, ExpandActivity.class),2000);
+    public void expand() {
+        startActivityForResult(new Intent(context, ExpandActivity.class), 2000);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class HomeRandomFragment extends Fragment {
         if (requestCode == 1000 && resultCode == 2000) {
             PoiItem poi = data.getParcelableExtra("poi");
             address.setText(poi.getTitle());
-        }else if(requestCode == 2000 && resultCode == 2001){
+        } else if (requestCode == 2000 && resultCode == 2001) {
 
         }
     }

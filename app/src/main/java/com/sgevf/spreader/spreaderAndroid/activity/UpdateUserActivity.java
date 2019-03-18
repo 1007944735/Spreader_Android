@@ -37,15 +37,15 @@ public class UpdateUserActivity extends BaseLoadingActivity<Object> {
     }
 
     private void init() {
-        type=getIntent().getIntExtra("type",0);
-        switch (type){
+        type = getIntent().getIntExtra("type", 0);
+        switch (type) {
             case 1:
                 new HeaderView(this)
                         .setTitle(R.string.user_center_nickname)
                         .setRight(R.string.user_center_complete, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String s=input.getText().toString().trim();
+                                String s = input.getText().toString().trim();
 
                             }
                         });
@@ -59,7 +59,7 @@ public class UpdateUserActivity extends BaseLoadingActivity<Object> {
                         .setRight(R.string.user_center_complete, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String s=input.getText().toString().trim();
+                                String s = input.getText().toString().trim();
                             }
                         });
                 input.setVisibility(View.VISIBLE);
@@ -72,9 +72,9 @@ public class UpdateUserActivity extends BaseLoadingActivity<Object> {
                         .setRight(R.string.user_center_complete, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String oldp=oldPass.getText().toString().trim();
-                                String newP=newPass.getText().toString().trim();
-                                String reP=rePass.getText().toString().trim();
+                                String oldp = oldPass.getText().toString().trim();
+                                String newP = newPass.getText().toString().trim();
+                                String reP = rePass.getText().toString().trim();
                             }
                         });
 

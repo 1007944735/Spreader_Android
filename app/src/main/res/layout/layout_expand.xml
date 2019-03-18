@@ -17,6 +17,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/padding_14">
+
             <EditText
                 android:id="@+id/input"
                 android:layout_width="match_parent"
@@ -24,7 +25,8 @@
                 android:minHeight="80dp"
                 android:hint="推广信息"
                 style="@style/EditText"
-                android:gravity="start"/>
+                android:gravity="start" />
+
             <GridLayout
                 android:id="@+id/gridLayout"
                 android:layout_width="match_parent"
@@ -34,6 +36,7 @@
                 android:orientation="horizontal">
 
             </GridLayout>
+
             <LinearLayout
                 android:id="@+id/videoBox"
                 android:layout_width="match_parent"

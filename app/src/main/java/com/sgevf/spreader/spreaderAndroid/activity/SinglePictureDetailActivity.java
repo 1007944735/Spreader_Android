@@ -39,17 +39,17 @@ public class SinglePictureDetailActivity extends BaseActivity {
     }
 
     private void init() {
-        String url=getIntent().getStringExtra("url");
-        GlideManager.showImage(this,url,photo);
-        position=getIntent().getIntExtra("position",0);
-        boolean isCheck=getIntent().getBooleanExtra("isCheck",false);
+        String url = getIntent().getStringExtra("url");
+        GlideManager.showImage(this, url, photo);
+        position = getIntent().getIntExtra("position", 0);
+        boolean isCheck = getIntent().getBooleanExtra("isCheck", false);
         check.setChecked(isCheck);
     }
 
     @Override
     public void finish() {
-        Intent intent=new Intent().putExtra("position",position);
-        setResult(1001,intent.putExtra("isCheck",check.isChecked()));
+        Intent intent = new Intent().putExtra("position", position);
+        setResult(1001, intent.putExtra("isCheck", check.isChecked()));
         super.finish();
     }
 }

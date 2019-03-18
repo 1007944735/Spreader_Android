@@ -17,6 +17,7 @@
             android:layout_height="100dp"
             android:background="@color/colorBlack"
             android:scaleType="fitCenter" />
+
         <TextView
             android:id="@+id/duration"
             android:layout_width="wrap_content"
@@ -25,8 +26,7 @@
             android:paddingRight="@dimen/margin_4"
             android:text="00:00"
             android:textColor="@color/white"
-            android:layout_gravity="end|bottom"
-            />
+            android:layout_gravity="end|bottom" />
     </FrameLayout>
 
     <LinearLayout
@@ -37,6 +37,7 @@
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/margin_6"
         android:layout_marginRight="@dimen/margin_6">
+
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -46,13 +47,15 @@
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             android:textSize="@dimen/dimen_18"
-            android:maxLines="2"/>
+            android:maxLines="2" />
+
         <TextView
             android:id="@+id/createTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1321313212313"/>
+            android:text="1321313212313" />
     </LinearLayout>
+
     <CheckedTextView
         android:id="@+id/check"
         android:layout_width="wrap_content"

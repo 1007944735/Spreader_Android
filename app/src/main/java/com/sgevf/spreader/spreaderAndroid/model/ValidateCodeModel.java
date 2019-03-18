@@ -6,8 +6,8 @@ public class ValidateCodeModel {
     public String uuid;
     public String url;
 
-    public ValidateCodeModel(JSONObject json){
-        uuid=json.optString("uuid");
-        url=json.optString("url");
+    public ValidateCodeModel(JSONObject json) {
+        uuid = json.optString("uuid");
+        url = json.optString("url");
     }
 }

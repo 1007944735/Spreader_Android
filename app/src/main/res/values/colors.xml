@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    
+
     <!--底层背景色-->
     <color name="colorBackground">#f4f4f4</color>
     <!--内容背景色-->
