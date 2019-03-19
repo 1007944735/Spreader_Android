@@ -109,4 +109,12 @@ public class HeaderView implements View.OnClickListener {
         return this;
     }
 
+    public ImageView getRightIcon() {
+        return rightIcon;
+    }
+
+    public TextView getRight() {
+        return right;
+    }
+
 }

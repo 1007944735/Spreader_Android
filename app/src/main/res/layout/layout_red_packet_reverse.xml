@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.sgevf.spreader.spreaderAndroid.view.CustomRelativeLayout
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/padding_14">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="恭喜你抢到了"
+            android:textColor="@color/colorWarning"
+            android:textSize="@dimen/dimen_16" />
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="125.00"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/dimen_60" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/money"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:layout_toRightOf="@+id/money"
+            android:text="元"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/dimen_20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="已存入零钱"
+            android:textColor="@color/colorWarning"
+            android:textSize="@dimen/dimen_16" />
+
+
+    </com.sgevf.spreader.spreaderAndroid.view.CustomRelativeLayout>
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorWhite">
+
+    </com.youth.banner.Banner>
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/banner"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/padding_14"
+        android:text="按键失灵肯德基埃里克圣诞节阿喀琉斯埃里克时间段拉接收到卡上来得快家里可适当拉加适量卡上来看待加了看世界拉会计师laks"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorCancel"
+        android:layout_below="@+id/message"/>
+
+
+</RelativeLayout>

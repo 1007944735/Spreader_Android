@@ -1,7 +1,10 @@
 package com.sgevf.spreader.spreaderAndroid.map;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -23,14 +26,16 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.sgevf.multimedia.video.VideoThreeActivity;
 import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModel;
+import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
+import com.sgevf.spreader.spreaderAndroid.view.RedPacketDialog;
 
-import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +46,7 @@ import utils.DialogUtils;
 import utils.MapUtils;
 import utils.WindowHelper;
 
-public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> implements View.OnClickListener, MapDiscoverBottomSheetAdapter.OnItemClickListener {
+public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> implements View.OnClickListener, MapDiscoverBottomSheetAdapter.OnItemClickListener, RedPacketDialog.OnOpenListener {
     private String[] titles = {"排序", "筛选"};
     @BindView(R.id.aMap)
     MapView mapView;
@@ -72,6 +77,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     private String[] moneyData;
     private String[] typeData;
     private MapDiscoverBottomSheetAdapter adapter;
+    private RedPacketDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,9 +93,9 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     }
 
     private void init() {
-        numberData=getResources().getStringArray(R.array.discover_order_number);
-        moneyData=getResources().getStringArray(R.array.discover_order_money);
-        typeData=getResources().getStringArray(R.array.discover_order_type);
+        numberData = getResources().getStringArray(R.array.discover_order_number);
+        moneyData = getResources().getStringArray(R.array.discover_order_money);
+        typeData = getResources().getStringArray(R.array.discover_order_type);
     }
 
     private void initRecyclerView() {
@@ -112,11 +118,11 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
                 } else {
                     resultTip.setVisibility(View.GONE);
                 }
-                if(i==BottomSheetBehavior.STATE_EXPANDED){
+                if (i == BottomSheetBehavior.STATE_EXPANDED) {
                     mapView.setTranslationY(-WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.3f);
                     location(null);
 
-                }else {
+                } else {
                     mapView.setTranslationY(0);
                     location(null);
                 }
@@ -230,9 +236,9 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
     }
 
     private void initFilter(View view) {
-        number=view.findViewById(R.id.number);
-        money=view.findViewById(R.id.money);
-        type=view.findViewById(R.id.type);
+        number = view.findViewById(R.id.number);
+        money = view.findViewById(R.id.money);
+        type = view.findViewById(R.id.type);
         view.findViewById(R.id.reset).setOnClickListener(this);
         view.findViewById(R.id.confirm).setOnClickListener(this);
         number.setData(numberData);
@@ -341,7 +347,19 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
 
     @Override
     public void onLoadFinish(MapRedResultModel mapRedResultModel) {
+        List<String> images = new ArrayList<>();
+        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553570201&di=2428cac1e3c8977150dfd3d2d7fd5db9&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F15%2F68%2F59%2F71X58PICNjx_1024.jpg");
+        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552975482457&di=0324c062a084d72c198e9d71f7de1966&imgtype=0&src=http%3A%2F%2Fimg.juimg.com%2Ftuku%2Fyulantu%2F140218%2F330598-14021R23A410.jpg");
+        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552975482456&di=c4af7ee5fe832edb6956a4f01f920af5&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F40%2F15%2F83V58PICyKZ_1024.jpg");
+        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552975482456&di=b576cea863cf208421de60e9cde4cefe&imgtype=0&src=http%3A%2F%2Fsc.jb51.net%2Fuploads%2Fallimg%2F150403%2F10-1504031H411E6.jpg");
 
+        List<String> titles = new ArrayList<>();
+        titles.add("asda");
+        titles.add("asd");
+        titles.add("asdda");
+        titles.add("asasdda");
+        dialog.setDataBeforeStart(images, titles);
+        dialog.startAnimation();
     }
 
 
@@ -370,10 +388,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
                 type.reset();
                 break;
             case R.id.confirm:
-                List<Integer> n=number.getResult();
-                List<Integer> m=money.getResult();
-                List<Integer> t=type.getResult();
-                ToastUtils.Toast(this,n.toString()+":"+m.toString()+":"+t.toString());
+                List<Integer> n = number.getResult();
+                List<Integer> m = money.getResult();
+                List<Integer> t = type.getResult();
+                ToastUtils.Toast(this, n.toString() + ":" + m.toString() + ":" + t.toString());
                 break;
         }
     }
@@ -390,12 +408,41 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModel> 
 
     @Override
     public void onItemClick(MapDiscoverBottomSheetAdapter.ViewHolder viewHolder, int position) {
-        ToastUtils.Toast(this,""+ position);
-        DialogUtils.showRedPacket(this, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.Toast(MapDiscoverActivity.this,"1231321");
-            }
-        });
+        dialog = new RedPacketDialog(this);
+        dialog.setOnOpenListener(this);
+        dialog.show();
+    }
+
+    @Override
+    public void onClick(final RedPacketDialog dialog) {
+        DialogUtils.showConfirm(this,
+                "温馨提示",
+                "观看视频广告能提升大红包的概率哦！！！",
+                "立即观看",
+                "忍心拒绝",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        startActivity(new Intent(MapDiscoverActivity.this, VideoThreeActivity.class));
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openRedPacket();
+
+                    }
+                });
+    }
+
+    private void openRedPacket() {
+        ToastUtils.Toast(MapDiscoverActivity.this, "开始模拟网络请求");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ToastUtils.Toast(MapDiscoverActivity.this, "结束模拟网络请求");
+        onLoadFinish(null);
     }
 }

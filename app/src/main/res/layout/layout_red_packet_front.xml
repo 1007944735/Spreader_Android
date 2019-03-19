@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_red_packet_radius_front_bottom">
+
+    <com.sgevf.spreader.spreaderAndroid.view.SemiCircleView
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:color="@color/colorTheme" />
+
+    <TextView
+        android:id="@+id/open"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/head"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_red_open"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:text="拆红包"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/dimen_22"
+        android:translationY="50dp" />
+</RelativeLayout>

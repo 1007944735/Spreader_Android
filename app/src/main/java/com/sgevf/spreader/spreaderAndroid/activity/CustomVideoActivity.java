@@ -8,10 +8,8 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
@@ -20,7 +18,6 @@ import com.sgevf.spreader.spreaderAndroid.model.ExpandVideoModel;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,7 +66,7 @@ public class CustomVideoActivity extends BaseActivity implements AdapterView.OnI
     private List<ExpandVideoModel> getSystemVideo() {
         List<ExpandVideoModel> list = new ArrayList<>();
         ContentResolver resolver = getContentResolver();
-        Cursor cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null);
+        Cursor cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null,null);
         if (cursor == null) {
             return list;
         }

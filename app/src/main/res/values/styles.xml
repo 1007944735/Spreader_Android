@@ -95,6 +95,11 @@
     <declare-styleable name="SemiCircleView">
         <attr name="color" format="color"/>
     </declare-styleable>
-
-
+    
+    <declare-styleable name="BubbleTextView">
+        <attr name="storkColor" format="color"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="storkWidth" format="dimension"/>
+        <attr name="backColor" format="color"/>
+    </declare-styleable>
 </resources>

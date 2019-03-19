@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
@@ -43,13 +42,14 @@ public class HomeActivity extends BaseActivity {
     public ImageView headImage;
     @BindView(R.id.nickName)
     public TextView nickName;
+    private HeaderView headerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
         ButterKnife.bind(this);
-        new HeaderView(this)
+        headerView=new HeaderView(this)
                 .setTitle(R.string.home_title)
                 .setRightIcon(R.mipmap.icon_home_found, new View.OnClickListener() {
                     @Override
@@ -57,6 +57,7 @@ public class HomeActivity extends BaseActivity {
                         startActivity(new Intent(HomeActivity.this, MapDiscoverActivity.class));
                     }
                 });
+//        headerView.getRight().setBackgroundResource(R.drawable.layout_home_right_tip);
         init();
     }
 
@@ -84,6 +85,7 @@ public class HomeActivity extends BaseActivity {
             GlideManager.circleImage(this, R.mipmap.icon_head_image_default, headImage);
         }
     }
+
 
     @OnClick(R.id.nickName)
     public void login(View view) {

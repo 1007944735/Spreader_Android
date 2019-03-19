@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorBlack">
 
     <include layout="@layout/layout_head_view" />
 
@@ -21,18 +23,15 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="视频"
-        android:onClick="video" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="系统相册"
         android:onClick="systemPhoto" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="自定义相册"
-        android:onClick="customPhoto" />
+    <com.sgevf.spreader.spreaderAndroid.view.BubbleTextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="123123123"
+        app:backColor="#00ff00"
+        app:storkWidth="2dp"
+        app:radius="5dp"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

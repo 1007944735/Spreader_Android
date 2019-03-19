@@ -10,6 +10,7 @@
     <dimen name="dimen_36">36sp</dimen>
     <dimen name="dimen_40">40sp</dimen>
     <dimen name="dimen_48">48sp</dimen>
+    <dimen name="dimen_60">60sp</dimen>
     <dimen name="dimen_74">74sp</dimen>
 
     <dimen name="margin_2">2dp</dimen>
