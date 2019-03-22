@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/colorBlack">
+    android:orientation="vertical">
 
     <include layout="@layout/layout_head_view" />
 
@@ -26,12 +25,18 @@
         android:text="系统相册"
         android:onClick="systemPhoto" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统相册"
+        android:onClick="jump" />
+
     <com.sgevf.spreader.spreaderAndroid.view.BubbleTextView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:text="123123123"
         app:backColor="#00ff00"
         app:storkWidth="2dp"
-        app:radius="5dp"
+        app:radius="10dp"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

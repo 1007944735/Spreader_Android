@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.amap.api.location.AMapLocation;
+import com.sgevf.multimedia.TestActivity;
 import com.sgevf.multimedia.camera.CameraActivity;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
@@ -81,5 +82,11 @@ public class WelcomeActivity extends BaseActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, 1000);
+    }
+
+    public void jump(View view) {
+        Intent intent=new Intent(this, TestActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
     }
 }
