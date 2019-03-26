@@ -42,12 +42,10 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
 
     public BasicApi(Activity mActivity, String url) {
         this(mActivity, url, null);
-
     }
 
     public BasicApi(Activity mActivity, UploadProgressListener listener) {
         this(mActivity, NetConfig.URL, listener);
-
     }
 
     public BasicApi(Activity mActivity, String url, UploadProgressListener listener) {
@@ -55,7 +53,7 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
         this.mActivity = mActivity;
         this.listener = listener;
         Retrofit retrofit = new Retrofit.Builder()
-                .client(OKHttpManager.getClient())
+                .client(OKHttpManager.getClient(mActivity))
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -81,7 +79,7 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
                 MultipartBody.Part part = MultipartBody.Part.createFormData(uploadFileName(), file.getName(), new ProgressRequestBody(requestBody, listener));
                 Observable o = setObservable(part);
                 if (o != null) {
-                    subscribe(o, setObserver());
+                    subscribe(o, setObserver(setShowLoading()));
                 } else {
                     Log.d("BasicApi", "setObservable(MultipartBody.Part part)");
                 }
@@ -89,9 +87,9 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
                 Log.d("BasicApi", "url 不存在");
             }
         } else {
-            Observable o = setObservable(JsonUtils.createJson(map));
+            Observable o = setObservable(map);
             if (o != null) {
-                subscribe(o, setObserver());
+                subscribe(o, setObserver(setShowLoading()));
             } else {
                 Log.d("BasicApi", "没有重写setObservable()");
             }
@@ -110,7 +108,7 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
         return c;
     }
 
-    protected Observable setObservable(JSONObject json) {
+    protected Observable setObservable(Map data) {
         return null;
     }
 
@@ -118,8 +116,8 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
         return null;
     }
 
-    private Observer setObserver() {
-        SimpleObserver<S> observer = new SimpleObserver<>(mActivity);
+    private Observer setObserver(boolean show) {
+        SimpleObserver<S> observer = new SimpleObserver<>(mActivity,show);
         observer.setListener(this);
         return observer;
     }
@@ -130,6 +128,10 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
 
     public String mediaType(){
         return mediaType;
+    }
+
+    protected boolean setShowLoading(){
+        return true;
     }
 
 }

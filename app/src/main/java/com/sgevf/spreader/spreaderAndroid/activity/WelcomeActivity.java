@@ -13,17 +13,22 @@ import com.sgevf.multimedia.TestActivity;
 import com.sgevf.multimedia.camera.CameraActivity;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
+import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.map.MapLocationHelper;
+import com.sgevf.spreader.spreaderAndroid.model.InitModel;
+import com.sgevf.spreader.spreaderAndroid.task.InitTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
+import static com.autonavi.ae.pos.LocManager.init;
+
 
 @RuntimePermissions
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     private MapLocationHelper helper;
 
     @Override
@@ -32,8 +37,13 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.layout_welcome);
         new HeaderView(this).setTitle("欢迎");
         HttpConfig.init(getApplicationContext());
+        init();
         initMap();
         WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
+    }
+
+    private void init() {
+        new InitTask(this).request();
     }
 
     private void initMap() {
@@ -88,5 +98,11 @@ public class WelcomeActivity extends BaseActivity {
         Intent intent=new Intent(this, TestActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
+
+    @Override
+    public void onLoadFinish(InitModel initModel) {
+        UserConfig.setPublicKey(this,initModel.publicKey);
+
     }
 }

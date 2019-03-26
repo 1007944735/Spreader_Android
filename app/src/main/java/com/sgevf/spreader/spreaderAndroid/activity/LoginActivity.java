@@ -16,7 +16,7 @@ import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.model.UserModel;
-import com.sgevf.spreader.spreaderAndroid.task.UserLoginTask;
+import com.sgevf.spreader.spreaderAndroid.task.LoginTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import butterknife.BindView;
@@ -35,6 +35,8 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
     public CheckBox autoLogin;
     @BindView(R.id.register)
     public TextView register;
+
+    private String originPass;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,14 +65,14 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
     public void login(View view) {
         String un = userName.getText().toString().trim();
         String pw = password.getText().toString().trim();
+        originPass=pw;
         boolean rp = rememberPass.isChecked();
         boolean al = autoLogin.isChecked();
-        //登录,密码需加密
         UserConfig.setUserName(this, un);
         UserConfig.setRememberPass(this, rp);
         UserConfig.setAutoLogin(this, al);
 
-        new UserLoginTask(this).setClass(un, pw).request();
+        new LoginTask(this).setClass(un, pw).request();
 
     }
 
@@ -81,11 +83,11 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
 
     @Override
     public void onLoadFinish(UserModel userModel) {
-        UserConfig.setPassword(this, AesUtils.AESEncode(userModel.userName, userModel.password));
-        UserConfig.setNickName(this, userModel.nickName);
-        UserConfig.setUserId(this, userModel.userId);
-        UserConfig.setUserHead(this, userModel.userHead);
-        UserConfig.setUserPhone(this, userModel.userPhone);
+        UserConfig.setPassword(this, AesUtils.AESEncode(userModel.username, originPass));
+        UserConfig.setNickName(this, userModel.nickname);
+        UserConfig.setUserId(this, userModel.id);
+        UserConfig.setUserHead(this, userModel.headPortrait);
+        UserConfig.setUserPhone(this, userModel.phone);
         UserConfig.setLoginStatus(this, true);
         startActivity(new Intent(this, HomeActivity.class));
     }

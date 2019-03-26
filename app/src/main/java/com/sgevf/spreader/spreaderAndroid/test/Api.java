@@ -7,6 +7,8 @@ import com.sgevf.spreader.http.api.BasicApi;
 
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 
 public class Api extends BasicApi<ApiService, Movie> {
@@ -22,8 +24,8 @@ public class Api extends BasicApi<ApiService, Movie> {
     }
 
     @Override
-    protected Observable setObservable(JSONObject json) {
-        return service.getTopMovie(json);
+    protected Observable setObservable(Map data) {
+        return super.setObservable(data);
     }
 
     @Override

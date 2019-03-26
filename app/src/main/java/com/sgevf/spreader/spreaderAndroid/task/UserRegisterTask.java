@@ -4,13 +4,16 @@ import android.app.Activity;
 
 import com.sgevf.spreader.http.api.BasicApi;
 import com.sgevf.spreader.spreaderAndroid.activity.RegisterActivity;
-import com.sgevf.spreader.spreaderAndroid.task.impl.UserService;
+import com.sgevf.spreader.spreaderAndroid.task.impl.Service;
 
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 
-public class UserRegisterTask extends BasicApi<UserService, String> {
+public class UserRegisterTask extends BasicApi<Service, String> {
+
     public UserRegisterTask(Activity mActivity) {
         super(mActivity);
     }
@@ -24,8 +27,8 @@ public class UserRegisterTask extends BasicApi<UserService, String> {
     }
 
     @Override
-    protected Observable setObservable(JSONObject json) {
-        return service.register(json);
+    protected Observable setObservable(Map data) {
+        return super.setObservable(data);
     }
 
     @Override

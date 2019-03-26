@@ -1,58 +1,77 @@
 package com.sgevf.spreader.http.okhttp;
 
+import android.content.Context;
+import android.os.Build;
+import android.provider.Settings;
+import android.util.Base64;
+
 import java.io.IOException;
-import java.util.HashMap;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.Buffer;
 
-/**
- * 暂时弃用
- */
-@Deprecated
 public class HeaderInterceptor implements Interceptor {
-    private static final String GET = "GET";
-    private static final String POST = "POST";
+    private Context context;
+
+    public HeaderInterceptor(Context context) {
+        this.context = context;
+    }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        //获取请求
-        Request request = chain.request();
-        //获取请求方式
-        String method = request.method();
-        //公共参数
-        HashMap<String, Object> commonParamsMap = new HashMap<>();
-
-        commonParamsMap.put("T", "debug");
-
-        //get请求
-        if (GET.equals(method)) {
-            HttpUrl url = request.url();
-            HttpUrl newUrl = url.newBuilder()
-                    .addEncodedQueryParameter("T", "debug")
-                    .build();
-            request = request.newBuilder().url(newUrl).build();
-        } else if (POST.equals(method)) {
-            RequestBody body = request.body();
-            if (body instanceof FormBody) {
-                FormBody.Builder builder = new FormBody.Builder();
-                builder.add("T", "debug");
-                for (int i=0;i<((FormBody) body).size();i++){
-                    builder.addEncoded(((FormBody) body).encodedName(i),((FormBody) body).encodedValue(i));
-                }
-                request = request.newBuilder().method(request.method(),builder.build()).build();
-            }
-        }
-
-//        request.newBuilder().addHeader("Content-Type","application/json;charset=UTF-8");
+        Request o = chain.request();
+        Request.Builder builder = o.newBuilder()
+                .header("uuid", "111111");//uuid;
+        Request request = builder.build();
         return chain.proceed(request);
     }
 
+    /**
+     * 获取androidId
+     *
+     * @return
+     */
+    private String getAndroidId() {
+        return Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
+    }
 
+    /**
+     * 获取Serial Number
+     *
+     * @return
+     */
+    private String getSerialNumber() {
+        return Build.SERIAL;
+    }
+
+    private String mix(String androidId, String serialNumber) {
+        try {
+            //获取摘要器 MessageDigest
+            String text = androidId + serialNumber;
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            //通过摘要器对字符串的二进制字节数组进行hash计算
+            byte[] digest = messageDigest.digest(text.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < digest.length; i++) {
+                //循环每个字符 将计算结果转化为正整数;
+                int digestInt = digest[i] & 0xff;
+                //将10进制转化为较短的16进制
+                String hexString = Integer.toHexString(digestInt);
+                //转化结果如果是个位数会省略0,因此判断并补0
+                if (hexString.length() < 2) {
+                    sb.append(0);
+                }
+                //将循环结果添加到缓冲区
+                sb.append(hexString);
+            }
+            //返回整个结果
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

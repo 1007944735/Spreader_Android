@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 
 public class UserConfig {
     public static final String NAME = "userConfig";
+    public static final String TOKEN="token";//token
+    public static final String UUID="uuid";//uuid androidid+设备序列号
     public static final String ADCODE = "adcode";//当前城市信息
+    public static final String PUBLICKEY="publicKey";//RSA公钥
     public static final String USERID = "userid";//userId
     public static final String NICKNAME = "nickname";//用户昵称
     public static final String USERNAME = "username";//用户帐号
@@ -17,6 +20,34 @@ public class UserConfig {
     public static final String AUTOLOGIN = "autologin";//自动登录
     public static final String REMEMBERPASS = "rememberpass";//记住密码
 
+    public static void setToken(Context context, String token) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(TOKEN, token);
+        editor.apply();
+    }
+
+    public static String getToken(Context context) {
+        return context.getSharedPreferences(NAME, Context.MODE_PRIVATE).getString(TOKEN, "");
+    }
+    public static void setUuid(Context context, String uuid) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(UUID, uuid);
+        editor.apply();
+    }
+
+    public static String getUuid(Context context) {
+        return context.getSharedPreferences(NAME, Context.MODE_PRIVATE).getString(UUID, "");
+    }
+
+    public static void setPublicKey(Context context, String publicKey) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(PUBLICKEY, publicKey);
+        editor.apply();
+    }
+
+    public static String getPublicKey(Context context) {
+        return context.getSharedPreferences(NAME, Context.MODE_PRIVATE).getString(PUBLICKEY, "");
+    }
 
     public static void setAdCode(Context context, String adCode) {
         SharedPreferences.Editor editor = context.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
