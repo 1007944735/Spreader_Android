@@ -2,6 +2,7 @@ package com.sgevf.spreader.spreaderAndroid.task.impl;
 
 import com.sgevf.spreader.http.entity.BasicResult;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
+import com.sgevf.spreader.spreaderAndroid.model.ValidateCodeModel;
 
 import org.json.JSONObject;
 
@@ -29,9 +30,9 @@ public interface Service {
      * @param data
      * @return
      */
-    @POST("/SV0003")
+    @POST("/S0003")
     @FormUrlEncoded
-    Observable<BasicResult<String>> getValid(@FieldMap Map<String,Object> data);
+    Observable<BasicResult<ValidateCodeModel>> getValid(@FieldMap Map<String,Object> data);
 
 
 }

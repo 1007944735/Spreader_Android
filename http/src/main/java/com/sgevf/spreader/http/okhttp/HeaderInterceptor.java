@@ -24,7 +24,7 @@ public class HeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request o = chain.request();
         Request.Builder builder = o.newBuilder()
-                .header("uuid", "111111");//uuid;
+                .header("uuid", mix(getAndroidId(),getSerialNumber()));//uuid;
         Request request = builder.build();
         return chain.proceed(request);
     }

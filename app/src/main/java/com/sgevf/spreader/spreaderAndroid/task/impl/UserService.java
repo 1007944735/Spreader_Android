@@ -30,7 +30,7 @@ public interface UserService {
      * @param data
      * @return
      */
-    @POST("/spreader/S0002")
+    @POST("/S0002")
     @FormUrlEncoded
     Observable<BasicResult<String>> register(@FieldMap Map<String,Object> data);
 }

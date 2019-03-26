@@ -12,7 +12,7 @@ import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import com.sgevf.spreader.spreaderAndroid.model.ValidateCodeModel;
-import com.sgevf.spreader.spreaderAndroid.task.UserRegisterTask;
+import com.sgevf.spreader.spreaderAndroid.task.RegisterTask;
 import com.sgevf.spreader.spreaderAndroid.task.ValidateCodeTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
@@ -54,12 +54,12 @@ public class RegisterActivity extends BaseLoadingActivity<String> {
         String pw = password.getText().toString().trim();
         String c = code.getText().toString().trim();
 
-        new UserRegisterTask(this).setClass(un, pw, uuid, c).request();
+        new RegisterTask(this).setClass(un, pw, uuid, c).request();
     }
 
     public void show(ValidateCodeModel model) {
-        uuid = model.uuid;
-        GlideManager.showImage(this, model.url, imageCode);
+        uuid = model.uuuid;
+        GlideManager.showImage(this, model.validUrl, imageCode);
     }
 
     @Override

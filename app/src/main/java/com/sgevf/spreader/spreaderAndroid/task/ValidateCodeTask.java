@@ -22,7 +22,7 @@ public class ValidateCodeTask extends BasicApi<Service, ValidateCodeModel> {
 
     @Override
     protected Observable setObservable(Map data) {
-        return super.setObservable(data);
+        return service.getValid(data);
     }
 
     @Override
