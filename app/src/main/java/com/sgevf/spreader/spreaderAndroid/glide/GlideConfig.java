@@ -30,17 +30,4 @@ public class GlideConfig extends RequestOptions {
         }
         return this;
     }
-
-    public static void setError(int errorId) {
-        GlideConfig.errorId = errorId;
-    }
-
-    public static void setPlaceHolder(int placeHolder) {
-        GlideConfig.placeHolder = placeHolder;
-    }
-
-    public static void setFallBack(int fallBack) {
-        GlideConfig.fallBack = fallBack;
-    }
-
 }

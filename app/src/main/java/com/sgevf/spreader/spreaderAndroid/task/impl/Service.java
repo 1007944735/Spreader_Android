@@ -4,13 +4,9 @@ import com.sgevf.spreader.http.entity.BasicResult;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.model.ValidateCodeModel;
 
-import org.json.JSONObject;
-
 import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -21,7 +17,7 @@ public interface Service {
      * @param data
      * @return
      */
-    @POST("/S0000")
+    @POST("S0000")
     @FormUrlEncoded
     Observable<BasicResult<InitModel>> init(@FieldMap Map<String,Object> data);
 
@@ -30,7 +26,7 @@ public interface Service {
      * @param data
      * @return
      */
-    @POST("/S0003")
+    @POST("S0003")
     @FormUrlEncoded
     Observable<BasicResult<ValidateCodeModel>> getValid(@FieldMap Map<String,Object> data);
 

@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.sgevf.spreader.http.api.BasicApi;
 
-import org.json.JSONObject;
-
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -19,7 +17,7 @@ public class Api extends BasicApi<ApiService, Movie> {
 
 
     public Api setClass() {
-        map.put("name", "王嘉杰");
+        params.put("name", "王嘉杰");
         return this;
     }
 

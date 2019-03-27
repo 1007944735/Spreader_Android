@@ -72,7 +72,7 @@ public class RSAUtils {
         //生成私钥
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
         //数据加密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, privateKey);
         return cipher.doFinal(data);
     }
@@ -95,7 +95,7 @@ public class RSAUtils {
         PublicKey pubKey = keyFactory.generatePublic(x509KeySpec);
 
         //数据加密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, pubKey);
         return cipher.doFinal(data);
     }
@@ -114,7 +114,7 @@ public class RSAUtils {
         //生成私钥
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
         //数据解密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(data);
     }
@@ -136,7 +136,7 @@ public class RSAUtils {
         //产生公钥
         PublicKey pubKey = keyFactory.generatePublic(x509KeySpec);
         //数据解密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.DECRYPT_MODE, pubKey);
         return cipher.doFinal(data);
     }

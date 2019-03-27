@@ -16,6 +16,7 @@ import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
+import com.sgevf.spreader.spreaderAndroid.glide.GlideConfig;
 import com.sgevf.spreader.spreaderAndroid.map.MapLocationHelper;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.task.InitTask;
@@ -43,6 +44,10 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     }
 
     private void init() {
+        //配置glide
+        GlideConfig.errorId=R.mipmap.icon_head_image_default;
+        GlideConfig.placeHolder=R.mipmap.icon_head_image_default;
+        GlideConfig.fallBack=R.mipmap.icon_head_image_default;
         new InitTask(this).request();
     }
 

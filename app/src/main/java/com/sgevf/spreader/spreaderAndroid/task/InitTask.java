@@ -2,18 +2,15 @@ package com.sgevf.spreader.spreaderAndroid.task;
 
 import android.app.Activity;
 
-import com.sgevf.spreader.http.api.BasicApi;
 import com.sgevf.spreader.spreaderAndroid.activity.WelcomeActivity;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.task.impl.Service;
-
-import org.json.JSONObject;
 
 import java.util.Map;
 
 import io.reactivex.Observable;
 
-public class InitTask extends BasicApi<Service, InitModel> {
+public class InitTask extends BaseService<Service, InitModel> {
     public InitTask(Activity mActivity) {
         super(mActivity);
     }

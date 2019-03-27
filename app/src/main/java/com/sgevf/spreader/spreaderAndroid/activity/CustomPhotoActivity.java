@@ -79,7 +79,7 @@ public class CustomPhotoActivity extends BaseActivity {
     private List<ExpandPhotoModel> getSystemPhoto() {
         List<ExpandPhotoModel> list = new ArrayList<>();
         ContentResolver resolver = getContentResolver();
-        Cursor cursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null);
+        Cursor cursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null,null);
         while (cursor.moveToNext()) {
             ExpandPhotoModel model = new ExpandPhotoModel();
             model.path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));

@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorContentBackground"
             android:hint="@string/register_password"
+            android:inputType="textPassword"
             android:padding="@dimen/padding_8"
             android:textSize="@dimen/dimen_20" />
 

@@ -83,6 +83,7 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
 
     @Override
     public void onLoadFinish(UserModel userModel) {
+        UserConfig.setToken(this,userModel.token);
         UserConfig.setPassword(this, AesUtils.AESEncode(userModel.username, originPass));
         UserConfig.setNickName(this, userModel.nickname);
         UserConfig.setUserId(this, userModel.id);

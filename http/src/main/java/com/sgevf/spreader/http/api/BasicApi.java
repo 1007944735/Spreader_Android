@@ -6,14 +6,10 @@ import android.util.Log;
 import com.sgevf.spreader.http.base.ProgressRequestBody;
 import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 import com.sgevf.spreader.http.okhttp.OKHttpManager;
-import com.sgevf.spreader.http.utils.JsonUtils;
 import com.sgevf.spreader.http.utils.NetConfig;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
     public T service;
     public Activity mActivity;
-    public Map<String,Object> map;
+    public Map<String,Object> params;
 
     private UploadProgressListener listener;
     private String uploadFileName="fileName";
@@ -49,7 +45,7 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
     }
 
     public BasicApi(Activity mActivity, String url, UploadProgressListener listener) {
-        map=new HashMap<>();
+        params =new HashMap<>();
         this.mActivity = mActivity;
         this.listener = listener;
         Retrofit retrofit = new Retrofit.Builder()
@@ -87,7 +83,7 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
                 Log.d("BasicApi", "url 不存在");
             }
         } else {
-            Observable o = setObservable(map);
+            Observable o = setObservable(params);
             if (o != null) {
                 subscribe(o, setObserver(setShowLoading()));
             } else {

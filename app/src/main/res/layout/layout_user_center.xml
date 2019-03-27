@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include layout="@layout/layout_head_view" />
@@ -49,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_2"
                     android:gravity="center_vertical"
-                    android:text="1213132"
+                    tools:text="1213132"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/dimen_20" />
             </LinearLayout>
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_2"
                     android:gravity="center_vertical"
-                    android:text="1213132"
+                    tools:text="1213132"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/dimen_20" />
             </LinearLayout>
@@ -119,9 +120,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_2"
                     android:gravity="center_vertical"
-                    android:text="1213132"
+                    tools:text="1213132"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/dimen_20" />
+                    android:textSize="@dimen/dimen_20"/>
             </LinearLayout>
 
             <View

@@ -2,7 +2,6 @@ package com.sgevf.spreader.spreaderAndroid.task;
 
 import android.app.Activity;
 
-import com.sgevf.spreader.http.api.BasicApi;
 import com.sgevf.spreader.spreaderAndroid.activity.LoginActivity;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.model.UserModel;
@@ -13,7 +12,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import utils.RSAUtils;
 
-public class LoginTask extends BasicApi<UserService, UserModel> {
+public class LoginTask extends BaseService<UserService, UserModel> {
 
     public LoginTask(Activity mActivity) {
         super(mActivity);
@@ -25,8 +24,8 @@ public class LoginTask extends BasicApi<UserService, UserModel> {
             String publicKey = UserConfig.getPublicKey(mActivity);
             byte[] pk = RSAUtils.base64Decode(publicKey);
             String encodePass=RSAUtils.base64Encode(RSAUtils.encryptByPublicKey(password.getBytes("utf-8"),pk));
-            map.put("username", userName);
-            map.put("password", encodePass);
+            params.put("username", userName);
+            params.put("password", encodePass);
         } catch (Exception e) {
             e.printStackTrace();
         }
