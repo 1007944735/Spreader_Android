@@ -9,23 +9,24 @@ import com.sgevf.spreader.spreaderAndroid.task.impl.Service;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 public class ValidateCodeTask extends BaseService<Service, ValidateCodeModel> {
 
-    public ValidateCodeTask(Activity mActivity) {
-        super(mActivity);
-    }
 
-
-    @Override
-    protected Observable setObservable(Map data) {
-        return service.getValid(data);
+    public ValidateCodeTask(Activity mActivity, Object mTarget) {
+        super(mActivity, mTarget);
     }
 
     @Override
     public void onNext(ValidateCodeModel validateCodeModel) {
-        if (mActivity instanceof RegisterActivity) {
-            ((RegisterActivity) mActivity).show(validateCodeModel);
+        if (mTarget instanceof RegisterActivity) {
+            ((RegisterActivity) mTarget).show(validateCodeModel);
         }
+    }
+
+    @Override
+    public Observable setObservable(Map<String, RequestBody> data) {
+        return service.getValid();
     }
 }

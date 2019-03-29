@@ -72,7 +72,7 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
         UserConfig.setRememberPass(this, rp);
         UserConfig.setAutoLogin(this, al);
 
-        new LoginTask(this).setClass(un, pw).request();
+        new LoginTask(this,this).setClass(un, pw).request();
 
     }
 

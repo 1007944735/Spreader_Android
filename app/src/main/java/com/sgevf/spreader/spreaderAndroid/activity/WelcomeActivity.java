@@ -9,10 +9,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.amap.api.location.AMapLocation;
-import com.sgevf.multimedia.TestActivity;
 import com.sgevf.multimedia.camera.CameraActivity;
 import com.sgevf.spreader.spreaderAndroid.R;
-import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
@@ -24,8 +22,6 @@ import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
-
-import static com.autonavi.ae.pos.LocManager.init;
 
 
 @RuntimePermissions
@@ -48,7 +44,7 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         GlideConfig.errorId=R.mipmap.icon_head_image_default;
         GlideConfig.placeHolder=R.mipmap.icon_head_image_default;
         GlideConfig.fallBack=R.mipmap.icon_head_image_default;
-        new InitTask(this).request();
+        new InitTask(this,this).request();
     }
 
     private void initMap() {
@@ -101,7 +97,6 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
 
     public void jump(View view) {
         Intent intent=new Intent(this, TestActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 

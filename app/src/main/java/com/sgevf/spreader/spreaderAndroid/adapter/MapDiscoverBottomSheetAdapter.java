@@ -2,7 +2,6 @@ package com.sgevf.spreader.spreaderAndroid.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,39 +12,41 @@ import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
+import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapDiscoverBottomSheetAdapter extends RecyclerView.Adapter<MapDiscoverBottomSheetAdapter.ViewHolder> {
-    private List<String> data;
+    private List<MapRedResultModels.MapRedResultModel> data;
     private LayoutInflater inflater;
     private Context context;
     private MapDiscoverBottomSheetAdapter.OnItemClickListener onItemClickListener;
 
-    public MapDiscoverBottomSheetAdapter(Context context, List<String> data) {
-        this.context=context;
+    public MapDiscoverBottomSheetAdapter(Context context, List<MapRedResultModels.MapRedResultModel> data) {
+        this.context = context;
         inflater = LayoutInflater.from(context);
-        this.data = data;
+        this.data = data == null ? new ArrayList<MapRedResultModels.MapRedResultModel>() : data;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view=inflater.inflate(R.layout.item_discover_bottom_sheet,viewGroup,false);
+        View view = inflater.inflate(R.layout.item_discover_bottom_sheet, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
-        GlideManager.showImage(context,"http://lorempixel.com/200/200/nature/",viewHolder.expandPicture);
-        viewHolder.address.setText("浙江科技学院");
-        viewHolder.message.setText("900m | 50人 | 30元");
-        viewHolder.duration.setText("2018/2/20 1:00~2019/3/20 12:00");
-        viewHolder.advertisement.setText("开业啦，开业啦，全场八折!!!!!");
+        GlideManager.showImage(context, data.get(i).image1Url, viewHolder.expandPicture);
+        viewHolder.address.setText(data.get(i).title);
+        viewHolder.message.setText(data.get(i).distance + "M | " + data.get(i).maxNumber + "人 | " + data.get(i).amount + "元");
+        viewHolder.duration.setText(data.get(i).startTime + "~" + data.get(i).endTime);
+        viewHolder.advertisement.setText(data.get(i).info);
         viewHolder.box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onItemClick(viewHolder,i);
+                onItemClickListener.onItemClick(viewHolder, i);
             }
         });
     }
@@ -81,5 +82,10 @@ public class MapDiscoverBottomSheetAdapter extends RecyclerView.Adapter<MapDisco
 
     public void setOnItemClickListener(MapDiscoverBottomSheetAdapter.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setData(List<MapRedResultModels.MapRedResultModel> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 }

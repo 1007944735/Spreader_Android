@@ -3,7 +3,6 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <application>
-        <activity android:name=".TestActivity" />
         <activity android:name=".video.VideoThreeActivity" />
     </application>
 </manifest>

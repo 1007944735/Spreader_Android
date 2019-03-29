@@ -33,10 +33,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.sgevf.spreader.spreaderAndroid.test.MActivity">
-
-        </activity>
-        <activity android:name="com.sgevf.spreader.spreaderAndroid.test.WeActivity" />
         <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,6 +63,7 @@
         <activity android:name=".activity.SinglePictureDetailActivity" />
         <activity android:name=".activity.CustomVideoActivity" />
         <activity android:name=".map.MapDiscoverActivity" />
+        <activity android:name=".activity.TestActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

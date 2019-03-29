@@ -3,51 +3,42 @@ package com.sgevf.spreader.http.api;
 import android.app.Activity;
 import android.util.Log;
 
-import com.sgevf.spreader.http.base.ProgressRequestBody;
 import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 import com.sgevf.spreader.http.okhttp.OKHttpManager;
 import com.sgevf.spreader.http.utils.NetConfig;
 
-import java.io.File;
 import java.lang.reflect.ParameterizedType;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
+public abstract class BasicApi<T, S> implements ObserverListener<S>, ObservableListener {
     public T service;
     public Activity mActivity;
-    public Map<String,Object> params;
+    public com.sgevf.spreader.http.entity.RequestBody params;
+    public Object mTarget;
 
-    private UploadProgressListener listener;
-    private String uploadFileName="fileName";
-    private String mediaType="image/jpeg";
-    public BasicApi(Activity mActivity) {
-        this(mActivity, NetConfig.URL);
+    public BasicApi(Activity mActivity, Object mTarget) {
+        this(mActivity, mTarget, NetConfig.URL);
     }
 
-    public BasicApi(Activity mActivity, String url) {
-        this(mActivity, url, null);
+    public BasicApi(Activity mActivity, Object mTarget, String url) {
+        this(mActivity, mTarget, url, null);
     }
 
-    public BasicApi(Activity mActivity, UploadProgressListener listener) {
-        this(mActivity, NetConfig.URL, listener);
+    public BasicApi(Activity mActivity, Object mTarget, UploadProgressListener listener) {
+        this(mActivity, mTarget, NetConfig.URL, listener);
     }
 
-    public BasicApi(Activity mActivity, String url, UploadProgressListener listener) {
-        params =new HashMap<>();
+    public BasicApi(Activity mActivity, Object mTarget, String url, UploadProgressListener listener) {
+        this.mTarget = mTarget;
+        params = new com.sgevf.spreader.http.entity.RequestBody();
         this.mActivity = mActivity;
-        this.listener = listener;
         Retrofit retrofit = new Retrofit.Builder()
                 .client(OKHttpManager.getClient(mActivity))
                 .baseUrl(url)
@@ -61,34 +52,12 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
         }
     }
 
-    //上传图片的路径 默认为""
-    public String filePath() {
-        return "";
-    }
-
     public void request() {
-        if (!"".equals(filePath())) {
-            String url = filePath();
-            File file = new File(url);
-            if (file.exists()) {
-                RequestBody requestBody = RequestBody.create(MediaType.parse(mediaType()), file);
-                MultipartBody.Part part = MultipartBody.Part.createFormData(uploadFileName(), file.getName(), new ProgressRequestBody(requestBody, listener));
-                Observable o = setObservable(part);
-                if (o != null) {
-                    subscribe(o, setObserver(setShowLoading()));
-                } else {
-                    Log.d("BasicApi", "setObservable(MultipartBody.Part part)");
-                }
-            } else {
-                Log.d("BasicApi", "url 不存在");
-            }
+        Observable o = setObservable(params.getParam());
+        if (o != null) {
+            subscribe(o, setObserver(setShowLoading()));
         } else {
-            Observable o = setObservable(params);
-            if (o != null) {
-                subscribe(o, setObserver(setShowLoading()));
-            } else {
-                Log.d("BasicApi", "没有重写setObservable()");
-            }
+            Log.d("BasicApi", "没有重写setObservable()");
         }
     }
 
@@ -99,35 +68,18 @@ public abstract class BasicApi<T, S> implements ObserverOnNextListener<S> {
                 .subscribe(observer);
     }
 
-    private  Class<T> getCls(){
-        Class c= (Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    private Class<T> getCls() {
+        Class c = (Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         return c;
     }
 
-    protected Observable setObservable(Map data) {
-        return null;
-    }
-
-    protected Observable setObservable(MultipartBody.Part part) {
-        return null;
-    }
-
     private Observer setObserver(boolean show) {
-        SimpleObserver<S> observer = new SimpleObserver<>(mActivity,show);
+        SimpleObserver<S> observer = new SimpleObserver<>(mActivity, mTarget, show);
         observer.setListener(this);
         return observer;
     }
 
-    public String uploadFileName(){
-        return uploadFileName;
-    }
-
-    public String mediaType(){
-        return mediaType;
-    }
-
-    protected boolean setShowLoading(){
+    protected boolean setShowLoading() {
         return true;
     }
-
 }

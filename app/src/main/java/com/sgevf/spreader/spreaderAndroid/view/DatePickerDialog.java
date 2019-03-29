@@ -128,7 +128,7 @@ public class DatePickerDialog extends Dialog implements View.OnClickListener {
             String h = hour.getSelect();
             String mm = minute.getSelect();
             if (confirmListener != null) {
-                confirmListener.select(y + "年" + m + "月" + d + "日" + h + ":" + mm);
+                confirmListener.select(y + "-" + m + "-" + d + " " + h + ":" + mm);
             }
             dismiss();
         }

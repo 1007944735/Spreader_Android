@@ -7,28 +7,25 @@ import com.sgevf.spreader.spreaderAndroid.model.ValidateCodeModel;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
+import okhttp3.RequestBody;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 
 public interface Service {
     /**
      * 获取RSA公钥
-     * @param data
      * @return
      */
     @POST("S0000")
-    @FormUrlEncoded
-    Observable<BasicResult<InitModel>> init(@FieldMap Map<String,Object> data);
+    Observable<BasicResult<InitModel>> init();
 
     /**
      * 获取图形验证码
-     * @param data
      * @return
      */
     @POST("S0003")
-    @FormUrlEncoded
-    Observable<BasicResult<ValidateCodeModel>> getValid(@FieldMap Map<String,Object> data);
+    Observable<BasicResult<ValidateCodeModel>> getValid();
 
 
 }

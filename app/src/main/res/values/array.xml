@@ -263,7 +263,6 @@
         <item>0&#8211;10</item>
         <item>10&#8211;50</item>
         <item>50&#8211;100</item>
-        <item>50&#8211;100</item>
         <item>100&#8211;500</item>
         <item>500以上</item>
     </string-array>

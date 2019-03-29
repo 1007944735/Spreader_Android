@@ -12,22 +12,24 @@ import io.reactivex.disposables.Disposable;
 
 public class SimpleObserver<T> implements Observer<BasicResult<T>> {
     private static final String TAG="SimpleObserver";
-    public ObserverOnNextListener<T> listener;
+    public ObserverListener<T> listener;
     private Activity mActivity;
+    private Object mTarget;
     private boolean showLoading;
-    public SimpleObserver(Activity mActivity) {
-        this(mActivity,true);
+    public SimpleObserver(Activity mActivity,Object mTarget) {
+        this(mActivity,mTarget,true);
     }
-    public SimpleObserver(Activity mActivity,boolean show) {
+    public SimpleObserver(Activity mActivity,Object mTarget,boolean show) {
         this.mActivity=mActivity;
+        this.mTarget=mTarget;
         this.showLoading=show;
     }
 
     @Override
     public void onSubscribe(Disposable d) {
         Log.d(TAG, "onSubscribe: ");
-        if(mActivity instanceof OnLoadingDialogListener&&showLoading){
-            ((OnLoadingDialogListener) mActivity).show();
+        if(mTarget instanceof OnLoadingDialogListener&&showLoading){
+            ((OnLoadingDialogListener) mTarget).show();
         }
     }
 
@@ -47,8 +49,8 @@ public class SimpleObserver<T> implements Observer<BasicResult<T>> {
     @Override
     public void onError(Throwable e) {
         Log.e(TAG, "onError: " + e.getMessage());
-        if(mActivity instanceof OnLoadingDialogListener&&showLoading){
-            ((OnLoadingDialogListener) mActivity).dismiss();
+        if(mTarget instanceof OnLoadingDialogListener&&showLoading){
+            ((OnLoadingDialogListener) mTarget).dismiss();
         }
         ToastUtils.Toast(mActivity,e.getMessage());
     }
@@ -56,16 +58,16 @@ public class SimpleObserver<T> implements Observer<BasicResult<T>> {
     @Override
     public void onComplete() {
         Log.d(TAG, "onComplete: Over!");
-        if(mActivity instanceof OnLoadingDialogListener){
-            ((OnLoadingDialogListener) mActivity).dismiss();
+        if(mTarget instanceof OnLoadingDialogListener){
+            ((OnLoadingDialogListener) mTarget).dismiss();
         }
     }
 
-    public ObserverOnNextListener<T> getListener() {
+    public ObserverListener<T> getListener() {
         return listener;
     }
 
-    public void setListener(ObserverOnNextListener<T> listener) {
+    public void setListener(ObserverListener<T> listener) {
         this.listener = listener;
     }
 }

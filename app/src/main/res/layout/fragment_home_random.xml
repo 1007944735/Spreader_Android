@@ -27,6 +27,7 @@
             <EditText
                 android:id="@+id/count"
                 style="@style/EditText"
+                android:gravity="right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -62,6 +63,7 @@
             <EditText
                 android:id="@+id/price"
                 style="@style/EditText"
+                android:gravity="right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -195,6 +197,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/submit"
             style="@style/ConfirmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

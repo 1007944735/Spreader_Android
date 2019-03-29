@@ -9,21 +9,24 @@ import com.sgevf.spreader.spreaderAndroid.task.impl.Service;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class InitTask extends BaseService<Service, InitModel> {
-    public InitTask(Activity mActivity) {
-        super(mActivity);
+
+    public InitTask(Activity mActivity, Object mTarget) {
+        super(mActivity, mTarget);
     }
 
     @Override
-    protected Observable setObservable(Map data) {
-        return service.init(data);
+    public Observable setObservable(Map<String, RequestBody> data) {
+        return service.init();
     }
 
     @Override
     public void onNext(InitModel initModel) {
-        if(mActivity instanceof WelcomeActivity){
-            ((WelcomeActivity) mActivity).onLoadFinish(initModel);
+        if(mTarget instanceof WelcomeActivity){
+            ((WelcomeActivity) mTarget).onLoadFinish(initModel);
         }
     }
 
@@ -31,4 +34,6 @@ public class InitTask extends BaseService<Service, InitModel> {
     protected boolean setShowLoading() {
         return false;
     }
+
+
 }

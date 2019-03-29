@@ -9,12 +9,14 @@ import com.sgevf.spreader.spreaderAndroid.task.impl.UserService;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import utils.RSAUtils;
 
 public class RegisterTask extends BaseService<UserService, String> {
 
-    public RegisterTask(Activity mActivity) {
-        super(mActivity);
+
+    public RegisterTask(Activity mActivity, Object mTarget) {
+        super(mActivity, mTarget);
     }
 
     public RegisterTask setClass(String username, String password, String uuid, String code) {
@@ -32,15 +34,17 @@ public class RegisterTask extends BaseService<UserService, String> {
         return this;
     }
 
-    @Override
-    protected Observable setObservable(Map data) {
-        return service.register(data);
-    }
+
 
     @Override
     public void onNext(String s) {
-        if (mActivity instanceof RegisterActivity) {
-            ((RegisterActivity) mActivity).onLoadFinish(s);
+        if (mTarget instanceof RegisterActivity) {
+            ((RegisterActivity) mTarget).onLoadFinish(s);
         }
+    }
+
+    @Override
+    public Observable setObservable(Map<String, RequestBody> data) {
+        return service.register(data);
     }
 }

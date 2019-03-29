@@ -10,14 +10,15 @@ import com.sgevf.spreader.spreaderAndroid.task.impl.UserService;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import utils.RSAUtils;
 
 public class LoginTask extends BaseService<UserService, UserModel> {
 
-    public LoginTask(Activity mActivity) {
-        super(mActivity);
-    }
 
+    public LoginTask(Activity mActivity, Object mTarget) {
+        super(mActivity, mTarget);
+    }
 
     public LoginTask setClass(String userName, String password) {
         try {
@@ -32,16 +33,17 @@ public class LoginTask extends BaseService<UserService, UserModel> {
         return this;
     }
 
-    @Override
-    protected Observable setObservable(Map data) {
-        return service.login(data);
-    }
 
 
     @Override
     public void onNext(UserModel userModel) {
-        if (mActivity instanceof LoginActivity) {
-            ((LoginActivity) mActivity).onLoadFinish(userModel);
+        if (mTarget instanceof LoginActivity) {
+            ((LoginActivity) mTarget).onLoadFinish(userModel);
         }
+    }
+
+    @Override
+    public Observable setObservable(Map<String, RequestBody> data) {
+        return service.login(data);
     }
 }

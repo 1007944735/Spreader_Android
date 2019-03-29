@@ -325,7 +325,7 @@ public class Base64 extends BaseNCodec {
      * @param inPos
      *            Position to start reading data from.
      * @param inAvail
-     *            Amount of bytes available from input for encoding.
+     *            Amount of bytes available from inputInfo for encoding.
      * @param context
      *            the context to be used
      */
@@ -422,7 +422,7 @@ public class Base64 extends BaseNCodec {
      * @param inPos
      *            Position to start reading data from.
      * @param inAvail
-     *            Amount of bytes available from input for encoding.
+     *            Amount of bytes available from inputInfo for encoding.
      * @param context
      *            the context to be used
      */
@@ -617,7 +617,7 @@ public class Base64 extends BaseNCodec {
      *            if <code>true</code> this encoder will chunk the base64 output into 76 character blocks
      * @return Base64-encoded data.
      * @throws IllegalArgumentException
-     *             Thrown when the input array needs an output array bigger than {@link Integer#MAX_VALUE}
+     *             Thrown when the inputInfo array needs an output array bigger than {@link Integer#MAX_VALUE}
      */
     public static byte[] encodeBase64(final byte[] binaryData, final boolean isChunked) {
         return encodeBase64(binaryData, isChunked, false);
@@ -635,7 +635,7 @@ public class Base64 extends BaseNCodec {
      *            <b>Note: no padding is added when encoding using the URL-safe alphabet.</b>
      * @return Base64-encoded data.
      * @throws IllegalArgumentException
-     *             Thrown when the input array needs an output array bigger than {@link Integer#MAX_VALUE}
+     *             Thrown when the inputInfo array needs an output array bigger than {@link Integer#MAX_VALUE}
      * @since 1.4
      */
     public static byte[] encodeBase64(final byte[] binaryData, final boolean isChunked, final boolean urlSafe) {
@@ -656,7 +656,7 @@ public class Base64 extends BaseNCodec {
      *            The maximum result size to accept.
      * @return Base64-encoded data.
      * @throws IllegalArgumentException
-     *             Thrown when the input array needs an output array bigger than maxResultSize
+     *             Thrown when the inputInfo array needs an output array bigger than maxResultSize
      * @since 1.4
      */
     public static byte[] encodeBase64(final byte[] binaryData, final boolean isChunked,

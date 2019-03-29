@@ -7,44 +7,65 @@
 
     <include layout="@layout/layout_head_view" />
 
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:backgroundTint="@color/white">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_14">
-
-            <EditText
-                android:id="@+id/input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="80dp"
-                android:hint="推广信息"
-                style="@style/EditText"
-                android:gravity="start" />
-
-            <GridLayout
-                android:id="@+id/gridLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rowCount="3"
-                android:columnCount="3"
-                android:orientation="horizontal">
-
-            </GridLayout>
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/videoBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_14">
 
+                <EditText
+                    android:id="@+id/input_title"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_20"
+                    android:background="@drawable/bg_stroke_dotted"
+                    android:gravity="start"
+                    android:hint="标题"
+                    android:padding="@dimen/padding_4"
+                    android:textSize="@dimen/dimen_20" />
+
+                <EditText
+
+                    android:id="@+id/input_info"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_stroke_dotted"
+                    android:gravity="start"
+                    android:hint="推广信息"
+                    android:minHeight="80dp"
+                    android:padding="@dimen/padding_4" />
+
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3"
+                    android:orientation="horizontal"
+                    android:rowCount="3">
+
+                </GridLayout>
+
+                <LinearLayout
+                    android:id="@+id/videoBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatButton"

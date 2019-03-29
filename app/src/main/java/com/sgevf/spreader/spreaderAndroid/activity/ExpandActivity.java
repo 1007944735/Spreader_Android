@@ -3,6 +3,7 @@ package com.sgevf.spreader.spreaderAndroid.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
@@ -22,10 +23,12 @@ import com.sgevf.multimedia.utils.TimeUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
+import com.sgevf.spreader.spreaderAndroid.model.ExpandInfoModel;
 import com.sgevf.spreader.spreaderAndroid.model.ExpandPhotoModel;
 import com.sgevf.spreader.spreaderAndroid.model.ExpandVideoModel;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,17 +36,22 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.AndroidBugsSolution;
 
+import static com.autonavi.ae.pos.LocManager.init;
+
 public class ExpandActivity extends BaseActivity {
     @BindView(R.id.floatButton)
     public FloatingActionButton floatButton;
-    @BindView(R.id.input)
-    public EditText input;
+    @BindView(R.id.input_info)
+    public EditText inputInfo;
+    @BindView(R.id.input_title)
+    public EditText inputTitle;
     @BindView(R.id.gridLayout)
     public GridLayout gridLayout;
     @BindView(R.id.videoBox)
     public LinearLayout videoBox;
 
     private int gridLayoutWidth;
+    private ExpandInfoModel infos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,8 +59,54 @@ public class ExpandActivity extends BaseActivity {
         setContentView(R.layout.layout_expand);
         ButterKnife.bind(this);
         AndroidBugsSolution.assistActivity(this, null);
-        new HeaderView(this).setTitle(R.string.history_release);
+        new HeaderView(this)
+                .setTitle(R.string.history_release)
+                .setRight("完成", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent();
+                        infos.title=inputTitle.getText().toString().trim();
+                        infos.info=inputInfo.getText().toString().trim();
+                        intent.putExtra("infos",infos);
+                        setResult(2001,intent);
+                        finish();
+                    }
+                });
 
+        init();
+
+    }
+
+    private void init() {
+        infos=getIntent().getParcelableExtra("infos");
+        if(infos!=null){
+            inputTitle.setText(infos.title);
+            inputInfo.setText(infos.info);
+            //图片
+            gridLayoutWidth = gridLayout.getWidth();
+            gridLayout.removeAllViews();
+            for (ExpandPhotoModel model : infos.pictures) {
+                createImageView(false, model.path);
+            }
+            createImageView(true, null);
+            //视频
+            videoBox.removeAllViews();
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_video_expand, videoBox, true);
+            ImageView thumbVideo = view.findViewById(R.id.thumbVideo);
+            TextView duration = view.findViewById(R.id.duration);
+            ImageView exit = view.findViewById(R.id.exit);
+            GlideManager.showImage(this, infos.video.path, thumbVideo);
+            duration.setText(TimeUtils.formatTime(infos.video.duration));
+            exit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    videoBox.removeAllViews();
+                }
+            });
+
+        }else {
+            infos=new ExpandInfoModel();
+        }
     }
 
     @OnClick(R.id.floatButton)
@@ -86,22 +140,22 @@ public class ExpandActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000 && resultCode == 1001 && data != null) {
-            List<ExpandPhotoModel> pictures = data.getParcelableArrayListExtra("pictures");
+            infos.pictures = data.getParcelableArrayListExtra("pictures");
             gridLayoutWidth = gridLayout.getWidth();
             gridLayout.removeAllViews();
-            for (ExpandPhotoModel model : pictures) {
+            for (ExpandPhotoModel model : infos.pictures) {
                 createImageView(false, model.path);
             }
             createImageView(true, null);
         } else if (requestCode == 2000 && resultCode == 2001 && data != null) {
-            ExpandVideoModel video = data.getParcelableExtra("video");
+            infos.video = data.getParcelableExtra("video");
             videoBox.removeAllViews();
             View view = LayoutInflater.from(this).inflate(R.layout.layout_video_expand, videoBox, true);
             ImageView thumbVideo = view.findViewById(R.id.thumbVideo);
             TextView duration = view.findViewById(R.id.duration);
             ImageView exit = view.findViewById(R.id.exit);
-            GlideManager.showImage(this, video.path, thumbVideo);
-            duration.setText(TimeUtils.formatTime(video.duration));
+            GlideManager.showImage(this, infos.video.path, thumbVideo);
+            duration.setText(TimeUtils.formatTime(infos.video.duration));
             exit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

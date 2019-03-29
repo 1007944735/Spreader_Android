@@ -1,5 +1,5 @@
 package com.sgevf.spreader.http.api;
 
-public interface ObserverOnNextListener<T> {
+public interface ObserverListener<T> {
     void onNext(T t);
 }
