@@ -24,7 +24,7 @@ public class PubTask extends BaseService<PubService,String> {
     }
 
     @Override
-    public void onNext(String s) {
+    public void onSuccess(String s) {
         if (mTarget instanceof HomeFixedFragment){
             ((HomeFixedFragment) mTarget).onLoadFinish(s);
         }else if(mTarget instanceof HomeRandomFragment){

@@ -30,8 +30,8 @@ public class PoiOverlay {
      * @param options
      */
     public void addMapMarker(MarkerOptions options) {
-        if (mapMarkers == null) return;
-        mapMarkers.add(options);
+//        if (mapMarkers == null) return;
+//        mapMarkers.add(options);
         Marker marker = aMap.addMarker(options);
         markers.add(marker);
         addMarkerAnimation(marker);
@@ -56,6 +56,15 @@ public class PoiOverlay {
         if (mapMarkers == null || mapMarkers.size() <= 0) return;
         for (MarkerOptions options : mapMarkers) {
             Marker marker = aMap.addMarker(options);
+            markers.add(marker);
+        }
+    }
+
+    public void addMarkerToMap(List<MarkerOptions> options) {
+        clearAllMarker();
+        if (options == null || options.isEmpty()) return;
+        for (MarkerOptions option : options) {
+            Marker marker = aMap.addMarker(option);
             markers.add(marker);
         }
     }

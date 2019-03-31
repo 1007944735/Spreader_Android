@@ -36,7 +36,7 @@ public class LoginTask extends BaseService<UserService, UserModel> {
 
 
     @Override
-    public void onNext(UserModel userModel) {
+    public void onSuccess(UserModel userModel) {
         if (mTarget instanceof LoginActivity) {
             ((LoginActivity) mTarget).onLoadFinish(userModel);
         }

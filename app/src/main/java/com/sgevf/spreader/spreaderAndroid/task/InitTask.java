@@ -24,7 +24,7 @@ public class InitTask extends BaseService<Service, InitModel> {
     }
 
     @Override
-    public void onNext(InitModel initModel) {
+    public void onSuccess(InitModel initModel) {
         if(mTarget instanceof WelcomeActivity){
             ((WelcomeActivity) mTarget).onLoadFinish(initModel);
         }

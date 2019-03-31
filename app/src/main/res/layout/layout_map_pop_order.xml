@@ -17,7 +17,8 @@
         android:paddingBottom="@dimen/padding_14"
         android:text="@string/discover_order_smart"
         android:textColor="@color/bg_map_tab_layout_title_selector"
-        android:textSize="@dimen/dimen_16" />
+        android:textSize="@dimen/dimen_16"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/maxPeople"

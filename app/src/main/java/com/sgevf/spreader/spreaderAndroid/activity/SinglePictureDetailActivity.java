@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -28,7 +29,7 @@ public class SinglePictureDetailActivity extends BaseActivity {
         setContentView(R.layout.layout_single_picture_detail);
         ButterKnife.bind(this);
         new HeaderView(this)
-                .setToolbarBackground(android.R.color.transparent)
+                .setToolbarBackground(Color.parseColor("#40000000"))
                 .setRight(R.string.user_center_complete, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

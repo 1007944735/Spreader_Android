@@ -6,26 +6,28 @@ import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.task.impl.PubService;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 
-public class MapSearchTask extends BaseService<PubService, MapRedResultModels> {
-    public MapSearchTask(Activity mActivity, Object mTarget) {
+public class MapSearchFilterTask extends BaseService<PubService, MapRedResultModels> {
+    public MapSearchFilterTask(Activity mActivity, Object mTarget) {
         super(mActivity, mTarget);
     }
 
-    public MapSearchTask setClass(String longitude, String latitude) {
+    public MapSearchFilterTask setClass(String longitude, String latitude, String type,String number,String amount) {
         params.put("longitude", longitude);
         params.put("latitude", latitude);
+        params.put("type",type);//1 固定红包，2 随机红包
+        params.put("number",number);//1 固定红包，2 随机红包
+        params.put("amount",amount);//1 固定红包，2 随机红包
         return this;
     }
 
     @Override
     public Observable setObservable(Map<String, RequestBody> data) {
-        return service.mapSearch(data);
+        return service.mapSearchByFilter(data);
     }
 
 

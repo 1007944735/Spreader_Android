@@ -37,6 +37,7 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
     public TextView register;
 
     private String originPass;
+    private boolean isBackToHome;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
     }
 
     private void init() {
+        isBackToHome = getIntent().getBooleanExtra("isBackToHome", true);
         userName.setText(UserConfig.getUserName(this));
         if (UserConfig.isRememberPass(this)) {
             rememberPass.setChecked(true);
@@ -65,14 +67,14 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
     public void login(View view) {
         String un = userName.getText().toString().trim();
         String pw = password.getText().toString().trim();
-        originPass=pw;
+        originPass = pw;
         boolean rp = rememberPass.isChecked();
         boolean al = autoLogin.isChecked();
         UserConfig.setUserName(this, un);
         UserConfig.setRememberPass(this, rp);
         UserConfig.setAutoLogin(this, al);
 
-        new LoginTask(this,this).setClass(un, pw).request();
+        new LoginTask(this, this).setClass(un, pw).request();
 
     }
 
@@ -83,13 +85,17 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
 
     @Override
     public void onLoadFinish(UserModel userModel) {
-        UserConfig.setToken(this,userModel.token);
+        UserConfig.setToken(this, userModel.token);
         UserConfig.setPassword(this, AesUtils.AESEncode(userModel.username, originPass));
         UserConfig.setNickName(this, userModel.nickname);
         UserConfig.setUserId(this, userModel.id);
         UserConfig.setUserHead(this, userModel.headPortrait);
         UserConfig.setUserPhone(this, userModel.phone);
         UserConfig.setLoginStatus(this, true);
-        startActivity(new Intent(this, HomeActivity.class));
+        if (isBackToHome) {
+            startActivity(new Intent(this, HomeActivity.class));
+        }else {
+            finish();
+        }
     }
 }

@@ -1,8 +1,12 @@
 package com.sgevf.spreader.spreaderAndroid.map;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -11,6 +15,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -18,11 +23,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.sgevf.multimedia.video.VideoThreeActivity;
 import com.sgevf.spreader.http.utils.ToastUtils;
@@ -30,11 +37,14 @@ import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
+import com.sgevf.spreader.spreaderAndroid.model.MapSearchLocationModel;
+import com.sgevf.spreader.spreaderAndroid.task.MapSearchFilterTask;
+import com.sgevf.spreader.spreaderAndroid.task.MapSearchOrderTask;
 import com.sgevf.spreader.spreaderAndroid.task.MapSearchTask;
 import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
 import com.sgevf.spreader.spreaderAndroid.view.RedPacketDialog;
 
-import java.util.ArrayList;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,7 +54,7 @@ import utils.DialogUtils;
 import utils.MapUtils;
 import utils.WindowHelper;
 
-public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels> implements View.OnClickListener, MapDiscoverBottomSheetAdapter.OnItemClickListener, RedPacketDialog.OnOpenListener {
+public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels> implements View.OnClickListener, MapDiscoverBottomSheetAdapter.OnItemClickListener, RedPacketDialog.OnOpenListener, AMap.OnMarkerClickListener, AMap.OnMapTouchListener {
     private String[] titles = {"排序", "筛选"};
     @BindView(R.id.aMap)
     MapView mapView;
@@ -58,6 +68,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     LinearLayout resultFilter;
     @BindView(R.id.location)
     ImageView location;
+    @BindView(R.id.error)
+    TextView error;
     AMap aMap;
     MyLocationStyle myLocationStyle;
     boolean onlyOnce = true;
@@ -76,12 +88,17 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     private String[] typeData;
     private MapDiscoverBottomSheetAdapter adapter;
     private RedPacketDialog dialog;
+    private PoiOverlay poiOverlay;
+    private LocationHandler handler;
+    private MapSearchLocationModel mslm;
+    private List<MapRedResultModels.MapRedResultModel> recyclerData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_map_discover);
         ButterKnife.bind(this);
+        handler = new LocationHandler(this);
         //创建地图
         init();
         initMap(savedInstanceState);
@@ -114,11 +131,15 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
                 }
                 if (i == BottomSheetBehavior.STATE_EXPANDED) {
                     mapView.setTranslationY(-WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.3f);
-                    location(false);
+                    mslm = new MapSearchLocationModel();
+                    mslm.taskType = 1;
+//                    location(mslm);
 
                 } else {
                     mapView.setTranslationY(0);
-                    location(false);
+                    mslm = new MapSearchLocationModel();
+                    mslm.taskType = 1;
+//                    location(mslm);
                 }
                 maxHeight = (int) (WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.6f);
                 ViewGroup.LayoutParams params = view.getLayoutParams();
@@ -170,6 +191,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
                         v.setSelected(true);
                         //出现
                         if (popupWindow == null)
+                            //选择弹窗
                             createPopup();
                         int i = (int) v.getTag();
                         if (i == 0) {
@@ -273,6 +295,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.getUiSettings().setMyLocationButtonEnabled(true);
         aMap.setMyLocationEnabled(true);
+        aMap.setOnMarkerClickListener(this);
+        aMap.setOnMapTouchListener(this);
         aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
@@ -287,18 +311,29 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     @OnClick(R.id.location)
     public void location(View view) {
         //定位
-        location(false);
+        mslm = new MapSearchLocationModel();
+        mslm.taskType = 1;
+        location(mslm);
     }
 
-    public void location(final boolean request){
+    /**
+     * 定位，并通过handler返回定位信息
+     *
+     * @param info
+     */
+    public void location(final MapSearchLocationModel info) {
         MapLocationHelper helper = new MapLocationHelper(this);
         helper.startOnceLocation();
         helper.setLocationListener(new MapLocationHelper.LocationListener() {
             @Override
             public void onLocationChange(AMapLocation location) {
-                if(request){
-                    new MapSearchTask(MapDiscoverActivity.this,MapDiscoverActivity.this).setClass(location.getLongitude()+"",location.getLatitude()+"").request();
-                }
+                Message data = new Message();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("info", info);
+                bundle.putDouble("longitude", location.getLongitude());
+                bundle.putDouble("latitude", location.getLatitude());
+                data.setData(bundle);
+                handler.sendMessage(data);
                 MapUtils.moveToSpan(aMap, location.getLatitude(), location.getLongitude(), 18, 30, 0);
             }
         });
@@ -309,7 +344,11 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         super.onResume();
         //重新绘制加载地图
         mapView.onResume();
-        location(true);
+        if (mslm == null) {
+            mslm = new MapSearchLocationModel();
+            mslm.taskType = 2;
+        }
+        location(mslm);
     }
 
     @Override
@@ -362,28 +401,74 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 //        titles.add("asasdda");
 //        dialog.setDataBeforeStart(images, titles);
 //        dialog.startAnimation();
+        if (mapRedResultModels.list.isEmpty()) {
+            error.setVisibility(View.VISIBLE);
+            bottomSheet.setVisibility(View.GONE);
+        } else {
+            error.setVisibility(View.GONE);
+            bottomSheet.setVisibility(View.VISIBLE);
+        }
+        recyclerData=mapRedResultModels.list;
         adapter.setData(mapRedResultModels.list);
+        refreshPoi(mapRedResultModels.list);
+    }
+
+    /**
+     * 重新加载地图红包的显示
+     */
+    private void refreshPoi(List<MapRedResultModels.MapRedResultModel> data) {
+        if (poiOverlay == null) {
+            poiOverlay = new PoiOverlay(aMap);
+        }
+        poiOverlay.clearAllMarker();
+        for (MapRedResultModels.MapRedResultModel model : data) {
+            poiOverlay.addMapMarker(new MapMarker.Builder()
+                    .position(Double.valueOf(model.pubLatitude), Double.valueOf(model.pubLongitude))
+//                    .icon(BitmapFactory.decodeResource(getResources(),R.mipmap.icon_map_rede_packet))
+                    .title("123132")
+                    .infoWindowEnable(true)
+                    .anchor(0.5f, 0.5f)
+                    .build());
+        }
     }
 
 
     @Override
     public void onClick(View v) {
+        mslm = new MapSearchLocationModel();
         switch (v.getId()) {
             case R.id.smartOrder:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(titles[0]);
                 selectOne(v);
+                resultFilter.getChildAt(0).setSelected(false);
+                popupWindow.dismiss();
                 break;
             case R.id.maxPeople:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_max_people);
                 selectOne(v);
+                mslm.taskType = 3;
+                mslm.type = "1";
+                location(mslm);
+                resultFilter.getChildAt(0).setSelected(false);
+                popupWindow.dismiss();
                 break;
             case R.id.maxCount:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_max_count);
                 selectOne(v);
+                mslm.taskType = 3;
+                mslm.type = "2";
+                location(mslm);
+                resultFilter.getChildAt(0).setSelected(false);
+                popupWindow.dismiss();
                 break;
             case R.id.minDistance:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_min_distance);
                 selectOne(v);
+                mslm.taskType = 3;
+                mslm.type = "3";
+                location(mslm);
+                resultFilter.getChildAt(0).setSelected(false);
+                popupWindow.dismiss();
                 break;
             case R.id.reset:
                 number.reset();
@@ -394,7 +479,25 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
                 List<Integer> n = number.getResult();
                 List<Integer> m = money.getResult();
                 List<Integer> t = type.getResult();
-                ToastUtils.Toast(this, n.toString() + ":" + m.toString() + ":" + t.toString());
+                mslm.taskType = 4;
+                if (!t.isEmpty()) {
+                    mslm.type = t.toString().substring(1, t.toString().length() - 1);
+                } else {
+                    mslm.type = "";
+                }
+                if (!n.isEmpty()) {
+                    mslm.number = n.toString().substring(1, n.toString().length() - 1);
+                } else {
+                    mslm.number = "";
+                }
+                if (!m.isEmpty()) {
+                    mslm.amount = m.toString().substring(1, m.toString().length() - 1);
+                } else {
+                    mslm.amount = "";
+                }
+                location(mslm);
+                resultFilter.getChildAt(1).setSelected(false);
+                popupWindow.dismiss();
                 break;
         }
     }
@@ -414,6 +517,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 //        dialog = new RedPacketDialog(this);
 //        dialog.setOnOpenListener(this);
 //        dialog.show();
+        MapUtils.moveToSpan(aMap,Double.valueOf(recyclerData.get(position).pubLatitude),Double.valueOf(recyclerData.get(position).pubLongitude));
     }
 
     @Override
@@ -447,5 +551,48 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         }
         ToastUtils.Toast(MapDiscoverActivity.this, "结束模拟网络请求");
         onLoadFinish(null);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        ToastUtils.Toast(this,marker.getId());
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        return false;
+    }
+
+    @Override
+    public void onTouch(MotionEvent motionEvent) {
+        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN&&bottomSheetBehavior.getState()!=BottomSheetBehavior.STATE_COLLAPSED){
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+    }
+
+
+    public static class LocationHandler extends Handler {
+        WeakReference<Activity> mActivityReference;
+
+        public LocationHandler(Activity activity) {
+            mActivityReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MapSearchLocationModel m = msg.getData().getParcelable("info");
+            Double longitude = msg.getData().getDouble("longitude");
+            Double latitude = msg.getData().getDouble("latitude");
+            switch (m.taskType) {
+                case 1:
+                    break;
+                case 2:
+                    new MapSearchTask(mActivityReference.get(), mActivityReference.get()).setClass(longitude + "", latitude + "").request();
+                    break;
+                case 3:
+                    new MapSearchOrderTask(mActivityReference.get(), mActivityReference.get()).setClass(longitude + "", latitude + "", m.type).request();
+                    break;
+                case 4:
+                    new MapSearchFilterTask(mActivityReference.get(), mActivityReference.get()).setClass(longitude + "", latitude + "", m.type, m.number, m.amount).request();
+                    break;
+            }
+        }
     }
 }

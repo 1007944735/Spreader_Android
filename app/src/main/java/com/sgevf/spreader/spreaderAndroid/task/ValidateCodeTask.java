@@ -19,7 +19,7 @@ public class ValidateCodeTask extends BaseService<Service, ValidateCodeModel> {
     }
 
     @Override
-    public void onNext(ValidateCodeModel validateCodeModel) {
+    public void onSuccess(ValidateCodeModel validateCodeModel) {
         if (mTarget instanceof RegisterActivity) {
             ((RegisterActivity) mTarget).show(validateCodeModel);
         }

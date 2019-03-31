@@ -19,4 +19,12 @@ public interface PubService {
     @POST("S0006")
     @Multipart
     Observable<BasicResult<MapRedResultModels>> mapSearch(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0007")
+    @Multipart
+    Observable<BasicResult<MapRedResultModels>> mapSearchByOrder(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0008")
+    @Multipart
+    Observable<BasicResult<MapRedResultModels>> mapSearchByFilter(@PartMap Map<String, RequestBody> data);
 }

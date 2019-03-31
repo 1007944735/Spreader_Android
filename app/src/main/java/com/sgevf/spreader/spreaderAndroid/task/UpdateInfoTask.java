@@ -31,7 +31,7 @@ public class UpdateInfoTask extends BaseService<UserService, String> {
 
 
     @Override
-    public void onNext(String s) {
+    public void onSuccess(String s) {
         if (mTarget instanceof UpdateUserActivity) {
             ((UpdateUserActivity) mTarget).onLoadFinish(s);
         }

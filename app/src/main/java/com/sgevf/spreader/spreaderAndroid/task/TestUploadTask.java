@@ -22,7 +22,7 @@ public class TestUploadTask extends BaseService<TestService, String> {
     }
 
     @Override
-    public void onNext(String s) {
+    public void onSuccess(String s) {
 
     }
 
