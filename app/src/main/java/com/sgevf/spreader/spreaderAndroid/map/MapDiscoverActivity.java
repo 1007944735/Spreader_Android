@@ -2,7 +2,6 @@ package com.sgevf.spreader.spreaderAndroid.map;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
@@ -36,15 +34,18 @@ import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
+import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.MapSearchLocationModel;
-import com.sgevf.spreader.spreaderAndroid.task.MapSearchFilterTask;
-import com.sgevf.spreader.spreaderAndroid.task.MapSearchOrderTask;
 import com.sgevf.spreader.spreaderAndroid.task.MapSearchTask;
 import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
 import com.sgevf.spreader.spreaderAndroid.view.RedPacketDialog;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -60,8 +61,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     MapView mapView;
     @BindView(R.id.bottom_sheet)
     RecyclerView bottomSheet;
-    @BindView(R.id.scroll)
-    NestedScrollView scroll;
+    @BindView(R.id.redPackets)
+    NestedScrollView redPackets;
+    @BindView(R.id.details)
+    NestedScrollView details;
     @BindView(R.id.result_tip)
     TextView resultTip;
     @BindView(R.id.result_filter)
@@ -70,12 +73,16 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     ImageView location;
     @BindView(R.id.error)
     TextView error;
+    @BindView(R.id.details_banner)
+    Banner detailsBanner;
+    @BindView(R.id.details_layout)
+    LinearLayout detailsLayout;
     AMap aMap;
     MyLocationStyle myLocationStyle;
     boolean onlyOnce = true;
     UiSettings settings;
-    BottomSheetBehavior bottomSheetBehavior;
-    private int maxHeight;
+    BottomSheetBehavior redPacketBehavior;
+    BottomSheetBehavior detailsBehavior;
     private PopupWindow popupWindow;
     private LinearLayout tab_1;
     private LinearLayout tab_2;
@@ -99,11 +106,12 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         setContentView(R.layout.layout_map_discover);
         ButterKnife.bind(this);
         handler = new LocationHandler(this);
-        //创建地图
         init();
+        //创建地图
         initMap(savedInstanceState);
         initSetting();
         initRecyclerView();
+        initDetails();
         initResultFilter();
     }
 
@@ -120,49 +128,38 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         bottomSheet.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         bottomSheet.setAdapter(adapter);
 
-        bottomSheetBehavior = BottomSheetBehavior.from(scroll);
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+        int maxHeight = (int) (WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.6f);
+        ViewGroup.LayoutParams params = redPackets.getLayoutParams();
+        params.height = maxHeight;
+        redPackets.setLayoutParams(params);
+
+        redPacketBehavior = BottomSheetBehavior.from(redPackets);
+        redPacketBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
                 if (i == BottomSheetBehavior.STATE_COLLAPSED) {
                     resultTip.setVisibility(View.VISIBLE);
+                    bottomSheet.setVisibility(View.GONE);
                 } else {
                     resultTip.setVisibility(View.GONE);
+                    bottomSheet.setVisibility(View.VISIBLE);
                 }
                 if (i == BottomSheetBehavior.STATE_EXPANDED) {
                     mapView.setTranslationY(-WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.3f);
-                    mslm = new MapSearchLocationModel();
-                    mslm.taskType = 1;
-//                    location(mslm);
-
                 } else {
                     mapView.setTranslationY(0);
-                    mslm = new MapSearchLocationModel();
-                    mslm.taskType = 1;
-//                    location(mslm);
-                }
-                maxHeight = (int) (WindowHelper.getScreenHeight(MapDiscoverActivity.this) * 0.6f);
-                ViewGroup.LayoutParams params = view.getLayoutParams();
-                if (view.getHeight() > maxHeight) {
-                    params.height = maxHeight;
-                    view.setLayoutParams(params);
                 }
             }
 
             @Override
             public void onSlide(@NonNull View view, float v) {
                 float distance;
-                float secMax = view.getHeight() - bottomSheetBehavior.getPeekHeight() - resultFilter.getHeight();
+                float secMax = view.getHeight() - redPacketBehavior.getPeekHeight() - resultFilter.getHeight();
                 if (v >= 0) {
-                    distance = (view.getHeight() - bottomSheetBehavior.getPeekHeight()) * v;
+                    distance = (view.getHeight() - redPacketBehavior.getPeekHeight()) * v;
                 } else {
-                    distance = bottomSheetBehavior.getPeekHeight() * v;
+                    distance = redPacketBehavior.getPeekHeight() * v;
                 }
-//                if (distance <= view.getHeight() * 0.4f && distance > 0) {
-//                    mapView.setTranslationY(-distance);
-//                } else if (distance < 0) {
-//                    mapView.setTranslationY(0);
-//                }
                 if (distance >= secMax) {
                     resultFilter.setTranslationY(-distance + secMax - distance);
                 } else {
@@ -170,6 +167,36 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
                 }
             }
         });
+    }
+
+    private void initDetails() {
+        //设置banner和details的高度
+        final int detailsBannerHeight;
+        final int screenHeight = WindowHelper.getScreenHeight(this);
+        ViewGroup.LayoutParams dp = detailsBanner.getLayoutParams();
+        detailsBannerHeight = (int) (screenHeight * 0.3);
+        dp.height = detailsBannerHeight;
+        detailsBanner.setLayoutParams(dp);
+        detailsBanner.setTranslationY(-dp.height);
+
+        ViewGroup.LayoutParams dlp = details.getLayoutParams();
+        dlp.height = screenHeight - detailsBannerHeight;
+        details.setLayoutParams(dlp);
+
+        detailsBehavior = BottomSheetBehavior.from(details);
+        detailsBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+                detailsBanner.setTranslationY(-(1 - v) * detailsBannerHeight);
+            }
+        });
+
+
     }
 
     private void initResultFilter() {
@@ -222,7 +249,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     private void createPopup() {
         View view = LayoutInflater.from(this).inflate(R.layout.layout_map_pop, null);
-        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, scroll.getHeight());
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, redPackets.getHeight());
 //        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 //        popupWindow.setOutsideTouchable(true);
         popupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
@@ -381,6 +408,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         if (popupWindow != null && popupWindow.isShowing()) {
             clearAllSelected();
             popupWindow.dismiss();
+        } else if (detailsBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            detailsBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         } else {
             super.onBackPressed();
         }
@@ -388,27 +417,16 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     @Override
     public void onLoadFinish(MapRedResultModels mapRedResultModels) {
-//        List<String> images = new ArrayList<>();
-//        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553570201&di=2428cac1e3c8977150dfd3d2d7fd5db9&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F15%2F68%2F59%2F71X58PICNjx_1024.jpg");
-//        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552975482457&di=0324c062a084d72c198e9d71f7de1966&imgtype=0&src=http%3A%2F%2Fimg.juimg.com%2Ftuku%2Fyulantu%2F140218%2F330598-14021R23A410.jpg");
-//        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552975482456&di=c4af7ee5fe832edb6956a4f01f920af5&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F40%2F15%2F83V58PICyKZ_1024.jpg");
-//        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552975482456&di=b576cea863cf208421de60e9cde4cefe&imgtype=0&src=http%3A%2F%2Fsc.jb51.net%2Fuploads%2Fallimg%2F150403%2F10-1504031H411E6.jpg");
-//
-//        List<String> titles = new ArrayList<>();
-//        titles.add("asda");
-//        titles.add("asd");
-//        titles.add("asdda");
-//        titles.add("asasdda");
-//        dialog.setDataBeforeStart(images, titles);
-//        dialog.startAnimation();
         if (mapRedResultModels.list.isEmpty()) {
             error.setVisibility(View.VISIBLE);
             bottomSheet.setVisibility(View.GONE);
+            resultTip.setText("暂无结果");
         } else {
             error.setVisibility(View.GONE);
             bottomSheet.setVisibility(View.VISIBLE);
+            resultTip.setText("共找到" + mapRedResultModels.list.size() + "个红包");
         }
-        recyclerData=mapRedResultModels.list;
+        recyclerData = mapRedResultModels.list;
         adapter.setData(mapRedResultModels.list);
         refreshPoi(mapRedResultModels.list);
     }
@@ -425,8 +443,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             poiOverlay.addMapMarker(new MapMarker.Builder()
                     .position(Double.valueOf(model.pubLatitude), Double.valueOf(model.pubLongitude))
 //                    .icon(BitmapFactory.decodeResource(getResources(),R.mipmap.icon_map_rede_packet))
-                    .title("123132")
-                    .infoWindowEnable(true)
                     .anchor(0.5f, 0.5f)
                     .build());
         }
@@ -435,9 +451,9 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     @Override
     public void onClick(View v) {
-        mslm = new MapSearchLocationModel();
         switch (v.getId()) {
             case R.id.smartOrder:
+                //暂时无用
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(titles[0]);
                 selectOne(v);
                 resultFilter.getChildAt(0).setSelected(false);
@@ -446,8 +462,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             case R.id.maxPeople:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_max_people);
                 selectOne(v);
-                mslm.taskType = 3;
-                mslm.type = "1";
+                mslm.taskType = 2;
+                mslm.orderType = "1";
                 location(mslm);
                 resultFilter.getChildAt(0).setSelected(false);
                 popupWindow.dismiss();
@@ -455,8 +471,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             case R.id.maxCount:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_max_count);
                 selectOne(v);
-                mslm.taskType = 3;
-                mslm.type = "2";
+                mslm.taskType = 2;
+                mslm.orderType = "2";
                 location(mslm);
                 resultFilter.getChildAt(0).setSelected(false);
                 popupWindow.dismiss();
@@ -464,8 +480,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             case R.id.minDistance:
                 ((TextView) resultFilter.getChildAt(0).findViewById(R.id.title)).setText(R.string.discover_order_min_distance);
                 selectOne(v);
-                mslm.taskType = 3;
-                mslm.type = "3";
+                mslm.taskType = 2;
+                mslm.orderType = "3";
                 location(mslm);
                 resultFilter.getChildAt(0).setSelected(false);
                 popupWindow.dismiss();
@@ -479,19 +495,19 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
                 List<Integer> n = number.getResult();
                 List<Integer> m = money.getResult();
                 List<Integer> t = type.getResult();
-                mslm.taskType = 4;
+                mslm.taskType = 2;
                 if (!t.isEmpty()) {
-                    mslm.type = t.toString().substring(1, t.toString().length() - 1);
+                    mslm.redPacketType = t.toString().substring(1, t.toString().length() - 1).replaceAll(" ", "");
                 } else {
-                    mslm.type = "";
+                    mslm.redPacketType = "";
                 }
                 if (!n.isEmpty()) {
-                    mslm.number = n.toString().substring(1, n.toString().length() - 1);
+                    mslm.number = n.toString().substring(1, n.toString().length() - 1).replaceAll(" ", "");
                 } else {
                     mslm.number = "";
                 }
                 if (!m.isEmpty()) {
-                    mslm.amount = m.toString().substring(1, m.toString().length() - 1);
+                    mslm.amount = m.toString().substring(1, m.toString().length() - 1).replaceAll(" ", "");
                 } else {
                     mslm.amount = "";
                 }
@@ -514,10 +530,35 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     @Override
     public void onItemClick(MapDiscoverBottomSheetAdapter.ViewHolder viewHolder, int position) {
-//        dialog = new RedPacketDialog(this);
-//        dialog.setOnOpenListener(this);
-//        dialog.show();
-        MapUtils.moveToSpan(aMap,Double.valueOf(recyclerData.get(position).pubLatitude),Double.valueOf(recyclerData.get(position).pubLongitude));
+        MapUtils.moveToSpan(aMap, Double.valueOf(recyclerData.get(position).pubLatitude), Double.valueOf(recyclerData.get(position).pubLongitude));
+        Marker marker = poiOverlay.findMarkerByPosition(position);
+        marker.showInfoWindow();
+        //设置banner图片
+        initBanner(recyclerData.get(position));
+        //设置details数据
+
+        //显示
+        if (detailsBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            detailsBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+    }
+
+    private void initBanner(MapRedResultModels.MapRedResultModel data) {
+        List<String> images = new ArrayList<>();
+        if (data.image1Url != null) images.add(data.image1Url);
+        if (data.image2Url != null) images.add(data.image2Url);
+        if (data.image3Url != null) images.add(data.image3Url);
+        if (data.image4Url != null) images.add(data.image4Url);
+        if (data.image5Url != null) images.add(data.image5Url);
+        if (data.image6Url != null) images.add(data.image6Url);
+        detailsBanner.setImages(images);
+        detailsBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        detailsBanner.setImageLoader(new GlideImageLoader());
+        detailsBanner.setBannerAnimation(Transformer.Default);
+        detailsBanner.isAutoPlay(true);
+        detailsBanner.setDelayTime(8000);
+        detailsBanner.setIndicatorGravity(BannerConfig.CENTER);
+        detailsBanner.start();
     }
 
     @Override
@@ -541,6 +582,12 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
                     }
                 });
     }
+    //        dialog.setDataBeforeStart(images, titles);
+//        dialog.startAnimation();
+//
+//        dialog = new RedPacketDialog(this);
+//        dialog.setOnOpenListener(this);
+//        dialog.show();
 
     private void openRedPacket() {
         ToastUtils.Toast(MapDiscoverActivity.this, "开始模拟网络请求");
@@ -555,18 +602,18 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        ToastUtils.Toast(this,marker.getId());
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        ToastUtils.Toast(this, marker.getId());
+        redPacketBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         return false;
     }
 
     @Override
     public void onTouch(MotionEvent motionEvent) {
-        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN&&bottomSheetBehavior.getState()!=BottomSheetBehavior.STATE_COLLAPSED){
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && redPacketBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED && detailsBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            redPacketBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            popupWindow.dismiss();
         }
     }
-
 
     public static class LocationHandler extends Handler {
         WeakReference<Activity> mActivityReference;
@@ -580,18 +627,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             MapSearchLocationModel m = msg.getData().getParcelable("info");
             Double longitude = msg.getData().getDouble("longitude");
             Double latitude = msg.getData().getDouble("latitude");
-            switch (m.taskType) {
-                case 1:
-                    break;
-                case 2:
-                    new MapSearchTask(mActivityReference.get(), mActivityReference.get()).setClass(longitude + "", latitude + "").request();
-                    break;
-                case 3:
-                    new MapSearchOrderTask(mActivityReference.get(), mActivityReference.get()).setClass(longitude + "", latitude + "", m.type).request();
-                    break;
-                case 4:
-                    new MapSearchFilterTask(mActivityReference.get(), mActivityReference.get()).setClass(longitude + "", latitude + "", m.type, m.number, m.amount).request();
-                    break;
+            if (m != null && m.taskType != 1) {
+                new MapSearchTask(mActivityReference.get(), mActivityReference.get()).setClass(longitude + "", latitude + "", m.orderType, m.redPacketType, m.number, m.amount).request();
             }
         }
     }

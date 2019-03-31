@@ -85,5 +85,8 @@ public class PoiOverlay {
         return null;
     }
 
+    public Marker findMarkerByPosition(int postion){
+        return markers.get(postion);
+    }
 
 }

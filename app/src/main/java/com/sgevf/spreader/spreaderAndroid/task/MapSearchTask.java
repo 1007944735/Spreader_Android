@@ -17,9 +17,13 @@ public class MapSearchTask extends BaseService<PubService, MapRedResultModels> {
         super(mActivity, mTarget);
     }
 
-    public MapSearchTask setClass(String longitude, String latitude) {
+    public MapSearchTask setClass(String longitude, String latitude, String orderType, String redPacketType, String number, String amount) {
         params.put("longitude", longitude);
         params.put("latitude", latitude);
+        params.put("orderType", orderType);//1 人数最多，2 金额最大，3 距离最近
+        params.put("redPacketType", redPacketType);//0 随机红包,1 固定红包
+        params.put("number", number);
+        params.put("amount", amount);
         return this;
     }
 
@@ -31,7 +35,7 @@ public class MapSearchTask extends BaseService<PubService, MapRedResultModels> {
 
     @Override
     public void onSuccess(MapRedResultModels mapRedResultModels) {
-        if(mTarget instanceof MapDiscoverActivity){
+        if (mTarget instanceof MapDiscoverActivity) {
             ((MapDiscoverActivity) mTarget).onLoadFinish(mapRedResultModels);
         }
     }

@@ -102,8 +102,6 @@ public class RedPacketDialog extends Dialog implements View.OnClickListener{
 
     private void initReverse() {
         initBanner();
-        details.measure(0, 0);
-        details.getMeasuredHeight();
         details.setmDrawListener(new CustomRelativeLayout.OnDrawListener() {
             @Override
             public void onDrawStart() {

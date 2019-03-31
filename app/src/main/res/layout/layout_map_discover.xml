@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -31,14 +32,22 @@
         android:elevation="2dp"
         android:orientation="horizontal" />
 
+    <com.youth.banner.Banner
+        android:id="@+id/details_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/white">
+
+    </com.youth.banner.Banner>
+
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll"
+        android:id="@+id/redPackets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:elevation="2dp"
         app:behavior_peekHeight="40dp"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        android:background="@color/colorWhite">
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,7 +60,7 @@
                 android:layout_height="40dp"
                 android:background="@color/colorWhite"
                 android:gravity="center"
-                android:text="搜索结果" />
+                tools:text="搜索结果" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/bottom_sheet"
@@ -61,13 +70,28 @@
                 android:visibility="gone">
 
             </android.support.v7.widget.RecyclerView>
+
             <TextView
                 android:id="@+id/error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="周围活动暂时没有符合条件。。。"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:elevation="2dp"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <include
+            android:id="@+id/details_layout"
+            layout="@layout/layout_map_discover_details" />
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
