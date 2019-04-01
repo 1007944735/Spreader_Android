@@ -83,4 +83,8 @@
     <string name="discover_order_money">金额</string>
     <string name="discover_order_reset">重置</string>
     <string name="discover_order_confirm">确定</string>
+    <string name="discover_red_packet_sponsor">发起人</string>
+    <string name="discover_red_packet_activity_info">活动信息</string>
+    <string name="discover_red_packet_info">红包信息</string>
+    <string name="discover_red_packet_navigation">地图导航</string>
 </resources>

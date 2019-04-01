@@ -44,4 +44,13 @@ public interface UserService {
     @POST("S0004")
     @Multipart
     Observable<BasicResult<String>> update(@PartMap Map<String, RequestBody> data);
+
+    /**
+     * 修改密码
+     * @param data
+     * @return
+     */
+    @POST("S0009")
+    @Multipart
+    Observable<BasicResult<String>> updatePassword(@PartMap Map<String, RequestBody> data);
 }

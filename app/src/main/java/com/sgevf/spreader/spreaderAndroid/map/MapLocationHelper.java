@@ -55,7 +55,7 @@ public class MapLocationHelper {
                         listener.onLocationChange(aMapLocation);
                     } else {
                         //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                        Log.e("AMapError", "location Error, ErrCode:"
+                        Log.e("AMapError", "locationCallBack Error, ErrCode:"
                                 + aMapLocation.getErrorCode() + ", errInfo:"
                                 + aMapLocation.getErrorInfo());
                     }

@@ -6,11 +6,14 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
+import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.task.UpdateInfoTask;
+import com.sgevf.spreader.spreaderAndroid.task.UpdatePasswordTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import butterknife.BindView;
@@ -79,10 +82,17 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
                         .setRight(R.string.user_center_complete, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String oldp = oldPass.getText().toString().trim();
+                                String oldP = oldPass.getText().toString().trim();
                                 String newP = newPass.getText().toString().trim();
                                 String reP = rePass.getText().toString().trim();
                                 data=newP;
+                                if(!newP.isEmpty()&&newP.equals(reP)) {
+                                    new UpdatePasswordTask(UpdateUserActivity.this,UpdateUserActivity.this).setClass(oldP,newP).request();
+                                }else {
+                                    ToastUtils.Toast(UpdateUserActivity.this,"密码不一致");
+                                }
+
+
                             }
                         });
 
@@ -93,6 +103,7 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
 
     @Override
     public void onLoadFinish(String s) {
+        ToastUtils.Toast(this,s);
         Intent intent=new Intent();
         intent.putExtra("data",data);
         if(type==1){

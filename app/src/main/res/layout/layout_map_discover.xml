@@ -29,7 +29,6 @@
         android:layout_height="40dp"
         android:layout_gravity="bottom"
         android:background="@drawable/bg_border_gray_bottom"
-        android:elevation="2dp"
         android:orientation="horizontal" />
 
     <com.youth.banner.Banner
@@ -45,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        android:elevation="2dp"
         app:behavior_peekHeight="40dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
@@ -85,13 +83,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        android:elevation="2dp"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
-        <include
-            android:id="@+id/details_layout"
-            layout="@layout/layout_map_discover_details" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/requestLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+            <include
+                android:id="@+id/details_layout"
+                layout="@layout/layout_map_discover_details"
+                android:visibility="gone" />
+        </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

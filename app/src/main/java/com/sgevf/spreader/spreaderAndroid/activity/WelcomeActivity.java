@@ -16,6 +16,7 @@ import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideConfig;
 import com.sgevf.spreader.spreaderAndroid.map.MapLocationHelper;
+import com.sgevf.spreader.spreaderAndroid.map.MapPathPlanHelper;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.task.InitTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
@@ -96,8 +97,10 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     }
 
     public void jump(View view) {
-        Intent intent=new Intent(this, TestActivity.class);
-        startActivity(intent);
+//        Intent intent=new Intent(this, TestActivity.class);
+//        startActivity(intent);
+        MapPathPlanHelper helper=new MapPathPlanHelper(this);
+        helper.walkPathPlan(116.479271,39.996678,116.468939,39.997796);
     }
 
     @Override

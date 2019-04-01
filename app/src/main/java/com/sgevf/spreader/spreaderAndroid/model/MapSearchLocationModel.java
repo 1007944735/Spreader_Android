@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class MapSearchLocationModel implements Parcelable {
-    public int taskType; //1 不发送信息 2 发送MapSearchTask
     public String orderType; //1 人数最多，2 金额最大，3 距离最近
     public String redPacketType;//0 随机红包,1 固定红包
     public String number;
@@ -18,7 +17,6 @@ public class MapSearchLocationModel implements Parcelable {
     }
 
     protected MapSearchLocationModel(Parcel in) {
-        taskType = in.readInt();
         orderType = in.readString();
         redPacketType = in.readString();
         number = in.readString();
@@ -27,7 +25,6 @@ public class MapSearchLocationModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(taskType);
         dest.writeString(orderType);
         dest.writeString(redPacketType);
         dest.writeString(number);
