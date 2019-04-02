@@ -16,10 +16,10 @@ public class RedPacketDetailsTask extends BaseService<PubService, RedPacketDetai
         super(mActivity, mTarget);
     }
 
-    public RedPacketDetailsTask setClass(int redPacketId,String longitude,String latitude){
-        params.put("redPacketId",redPacketId+"");
-        params.put("longitude",longitude);
-        params.put("latitude",latitude);
+    public RedPacketDetailsTask setClass(int redPacketId, String longitude, String latitude) {
+        params.put("redPacketId", redPacketId + "");
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
         return this;
     }
 
@@ -30,7 +30,7 @@ public class RedPacketDetailsTask extends BaseService<PubService, RedPacketDetai
 
     @Override
     public void onSuccess(RedPacketDetailsModel redPacketDetailsModel) {
-        if(mTarget instanceof MapDiscoverActivity){
+        if (mTarget instanceof MapDiscoverActivity) {
             ((MapDiscoverActivity) mTarget).initDetailsLayout(redPacketDetailsModel);
         }
     }

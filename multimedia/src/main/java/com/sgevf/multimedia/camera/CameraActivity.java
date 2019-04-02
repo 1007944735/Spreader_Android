@@ -51,9 +51,9 @@ public class CameraActivity extends AppCompatActivity implements TextureView.Sur
         if (set != null) {
             set.resume();
         }
-        if(preview.isAvailable()){
+        if (preview.isAvailable()) {
             helper.openCamera(preview.getWidth(), preview.getHeight(), CameraConstant.CAMERA_REAR);
-        }else {
+        } else {
             preview.setSurfaceTextureListener(this);
         }
     }
@@ -157,7 +157,7 @@ public class CameraActivity extends AppCompatActivity implements TextureView.Sur
     @Override
     protected void onPause() {
         super.onPause();
-        if(set!=null) {
+        if (set != null) {
             set.pause();
         }
         helper.closeCamera();
@@ -167,7 +167,7 @@ public class CameraActivity extends AppCompatActivity implements TextureView.Sur
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(set!=null) {
+        if (set != null) {
             set.cancel();
             set = null;
         }

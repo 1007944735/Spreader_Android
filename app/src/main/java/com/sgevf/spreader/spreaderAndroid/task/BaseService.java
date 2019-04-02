@@ -13,8 +13,8 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class BaseService<T, S> extends BasicApi<T, S> {
 
-    public BaseService(Activity mActivity,Object mTarget) {
-        super(mActivity,mTarget);
+    public BaseService(Activity mActivity, Object mTarget) {
+        super(mActivity, mTarget);
         String token = UserConfig.getToken(mActivity);
         if (params != null && !TextUtils.isEmpty(token)) {
             params.put("token", token);
@@ -52,8 +52,8 @@ public abstract class BaseService<T, S> extends BasicApi<T, S> {
 
     @Override
     public void onFail(String reCode) {
-        if("400".equals(reCode)){
-            mActivity.startActivity(new Intent(mActivity, LoginActivity.class).putExtra("isBacktoHome",false));
+        if ("400".equals(reCode)) {
+            mActivity.startActivity(new Intent(mActivity, LoginActivity.class).putExtra("isBacktoHome", false));
         }
     }
 

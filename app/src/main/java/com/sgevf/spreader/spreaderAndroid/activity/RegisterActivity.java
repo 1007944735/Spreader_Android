@@ -40,12 +40,12 @@ public class RegisterActivity extends BaseLoadingActivity<String> {
         setContentView(R.layout.layout_register);
         ButterKnife.bind(this);
         new HeaderView(this).setTitle(R.string.register);
-        new ValidateCodeTask(this,this).request();
+        new ValidateCodeTask(this, this).request();
     }
 
     @OnClick(R.id.image_code)
     public void showImageCode(View view) {
-        new ValidateCodeTask(this,this).request();
+        new ValidateCodeTask(this, this).request();
     }
 
     @OnClick(R.id.register)
@@ -54,7 +54,7 @@ public class RegisterActivity extends BaseLoadingActivity<String> {
         String pw = password.getText().toString().trim();
         String c = code.getText().toString().trim();
 
-        new RegisterTask(this,this).setClass(un, pw, uuid, c).request();
+        new RegisterTask(this, this).setClass(un, pw, uuid, c).request();
     }
 
     public void show(ValidateCodeModel model) {

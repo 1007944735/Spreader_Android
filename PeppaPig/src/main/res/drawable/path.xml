@@ -1,8 +1,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="200dp"
-        android:height="300dp"
-        android:viewportHeight="1050"
-        android:viewportWidth="700">
+    android:width="200dp"
+    android:height="300dp"
+    android:viewportHeight="1050"
+    android:viewportWidth="700">
     <group
         android:scaleX="5.0"
         android:scaleY="5.0">
@@ -10,133 +10,133 @@
             android:name="start"
             android:pathData=" M35,15 A7,10 20,0 1 22,39 A7,10 20,1 1 35,15"
             android:strokeColor="#EFA2CC"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start2"
             android:pathData="M22,28 A2,2 0,1 0 22,27"
-            android:fillColor="#EFA2CC"/>
+            android:fillColor="#EFA2CC" />
 
         <path
             android:name="start3"
             android:pathData="M30,28 A2,2 0,1 0 30,27"
-            android:fillColor="#EFA2CC"/>
+            android:fillColor="#EFA2CC" />
 
         <path
             android:name="start4"
             android:pathData="M33,14 Q75,15 100,40 Q114,62 100,80 Q79,103 51,78 Q42,65 50,53 Q34,50 22,39 A7,10 20,1 0 35,15"
             android:strokeColor="#EFA2CC"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start5"
             android:pathData="M60,18 A7,12 20,1 1 70,20"
             android:strokeColor="#EFA2CC"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start6"
             android:pathData="M78,24 A7,12 20,1 1 87,29"
             android:strokeColor="#EFA2CC"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start7"
             android:pathData="M48,30 A5,5 0,1 0 48,29"
             android:strokeColor="#ffffff"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start8"
             android:pathData="M63,35 A5,5 0,1 0 63,34"
             android:strokeColor="#ffffff"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start9"
             android:pathData="M50,30 A2,2 0,1 0 50,29"
-            android:fillColor="#000000"/>
+            android:fillColor="#000000" />
 
         <path
             android:name="start10"
             android:pathData="M65,35 A2,2 0,1 0 65,34"
-            android:fillColor="#000000"/>
+            android:fillColor="#000000" />
 
         <path
             android:name="start11"
             android:pathData="M80,68 A10,10 0,1 0 80,67"
             android:strokeColor="#F2A7C8"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start12"
             android:pathData="M77,71 Q60,80 54,64"
             android:strokeColor="#D9518F"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start13"
             android:pathData="M100,80 Q113,100 113 135 L33,135 Q33,90 51,78"
             android:strokeColor="#DC2611"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start13_2"
-            android:pathData="M51,79 Q79,104 100,81 Q113,100 113 135 L33,135 Q33,90 51,78"/>
+            android:pathData="M51,79 Q79,104 100,81 Q113,100 113 135 L33,135 Q33,90 51,78" />
 
         <path
             android:name="start14"
             android:pathData="M16,104 L41,90"
             android:strokeColor="#EBC5DC"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start15"
             android:pathData="M23,107 Q25,98 16,98"
             android:strokeColor="#EBC5DC"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start16"
             android:pathData="M130,106 L108,94"
             android:strokeColor="#EBC5DC"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start17"
             android:pathData="M126,110 Q124,102 130,99"
             android:strokeColor="#EBC5DC"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start18"
             android:pathData="M126,125 Q125,132 114,130"
             android:strokeColor="#EBC5DC"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start19"
             android:pathData="M65,140 L65,136"
             android:strokeColor="#EBC5DC"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start20"
             android:pathData="M62,140 L68,140 L68,152 L55,152 A5,4 0,1 1 60,146 L62,146 L62,140"
             android:strokeColor="#E6D837"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
         <path
             android:name="start21"
             android:pathData="M88,140 L88,136"
             android:strokeColor="#EBC5DC"
-            android:strokeWidth="3"/>
+            android:strokeWidth="3" />
 
         <path
             android:name="start22"
             android:pathData="M85,140 L91,140 L91,152 L78,152 A5,4 0,1 1 83,146 L85,146 L85,140"
             android:strokeColor="#E6D837"
-            android:strokeWidth="2"/>
+            android:strokeWidth="2" />
 
     </group>
 </vector>

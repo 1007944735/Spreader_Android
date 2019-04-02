@@ -64,11 +64,11 @@ public class ExpandActivity extends BaseActivity {
                 .setRight("完成", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent();
-                        infos.title=inputTitle.getText().toString().trim();
-                        infos.info=inputInfo.getText().toString().trim();
-                        intent.putExtra("infos",infos);
-                        setResult(2001,intent);
+                        Intent intent = new Intent();
+                        infos.title = inputTitle.getText().toString().trim();
+                        infos.info = inputInfo.getText().toString().trim();
+                        intent.putExtra("infos", infos);
+                        setResult(2001, intent);
                         finish();
                     }
                 });
@@ -78,8 +78,8 @@ public class ExpandActivity extends BaseActivity {
     }
 
     private void init() {
-        infos=getIntent().getParcelableExtra("infos");
-        if(infos!=null){
+        infos = getIntent().getParcelableExtra("infos");
+        if (infos != null) {
             inputTitle.setText(infos.title);
             inputInfo.setText(infos.info);
             //图片
@@ -104,8 +104,8 @@ public class ExpandActivity extends BaseActivity {
                 }
             });
 
-        }else {
-            infos=new ExpandInfoModel();
+        } else {
+            infos = new ExpandInfoModel();
         }
     }
 

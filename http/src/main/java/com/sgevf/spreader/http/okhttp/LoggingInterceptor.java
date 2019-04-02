@@ -20,18 +20,18 @@ import okio.Buffer;
 public class LoggingInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request=chain.request();
-        long startTime=System.nanoTime();
-        Log.d("Http","发送请求Url："+request.url());
-        if(!(request.body() instanceof MultipartBody)) {
+        Request request = chain.request();
+        long startTime = System.nanoTime();
+        Log.d("Http", "发送请求Url：" + request.url());
+        if (!(request.body() instanceof MultipartBody)) {
             Log.d("Http", "发送请求：" + bodyToString(request.body()));
         }
-        Response response=chain.proceed(request);
-        long endTime=System.nanoTime();
-        ResponseBody body=response.peekBody(1024*1024);
-        Log.d("Http", "接收响应Url: "+response.request().url());
-        Log.d("Http", "接收响应: "+body.string());
-        Log.d("Http", "响应时间: "+(endTime - startTime) / 1e6d);
+        Response response = chain.proceed(request);
+        long endTime = System.nanoTime();
+        ResponseBody body = response.peekBody(1024 * 1024);
+        Log.d("Http", "接收响应Url: " + response.request().url());
+        Log.d("Http", "接收响应: " + body.string());
+        Log.d("Http", "响应时间: " + (endTime - startTime) / 1e6d);
         return response;
     }
 
@@ -43,7 +43,7 @@ public class LoggingInterceptor implements Interceptor {
                 copy.writeTo(buffer);
             else
                 return "";
-            return URLDecoder.decode(buffer.readUtf8(),"utf-8");
+            return URLDecoder.decode(buffer.readUtf8(), "utf-8");
         } catch (final IOException e) {
             return "did not work";
         }

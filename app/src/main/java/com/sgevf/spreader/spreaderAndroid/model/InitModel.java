@@ -6,6 +6,6 @@ public class InitModel {
     public String publicKey;
 
     public InitModel(JSONObject obj) {
-        this.publicKey =obj.optString("publicKey");
+        this.publicKey = obj.optString("publicKey");
     }
 }

@@ -7,6 +7,7 @@
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <ImageButton
         android:id="@+id/cancel"
         android:layout_width="60dp"
@@ -18,7 +19,7 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/icon_camera_cancel"
         android:background="@android:color/transparent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/capture"
@@ -42,5 +43,5 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/icon_camera_confirm"
         android:background="@android:color/transparent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

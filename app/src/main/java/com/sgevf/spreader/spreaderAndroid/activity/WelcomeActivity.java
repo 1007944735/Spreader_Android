@@ -42,10 +42,10 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
 
     private void init() {
         //配置glide
-        GlideConfig.errorId=R.mipmap.icon_head_image_default;
-        GlideConfig.placeHolder=R.mipmap.icon_head_image_default;
-        GlideConfig.fallBack=R.mipmap.icon_head_image_default;
-        new InitTask(this,this).request();
+        GlideConfig.errorId = R.mipmap.icon_head_image_default;
+        GlideConfig.placeHolder = R.mipmap.icon_head_image_default;
+        GlideConfig.fallBack = R.mipmap.icon_head_image_default;
+        new InitTask(this, this).request();
     }
 
     private void initMap() {
@@ -99,13 +99,13 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     public void jump(View view) {
 //        Intent intent=new Intent(this, TestActivity.class);
 //        startActivity(intent);
-        MapPathPlanHelper helper=new MapPathPlanHelper(this);
-        helper.walkPathPlan(116.479271,39.996678,116.468939,39.997796);
+        MapPathPlanHelper helper = new MapPathPlanHelper(this);
+        helper.walkPathPlan(116.479271, 39.996678, 116.468939, 39.997796);
     }
 
     @Override
     public void onLoadFinish(InitModel initModel) {
-        UserConfig.setPublicKey(this,initModel.publicKey);
+        UserConfig.setPublicKey(this, initModel.publicKey);
 
     }
 }

@@ -38,7 +38,7 @@ public class MapRedResultModels implements Parcelable {
     }
 
 
-    public static class MapRedResultModel implements Parcelable{
+    public static class MapRedResultModel implements Parcelable {
         public Integer id;
         public Double amount;
         public String type;

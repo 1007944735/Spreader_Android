@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <com.sgevf.multimedia.video.MediaVideo
         android:id="@+id/mediaVideo"
         android:layout_width="match_parent"

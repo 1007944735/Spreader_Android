@@ -22,6 +22,4 @@ public class VideoProgressBar extends ProgressBar {
     }
 
 
-
-
 }

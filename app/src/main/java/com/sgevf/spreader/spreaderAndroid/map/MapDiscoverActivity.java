@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.map;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -16,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -27,28 +29,30 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.services.core.AMapException;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.BusStep;
 import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.DriveStep;
 import com.amap.api.services.route.RouteBusLineItem;
-import com.amap.api.services.route.RouteBusWalkItem;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
+import com.autonavi.amap.mapcore.Inner_3dMap_location;
 import com.sgevf.multimedia.video.VideoThreeActivity;
 import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
-import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
+import com.sgevf.spreader.spreaderAndroid.map.overlay.PoiOverlay;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.MapSearchLocationModel;
 import com.sgevf.spreader.spreaderAndroid.model.RedPacketDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.task.MapSearchTask;
 import com.sgevf.spreader.spreaderAndroid.task.RedPacketDetailsTask;
 import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
+import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 import com.sgevf.spreader.spreaderAndroid.view.RedPacketDialog;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -93,8 +97,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     ImageView sponsorImage;
     @BindView(R.id.sponsor_name)
     TextView sponserName;
-    @BindView(R.id.title)
-    TextView title;
+    @BindView(R.id.headline)
+    TextView headline;
     @BindView(R.id.describe)
     TextView describe;
     @BindView(R.id.address)
@@ -113,6 +117,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     TextView bus;
     @BindView(R.id.requestLoading)
     ProgressBar requestLoading;
+    @BindView(R.id.open)
+    Button open;
 
     AMap aMap;
     MyLocationStyle myLocationStyle;
@@ -146,6 +152,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_map_discover);
         ButterKnife.bind(this);
+        new HeaderView(this).setToolbarBackground(android.R.color.transparent);
         init();
         //创建地图
         initMap(savedInstanceState);
@@ -402,6 +409,36 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         dialog.show();
     }
 
+    @OnClick(R.id.walk)
+    public void walk() {
+        //导航
+        Intent intent=new Intent(this,MapNavigationActivity.class);
+        intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
+        intent.putExtra("location",curLocation);
+        intent.putExtra("tripWay",1);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.driving)
+    public void driving() {
+        //导航
+        Intent intent=new Intent(this,MapNavigationActivity.class);
+        intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
+        intent.putExtra("location",curLocation);
+        intent.putExtra("tripWay",2);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.bus)
+    public void bus() {
+        //导航
+        Intent intent=new Intent(this,MapNavigationActivity.class);
+        intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
+        intent.putExtra("location",curLocation);
+        intent.putExtra("tripWay",2);
+        startActivity(intent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -421,6 +458,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             popupWindow.dismiss();
         }
         popupWindow = null;
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     @Override
@@ -469,21 +510,21 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         //加载detailsLayout数据
         GlideManager.circleImage(this, model.sponserImage, sponsorImage);
         sponserName.setText(model.sponserName);
-        title.setText(model.title);
+        headline.setText(model.title);
         describe.setText(model.info);
         address.setText(model.pubAddress);
 
         long et = DateUtils.reFormat(model.endTime);
         long ct = new Date().getTime();
         timer = new Timer(et - ct, 1000);
-        timer.setView(remainingTime);
+        timer.setView(remainingTime, open);
         timer.start();
 
         redPacketInfo.setText(model.distance + "M | " + model.maxNumber + "人 | " + model.amount + "元");
         time.setText(model.startTime + "~" + model.endTime);
         pathHelper.walkPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude));
         pathHelper.drivingPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude));
-        pathHelper.busPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude), UserConfig.getAdCode(this));
+        pathHelper.busPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude), ((Inner_3dMap_location) curLocation).getCityCode());
         requestLoading.setVisibility(View.GONE);
         //数据加载完才显示
         detailsLayout.setVisibility(View.VISIBLE);
@@ -496,8 +537,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         if (poiOverlay == null) {
             poiOverlay = new PoiOverlay(aMap);
         }
-//        poiOverlay.clearAllMarker();
-        aMap.clear();
+        poiOverlay.clearAllMarker();
         for (MapRedResultModels.MapRedResultModel model : data) {
             poiOverlay.addMapMarker(new MapMarker.Builder()
                     .position(Double.valueOf(model.pubLatitude), Double.valueOf(model.pubLongitude))
@@ -653,7 +693,16 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        int p = poiOverlay.getPosition(marker);
+        if (p != -1) {
+            //设置banner图片
+            initBanner(recyclerData.get(p));
+            //设置loading为true，请求后台，加载detailsLayout数据
+            loading = true;
+            clickPosition = p;
+        }
         redPacketBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        detailsBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         return false;
     }
 
@@ -666,41 +715,66 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     }
 
     @Override
-    public void walkRoutePlan(WalkRouteResult result) {
-        float d = 0;
-        float t = 0;
-        for (WalkStep step : result.getPaths().get(0).getSteps()) {
-            d += step.getDistance();
-            t += step.getDuration();
+    public void walkRoutePlan(WalkRouteResult result, int i) {
+        if (i == AMapException.CODE_AMAP_SUCCESS) {
+            float d = 0;
+            float t = 0;
+            for (WalkStep step : result.getPaths().get(0).getSteps()) {
+                d += step.getDistance();
+                t += step.getDuration();
+            }
+            walk.setText(d + "米/约" + (int) t / 60 + "分");
+            walk.setEnabled(true);
+        } else {
+            walk.setText("暂无");
+            walk.setEnabled(false);
         }
-        walk.setText(d + "米/约" + (int) t / 60 + "分");
     }
 
     @Override
-    public void drivingRoutePlan(DriveRouteResult result) {
-        float d = 0;
-        float t = 0;
-        for (DriveStep step : result.getPaths().get(0).getSteps()) {
-            d += step.getDistance();
-            t += step.getDuration();
+    public void drivingRoutePlan(DriveRouteResult result, int i) {
+        if (i == AMapException.CODE_AMAP_SUCCESS) {
+            float d = 0;
+            float t = 0;
+            for (DriveStep step : result.getPaths().get(0).getSteps()) {
+                d += step.getDistance();
+                t += step.getDuration();
+            }
+            driving.setText(d + "米/约" + (int) t / 60 + "分");
+            driving.setEnabled(true);
+        } else {
+            driving.setText("暂无");
+            driving.setEnabled(false);
         }
-        driving.setText(d + "米/约" + (int) t / 60 + "分");
+
     }
 
     @Override
-    public void busRoutePlan(BusRouteResult result) {
-        float d = 0;
-        float t = 0;
-        List<BusStep> steps = result.getPaths().get(0).getSteps();
-        for (RouteBusLineItem step : steps.get(0).getBusLines()) {
-            d += step.getDistance();
-            t += step.getDuration();
+    public void busRoutePlan(BusRouteResult result, int i) {
+        if (i == AMapException.CODE_AMAP_SUCCESS) {
+            float d = 0;
+            float t = 0;
+            if (result.getPaths().isEmpty()) {
+                bus.setText("暂无");
+                bus.setEnabled(false);
+                return;
+            }
+            List<BusStep> steps = result.getPaths().get(0).getSteps();
+            for (RouteBusLineItem step : steps.get(0).getBusLines()) {
+                d += step.getDistance();
+                t += step.getDuration();
+            }
+            bus.setText(d + "米/约" + (int) t / 60 + "分");
+            bus.setEnabled(true);
+        } else {
+            bus.setText("暂无");
+            bus.setEnabled(false);
         }
-        bus.setText(d + "米/约" + (int) t / 60 + "分");
     }
 
     class Timer extends CountDownTimer {
         private TextView remainingTime;
+        private Button open;
 
         /**
          * @param millisInFuture    The number of millis in the future from the call
@@ -713,12 +787,18 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             super(millisInFuture, countDownInterval);
         }
 
-        public void setView(TextView view) {
+        public void setView(TextView view, Button open) {
             this.remainingTime = view;
+            this.open = open;
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
+            if (!open.isEnabled()) {
+                open.setBackgroundColor(Color.parseColor("#fa897b"));
+                open.setEnabled(true);
+            }
+
             if (millisUntilFinished >= 0) {
                 int day = (int) (millisUntilFinished / (1000 * 60 * 60 * 24));
                 int hour = (int) (millisUntilFinished % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
@@ -741,6 +821,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         @Override
         public void onFinish() {
             remainingTime.setText("活动已结束");
+            open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
+            open.setEnabled(false);
         }
     }
 }

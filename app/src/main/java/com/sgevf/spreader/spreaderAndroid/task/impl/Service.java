@@ -15,6 +15,7 @@ import retrofit2.http.PartMap;
 public interface Service {
     /**
      * 获取RSA公钥
+     *
      * @return
      */
     @POST("S0000")
@@ -22,6 +23,7 @@ public interface Service {
 
     /**
      * 获取图形验证码
+     *
      * @return
      */
     @POST("S0003")

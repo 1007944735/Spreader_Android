@@ -94,7 +94,7 @@ public class LoginActivity extends BaseLoadingActivity<UserModel> {
         UserConfig.setLoginStatus(this, true);
         if (isBackToHome) {
             startActivity(new Intent(this, HomeActivity.class));
-        }else {
+        } else {
             finish();
         }
     }

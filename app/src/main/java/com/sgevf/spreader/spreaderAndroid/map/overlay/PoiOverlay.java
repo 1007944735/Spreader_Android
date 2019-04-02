@@ -1,4 +1,4 @@
-package com.sgevf.spreader.spreaderAndroid.map;
+package com.sgevf.spreader.spreaderAndroid.map.overlay;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.Marker;
@@ -73,9 +73,7 @@ public class PoiOverlay {
      * 清除所有的marker
      */
     public void clearAllMarker() {
-        for (Marker marker : markers) {
-            marker.remove();
-        }
+        aMap.clear();
         markers.clear();
     }
 
@@ -85,8 +83,17 @@ public class PoiOverlay {
         return null;
     }
 
-    public Marker findMarkerByPosition(int postion){
+    public Marker findMarkerByPosition(int postion) {
         return markers.get(postion);
+    }
+
+    public int getPosition(Marker marker) {
+        for (int i = 0; i < markers.size(); i++) {
+            if (markers.get(i).equals(marker)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

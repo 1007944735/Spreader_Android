@@ -38,6 +38,7 @@ public interface UserService {
 
     /**
      * 修改个人信息（昵称，手机号）
+     *
      * @param data
      * @return
      */
@@ -47,6 +48,7 @@ public interface UserService {
 
     /**
      * 修改密码
+     *
      * @param data
      * @return
      */

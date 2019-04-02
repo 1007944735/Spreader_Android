@@ -24,7 +24,7 @@ public class LoginTask extends BaseService<UserService, UserModel> {
         try {
             String publicKey = UserConfig.getPublicKey(mActivity);
             byte[] pk = RSAUtils.base64Decode(publicKey);
-            String encodePass=RSAUtils.base64Encode(RSAUtils.encryptByPublicKey(password.getBytes("utf-8"),pk));
+            String encodePass = RSAUtils.base64Encode(RSAUtils.encryptByPublicKey(password.getBytes("utf-8"), pk));
             params.put("username", userName);
             params.put("password", encodePass);
         } catch (Exception e) {
@@ -32,7 +32,6 @@ public class LoginTask extends BaseService<UserService, UserModel> {
         }
         return this;
     }
-
 
 
     @Override

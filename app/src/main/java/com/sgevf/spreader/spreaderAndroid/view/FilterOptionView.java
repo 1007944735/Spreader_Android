@@ -116,10 +116,10 @@ public class FilterOptionView extends ViewGroup implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (mode == 0) {
-            if(v.isSelected()){
+            if (v.isSelected()) {
                 v.setSelected(false);
-                selected=null;
-            }else {
+                selected = null;
+            } else {
                 v.setSelected(true);
                 if (selected != null) {
                     selected.setSelected(false);
@@ -127,28 +127,28 @@ public class FilterOptionView extends ViewGroup implements View.OnClickListener 
                 selected = v;
             }
         } else if (mode == 1) {
-            if(v.isSelected()){
+            if (v.isSelected()) {
                 v.setSelected(false);
-            }else {
+            } else {
                 v.setSelected(true);
             }
         }
     }
 
-    public List<Integer> getResult(){
-        List<Integer> list=new ArrayList<>();
-        for(int i=0;i<getChildCount();i++){
-            if(getChildAt(i).isSelected()){
+    public List<Integer> getResult() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < getChildCount(); i++) {
+            if (getChildAt(i).isSelected()) {
                 list.add(i);
             }
         }
         return list;
     }
 
-    public void reset(){
-        for(int i=0;i<getChildCount();i++){
+    public void reset() {
+        for (int i = 0; i < getChildCount(); i++) {
             getChildAt(i).setSelected(false);
         }
-        selected=null;
+        selected = null;
     }
 }

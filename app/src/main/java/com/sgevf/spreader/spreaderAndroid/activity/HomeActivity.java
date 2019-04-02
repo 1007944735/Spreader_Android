@@ -49,7 +49,7 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
         ButterKnife.bind(this);
-        headerView=new HeaderView(this)
+        headerView = new HeaderView(this)
                 .setTitle(R.string.home_title)
                 .setRightIcon(R.mipmap.icon_home_found, new View.OnClickListener() {
                     @Override

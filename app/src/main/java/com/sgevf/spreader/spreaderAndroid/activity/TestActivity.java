@@ -22,6 +22,6 @@ public class TestActivity extends BaseLoadingActivity<String> {
     }
 
     public void upload(View view) {
-        new TestUploadTask(this,this).setClass("/storage/emulated/0/DCIM/browser-photo/1540170514499.jpg","/storage/emulated/0/DCIM/Screenshots/Screenshot_2018-08-08-09-52-22-071_com.miui.home.png").request();
+        new TestUploadTask(this, this).setClass("/storage/emulated/0/DCIM/browser-photo/1540170514499.jpg", "/storage/emulated/0/DCIM/Screenshots/Screenshot_2018-08-08-09-52-22-071_com.miui.home.png").request();
     }
 }

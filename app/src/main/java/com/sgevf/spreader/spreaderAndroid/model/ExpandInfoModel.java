@@ -11,9 +11,10 @@ public class ExpandInfoModel implements Parcelable {
     public List<ExpandPhotoModel> pictures;
     public ExpandVideoModel video;
 
-    public ExpandInfoModel(){
+    public ExpandInfoModel() {
 
     }
+
     protected ExpandInfoModel(Parcel in) {
         title = in.readString();
         info = in.readString();

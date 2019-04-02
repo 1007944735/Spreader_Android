@@ -1,6 +1,7 @@
 package utils;
 
 import javax.crypto.Cipher;
+
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -61,7 +62,7 @@ public class RSAUtils {
      * 私钥加密
      *
      * @param data 待加密数据
-     * @param key       密钥
+     * @param key  密钥
      * @return byte[] 加密数据
      */
     public static byte[] encryptByPrivateKey(byte[] data, byte[] key) throws Exception {
@@ -81,7 +82,7 @@ public class RSAUtils {
      * 公钥加密
      *
      * @param data 待加密数据
-     * @param key       密钥
+     * @param key  密钥
      * @return byte[] 加密数据
      */
     public static byte[] encryptByPublicKey(byte[] data, byte[] key) throws Exception {
@@ -165,19 +166,21 @@ public class RSAUtils {
 
     /**
      * BASE64 编码
+     *
      * @param bytes
      * @return
      */
-    public static String base64Encode(byte[] bytes){
+    public static String base64Encode(byte[] bytes) {
         return Base64.encodeBase64String(bytes);
     }
 
     /**
      * BASE64 解码
+     *
      * @param string
      * @return
      */
-    public static byte[] base64Decode(String string){
+    public static byte[] base64Decode(String string) {
         return Base64.decodeBase64(string);
     }
 

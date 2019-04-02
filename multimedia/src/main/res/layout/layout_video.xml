@@ -3,25 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <Button
         android:id="@+id/btn_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="VideoView和MediaController"/>
+        android:text="VideoView和MediaController" />
+
     <Button
         android:id="@+id/btn_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MediaPlayer+SurfaceView+自定义控制器"/>
+        android:text="MediaPlayer+SurfaceView+自定义控制器" />
+
     <Button
         android:id="@+id/btn_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MediaPlayer+SurfaceView+MediaController"/>
+        android:text="MediaPlayer+SurfaceView+MediaController" />
 
     <com.sgevf.spreader.spreaderAndroid.view.FilterOptionView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

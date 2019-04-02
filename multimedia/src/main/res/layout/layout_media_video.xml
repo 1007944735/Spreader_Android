@@ -7,7 +7,8 @@
     <TextureView
         android:id="@+id/surface"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp" />
+
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
@@ -38,7 +39,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:thumb="@drawable/seekbar_thumb"
-            android:progressDrawable="@drawable/bg_progressbar"/>
+            android:progressDrawable="@drawable/bg_progressbar" />
 
         <TextView
             android:id="@+id/curTime"

@@ -11,7 +11,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 
-public class PubTask extends BaseService<PubService,String> {
+public class PubTask extends BaseService<PubService, String> {
 
 
     public PubTask(Activity mActivity, Object mTarget) {
@@ -25,9 +25,9 @@ public class PubTask extends BaseService<PubService,String> {
 
     @Override
     public void onSuccess(String s) {
-        if (mTarget instanceof HomeFixedFragment){
+        if (mTarget instanceof HomeFixedFragment) {
             ((HomeFixedFragment) mTarget).onLoadFinish(s);
-        }else if(mTarget instanceof HomeRandomFragment){
+        } else if (mTarget instanceof HomeRandomFragment) {
             ((HomeRandomFragment) mTarget).onLoadFinish(s);
         }
     }

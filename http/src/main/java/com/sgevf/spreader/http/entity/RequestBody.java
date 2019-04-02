@@ -9,21 +9,21 @@ import okhttp3.MediaType;
 public class RequestBody {
     private Map<String, okhttp3.RequestBody> map;
 
-    public RequestBody(){
-        map=new HashMap<>();
+    public RequestBody() {
+        map = new HashMap<>();
     }
 
-    public void put(String key,String values){
-        okhttp3.RequestBody body= okhttp3.RequestBody.create(MediaType.parse("text/plain"),values);
-        map.put(key,body);
+    public void put(String key, String values) {
+        okhttp3.RequestBody body = okhttp3.RequestBody.create(MediaType.parse("text/plain"), values);
+        map.put(key, body);
     }
 
-    public void put(String key,File file){
+    public void put(String key, File file) {
         okhttp3.RequestBody body = okhttp3.RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        map.put(key+"\";filename=\"" + file.getName(), body);
+        map.put(key + "\";filename=\"" + file.getName(), body);
     }
 
-    public Map<String, okhttp3.RequestBody> getParam(){
+    public Map<String, okhttp3.RequestBody> getParam() {
         return map;
     }
 }

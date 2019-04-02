@@ -64,6 +64,7 @@
         <activity android:name=".activity.CustomVideoActivity" />
         <activity android:name=".map.MapDiscoverActivity" />
         <activity android:name=".activity.TestActivity" />
+        <activity android:name=".map.MapNavigationActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

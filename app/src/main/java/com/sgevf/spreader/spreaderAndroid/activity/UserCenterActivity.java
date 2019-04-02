@@ -89,7 +89,7 @@ public class UserCenterActivity extends BaseActivity {
         } else if (requestCode == 3000 && resultCode == 3001) {
             //密码
             UserConfig.setLoginStatus(this, false);
-            Intent intent=new Intent(this,HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
     }

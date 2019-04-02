@@ -66,7 +66,7 @@ public class CustomVideoActivity extends BaseActivity implements AdapterView.OnI
     private List<ExpandVideoModel> getSystemVideo() {
         List<ExpandVideoModel> list = new ArrayList<>();
         ContentResolver resolver = getContentResolver();
-        Cursor cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null,null);
+        Cursor cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
         if (cursor == null) {
             return list;
         }

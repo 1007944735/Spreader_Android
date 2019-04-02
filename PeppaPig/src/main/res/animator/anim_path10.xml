@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<objectAnimator
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="@string/time_small"
     android:propertyName="fillColor"
     android:startOffset="5090"
     android:valueFrom="#00F4C7DC"
     android:valueTo="#AA000000"
-    android:valueType="colorType"/>
+    android:valueType="colorType" />

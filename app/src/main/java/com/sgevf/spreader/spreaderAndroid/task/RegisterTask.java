@@ -22,8 +22,8 @@ public class RegisterTask extends BaseService<UserService, String> {
     public RegisterTask setClass(String username, String password, String uuid, String code) {
         try {
             String publicKey = UserConfig.getPublicKey(mActivity);
-            byte[] enData=RSAUtils.encryptByPublicKey(password.getBytes("utf-8"),RSAUtils.base64Decode(publicKey));
-            String base64Data=RSAUtils.base64Encode(enData);
+            byte[] enData = RSAUtils.encryptByPublicKey(password.getBytes("utf-8"), RSAUtils.base64Decode(publicKey));
+            String base64Data = RSAUtils.base64Encode(enData);
             params.put("username", username);
             params.put("password", base64Data);
             params.put("uuuid", uuid);
@@ -33,7 +33,6 @@ public class RegisterTask extends BaseService<UserService, String> {
         }
         return this;
     }
-
 
 
     @Override

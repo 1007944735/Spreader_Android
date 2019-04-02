@@ -39,6 +39,8 @@
 
     </com.youth.banner.Banner>
 
+    <include layout="@layout/layout_head_view" />
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/redPackets"
         android:layout_width="match_parent"
@@ -89,12 +91,14 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ProgressBar
                 android:id="@+id/requestLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone"/>
+                android:visibility="gone" />
+
             <include
                 android:id="@+id/details_layout"
                 layout="@layout/layout_map_discover_details"

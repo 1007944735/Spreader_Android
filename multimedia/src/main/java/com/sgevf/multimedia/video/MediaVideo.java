@@ -25,7 +25,7 @@ import com.sgevf.multimedia.utils.TimeUtils;
 import java.io.IOException;
 
 public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextureListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnVideoSizeChangedListener, MediaPlayer.OnSeekCompleteListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener {
-    public enum Type{
+    public enum Type {
         IDEL,
         PREPARING,
         PREPARED,
@@ -55,7 +55,7 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
     private Runnable runnable;
 
     private String path;
-    private boolean down=false;
+    private boolean down = false;
 
     public MediaVideo(Context context) {
         this(context, null);
@@ -75,32 +75,32 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
 
     }
 
-    public MediaVideo setDataSource(String path){
-        this.path=path;
+    public MediaVideo setDataSource(String path) {
+        this.path = path;
         return this;
     }
 
     private void initView(Context context) {
-        this.context=context;
+        this.context = context;
         inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.layout_media_video, this, true);
-        surface=view.findViewById(R.id.surface);
-        on_off=view.findViewById(R.id.on_off);
-        progress=view.findViewById(R.id.progress);
-        loading=view.findViewById(R.id.loading);
-        curTime=view.findViewById(R.id.curTime);
-        allTime=view.findViewById(R.id.allTime);
-        fillScreen=view.findViewById(R.id.fillScreen);
+        surface = view.findViewById(R.id.surface);
+        on_off = view.findViewById(R.id.on_off);
+        progress = view.findViewById(R.id.progress);
+        loading = view.findViewById(R.id.loading);
+        curTime = view.findViewById(R.id.curTime);
+        allTime = view.findViewById(R.id.allTime);
+        fillScreen = view.findViewById(R.id.fillScreen);
 
         on_off.setOnClickListener(this);
         fillScreen.setOnClickListener(this);
 
-        handler=new Handler();
-        runnable=new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 updateTime();
-                handler.postDelayed(runnable,1000);
+                handler.postDelayed(runnable, 1000);
             }
         };
 
@@ -115,8 +115,8 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
     }
 
     private void initMediaPlayer() {
-        player=new MediaPlayer();
-        status=Type.IDEL;
+        player = new MediaPlayer();
+        status = Type.IDEL;
         player.setScreenOnWhilePlaying(true);
         player.setOnPreparedListener(this);
         player.setOnCompletionListener(this);
@@ -129,9 +129,9 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        if(path!=null){
+        if (path != null) {
             try {
-                if(status== Type.IDEL) {
+                if (status == Type.IDEL) {
                     player.setDataSource(path);
                     player.setSurface(new Surface(surface));
                     player.prepareAsync();
@@ -160,7 +160,7 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        status=Type.PREPARED;
+        status = Type.PREPARED;
         updateTime();
         progress.setMax(mp.getDuration());
         allTime.setText(TimeUtils.formatTime(player.getDuration()));
@@ -168,27 +168,27 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        status=Type.COMPLETED;
+        status = Type.COMPLETED;
         Toast.makeText(context, "视频播放完毕", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
-        Log.d("TAG", "onBufferingUpdate: "+percent);
-        progress.setSecondaryProgress(percent*mp.getDuration()/100);
+        Log.d("TAG", "onBufferingUpdate: " + percent);
+        progress.setSecondaryProgress(percent * mp.getDuration() / 100);
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        status=Type.ERROR;
-        Toast.makeText(context, "播放器发生错误:"+what+","+extra, Toast.LENGTH_SHORT).show();
+        status = Type.ERROR;
+        Toast.makeText(context, "播放器发生错误:" + what + "," + extra, Toast.LENGTH_SHORT).show();
         return false;
     }
 
     @Override
     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-        ViewGroup.LayoutParams params=surface.getLayoutParams();
-        params.height=height*getResources().getDisplayMetrics().widthPixels/width;
+        ViewGroup.LayoutParams params = surface.getLayoutParams();
+        params.height = height * getResources().getDisplayMetrics().widthPixels / width;
         surface.setLayoutParams(params);
     }
 
@@ -199,7 +199,7 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if(down) {
+        if (down) {
             player.seekTo(progress);
             updateTime();
         }
@@ -208,79 +208,79 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         pause();
-        down=true;
+        down = true;
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         play();
-        down=false;
+        down = false;
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.on_off){
+        if (v.getId() == R.id.on_off) {
             if (player != null) {
-                if (status==Type.STARTED) {
+                if (status == Type.STARTED) {
                     pause();
-                } else if(status==Type.PAUSED||status==Type.PREPARED){
+                } else if (status == Type.PAUSED || status == Type.PREPARED) {
                     play();
                 }
             }
-        }else if(v.getId()==R.id.fillScreen){
+        } else if (v.getId() == R.id.fillScreen) {
 
         }
     }
 
-    public void play(){
+    public void play() {
         player.start();
-        status=Type.STARTED;
+        status = Type.STARTED;
         on_off.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_video_stop));
-        handler.postDelayed(runnable,1000);
+        handler.postDelayed(runnable, 1000);
     }
 
-    public void pause(){
+    public void pause() {
         player.pause();
-        status=Type.PAUSED;
+        status = Type.PAUSED;
         on_off.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_video_play));
         handler.removeCallbacks(runnable);
     }
 
-    public void stop(){
+    public void stop() {
         player.stop();
-        status=Type.STOPED;
+        status = Type.STOPED;
         handler.removeCallbacks(runnable);
     }
 
-    private void release(){
+    private void release() {
         player.release();
-        status=Type.END;
+        status = Type.END;
     }
 
-    public void reset(){
+    public void reset() {
         player.reset();
-        status=Type.IDEL;
+        status = Type.IDEL;
     }
 
     /**
      * 更新进度和时间
      */
-    private void updateTime(){
+    private void updateTime() {
         progress.setProgress(player.getCurrentPosition());
         curTime.setText(TimeUtils.formatTime(player.getCurrentPosition()));
     }
 
-    public Type getStatus(){
+    public Type getStatus() {
         return status;
     }
 
-    public void destory(){
+    public void destory() {
         handler.removeCallbacks(runnable);
-        if(status==Type.STARTED||status==Type.PAUSED){
+        if (status == Type.STARTED || status == Type.PAUSED) {
             stop();
         }
         release();
-        player=null;
+        player = null;
     }
 
 }

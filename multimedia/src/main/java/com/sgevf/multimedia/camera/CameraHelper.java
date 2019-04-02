@@ -312,15 +312,15 @@ public class CameraHelper implements View.OnTouchListener {
     /**
      * 自动对焦
      */
-    private void autoFocusing(Rect rect){
+    private void autoFocusing(Rect rect) {
         try {
             captureRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             captureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_AUTO);
-            captureRequestBuilder.set(CaptureRequest.CONTROL_AE_REGIONS, new MeteringRectangle[]{new MeteringRectangle(rect,1000)});
-            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_REGIONS, new MeteringRectangle[]{new MeteringRectangle(rect,1000)});
-            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,CaptureRequest.CONTROL_AF_TRIGGER_START);
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AE_REGIONS, new MeteringRectangle[]{new MeteringRectangle(rect, 1000)});
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_REGIONS, new MeteringRectangle[]{new MeteringRectangle(rect, 1000)});
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START);
             captureRequestBuilder.addTarget(surface);
-            cameraCaptureSession.setRepeatingRequest(captureRequestBuilder.build(),null,null);
+            cameraCaptureSession.setRepeatingRequest(captureRequestBuilder.build(), null, null);
             cameraCaptureSession.capture(captureRequestBuilder.build(), null, null);
         } catch (CameraAccessException e) {
             e.printStackTrace();

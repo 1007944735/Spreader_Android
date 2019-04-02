@@ -26,7 +26,7 @@ public class SemiCircleView extends View {
     public SemiCircleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SemiCircleView);
-        color=array.getColor(R.styleable.SemiCircleView_color,Color.WHITE);
+        color = array.getColor(R.styleable.SemiCircleView_color, Color.WHITE);
         array.recycle();
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(color);
@@ -42,7 +42,7 @@ public class SemiCircleView extends View {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getMode(heightMeasureSpec);
-        setMeasuredDimension(widthSize, widthSize/2);
+        setMeasuredDimension(widthSize, widthSize / 2);
     }
 
     @Override

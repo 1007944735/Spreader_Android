@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.AdapterView;
@@ -31,6 +30,7 @@ import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.InputTipsAdapter;
 import com.sgevf.spreader.spreaderAndroid.adapter.LocationResultAdapter;
+import com.sgevf.spreader.spreaderAndroid.map.overlay.PoiOverlay;
 import com.sgevf.spreader.spreaderAndroid.view.SearchView;
 
 import java.util.ArrayList;

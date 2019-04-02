@@ -90,7 +90,7 @@ public class HomeFixedFragment extends BaseLoadingFragment<String> {
 
     @OnClick(R.id.expand)
     public void expand() {
-        startActivityForResult(new Intent(context, ExpandActivity.class).putExtra("infos",infos), 2000);
+        startActivityForResult(new Intent(context, ExpandActivity.class).putExtra("infos", infos), 2000);
     }
 
     @Override
@@ -99,25 +99,25 @@ public class HomeFixedFragment extends BaseLoadingFragment<String> {
             poi = data.getParcelableExtra("poi");
             address.setText(poi.getTitle());
         } else if (requestCode == 2000 && resultCode == 2001) {
-            infos=data.getParcelableExtra("infos");
+            infos = data.getParcelableExtra("infos");
         }
     }
 
     @OnClick(R.id.submit)
-    public void submit(){
-        PubTask task=new PubTask(getActivity(),this);
-        task.params.put("amount",""+Integer.valueOf(count.getText().toString())*Double.valueOf(price.getText().toString()));
-        task.params.put("type","1");
-        task.params.put("pubLongitude",poi.getLatLonPoint().getLongitude()+"");
-        task.params.put("pubLatitude",poi.getLatLonPoint().getLatitude()+"");
-        task.params.put("startTime",start.getText().toString());
-        task.params.put("endTime",end.getText().toString());
-        task.params.put("maxNumber",count.getText().toString());
-        task.params.put("pubAddress",address.getText().toString());
-        task.params.put("title",infos.title);
-        task.params.put("info",infos.info);
-        task.params.put("video",new File(infos.video.path));
-        for(ExpandPhotoModel picture:infos.pictures) {
+    public void submit() {
+        PubTask task = new PubTask(getActivity(), this);
+        task.params.put("amount", "" + Integer.valueOf(count.getText().toString()) * Double.valueOf(price.getText().toString()));
+        task.params.put("type", "1");
+        task.params.put("pubLongitude", poi.getLatLonPoint().getLongitude() + "");
+        task.params.put("pubLatitude", poi.getLatLonPoint().getLatitude() + "");
+        task.params.put("startTime", start.getText().toString());
+        task.params.put("endTime", end.getText().toString());
+        task.params.put("maxNumber", count.getText().toString());
+        task.params.put("pubAddress", address.getText().toString());
+        task.params.put("title", infos.title);
+        task.params.put("info", infos.info);
+        task.params.put("video", new File(infos.video.path));
+        for (ExpandPhotoModel picture : infos.pictures) {
             task.params.put("pictures", new File(picture.path));
         }
         task.request();
@@ -130,7 +130,7 @@ public class HomeFixedFragment extends BaseLoadingFragment<String> {
         start.setText("");
         end.setText("");
         address.setText("");
-        poi=null;
-        infos=null;
+        poi = null;
+        infos = null;
     }
 }

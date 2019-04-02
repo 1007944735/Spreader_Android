@@ -87,27 +87,27 @@
 
     <declare-styleable name="FilterOptionView">
         <attr name="mode" format="enum">
-            <enum name="single" value="0"/>
-            <enum name="multiple" value="1"/>
+            <enum name="single" value="0" />
+            <enum name="multiple" value="1" />
         </attr>
     </declare-styleable>
 
     <declare-styleable name="SemiCircleView">
-        <attr name="color" format="color"/>
+        <attr name="color" format="color" />
     </declare-styleable>
-    
+
     <declare-styleable name="BubbleTextView">
-        <attr name="storkColor" format="color"/>
-        <attr name="radius" format="dimension"/>
-        <attr name="storkWidth" format="dimension"/>
-        <attr name="backColor" format="color"/>
+        <attr name="storkColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="storkWidth" format="dimension" />
+        <attr name="backColor" format="color" />
         <attr name="bubbleGravity" format="enum">
-            <enum name="top" value="0"/>
-            <enum name="right" value="1"/>
-            <enum name="bottom" value="2"/>
-            <enum name="left" value="3"/>
+            <enum name="top" value="0" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="left" value="3" />
         </attr>
-        <attr name="offset" format="dimension"/>
-        <attr name="bubbleHeight" format="dimension"/>
+        <attr name="offset" format="dimension" />
+        <attr name="bubbleHeight" format="dimension" />
     </declare-styleable>
 </resources>

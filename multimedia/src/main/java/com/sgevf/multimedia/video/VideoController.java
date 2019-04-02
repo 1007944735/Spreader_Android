@@ -49,13 +49,13 @@ public class VideoController extends LinearLayout implements View.OnClickListene
         allTime = view.findViewById(R.id.allTime);
         on_off.setOnClickListener(this);
 
-        handler=new Handler();
-        runnable=new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 setProgress(mediaPlayer.getCurrentPosition());
                 setCurTime(TimeUtils.formatTime(mediaPlayer.getCurrentPosition()));
-                handler.postDelayed(runnable,1000);
+                handler.postDelayed(runnable, 1000);
             }
         };
     }
@@ -75,53 +75,59 @@ public class VideoController extends LinearLayout implements View.OnClickListene
                 } else {
                     on_off.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_video_stop));
                     mediaPlayer.start();
-                    handler.postDelayed(runnable,1000);
+                    handler.postDelayed(runnable, 1000);
                 }
             }
         }
     }
+
     /**
      * 设置当前进度
+     *
      * @param current
      */
-    public void setProgress(int current){
+    public void setProgress(int current) {
         progress.setProgress(current);
     }
+
     /**
      * 设置当前进度
+     *
      * @param current
      * @param total
      */
-    public void setProgress(int current,int total){
+    public void setProgress(int current, int total) {
         progress.setMax(total);
         progress.setProgress(current);
     }
 
-    public void setSecondTime(int secondTime){
+    public void setSecondTime(int secondTime) {
         progress.setSecondaryProgress(secondTime);
     }
 
     /**
      * 设置当前时间
+     *
      * @param ct
      */
-    public void setCurTime(String ct){
+    public void setCurTime(String ct) {
         curTime.setText(ct);
     }
 
     /**
      * 设置总时间
+     *
      * @param at
      */
-    public void setAllTime(String at){
+    public void setAllTime(String at) {
         allTime.setText(at);
     }
 
-    public void postHander(){
-        handler.postDelayed(runnable,1000);
+    public void postHander() {
+        handler.postDelayed(runnable, 1000);
     }
 
-    public void removeHandler(){
+    public void removeHandler() {
         handler.removeCallbacks(runnable);
     }
 

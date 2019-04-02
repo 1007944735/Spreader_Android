@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import utils.WindowHelper;
 
-public class RedPacketDialog extends Dialog implements View.OnClickListener{
+public class RedPacketDialog extends Dialog implements View.OnClickListener {
     @BindView(R.id.head)
     public SemiCircleView head;
     @BindView(R.id.open)
@@ -190,7 +190,7 @@ public class RedPacketDialog extends Dialog implements View.OnClickListener{
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        animator=ObjectAnimator.ofFloat(details,"translationY",0);
+                        animator = ObjectAnimator.ofFloat(details, "translationY", 0);
                         animator.setDuration(duration);
                         animator.start();
                     }
@@ -215,9 +215,9 @@ public class RedPacketDialog extends Dialog implements View.OnClickListener{
         if (banner != null) {
             banner.stopAutoPlay();
         }
-        if(animator!=null&&animator.isRunning()){
+        if (animator != null && animator.isRunning()) {
             animator.cancel();
-            animator=null;
+            animator = null;
         }
     }
 

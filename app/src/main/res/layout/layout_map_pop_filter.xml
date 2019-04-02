@@ -65,11 +65,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_14" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_14"
         android:background="@color/colorBackground">
+
         <Button
             android:id="@+id/reset"
             android:layout_width="0dp"
@@ -77,11 +79,13 @@
             android:layout_weight="5"
             android:text="@string/discover_order_reset"
             android:textColor="@color/bg_filter_option_text_selector"
-            android:background="@drawable/bg_filter_option_selector"/>
+            android:background="@drawable/bg_filter_option_selector" />
+
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <Button
             android:id="@+id/confirm"
             android:layout_width="0dp"
@@ -89,6 +93,6 @@
             android:layout_weight="5"
             android:text="@string/discover_order_confirm"
             android:textColor="@color/colorWhite"
-            android:background="@drawable/bg_btn_confirm_selector"/>
+            android:background="@drawable/bg_btn_confirm_selector" />
     </LinearLayout>
 </LinearLayout>

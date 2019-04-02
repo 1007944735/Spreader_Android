@@ -7,8 +7,9 @@ import android.support.annotation.Nullable;
 import com.sgevf.spreader.http.base.dialog.DialogHelper;
 import com.sgevf.spreader.http.base.impl.OnLoadingDialogListener;
 
-public abstract class BasicLoadingActivity<T> extends BasicActivity implements OnLoadingDialogListener<T>{
+public abstract class BasicLoadingActivity<T> extends BasicActivity implements OnLoadingDialogListener<T> {
     protected Dialog loading;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,13 +17,13 @@ public abstract class BasicLoadingActivity<T> extends BasicActivity implements O
     }
 
     private void initDefaultLoading() {
-        loading= DialogHelper.initDefaultLoading(this);
+        loading = DialogHelper.initDefaultLoading(this);
     }
 
     @Override
     public void show() {
-        if(loading!=null){
-            if(loading.isShowing()){
+        if (loading != null) {
+            if (loading.isShowing()) {
                 loading.dismiss();
             }
             loading.show();
@@ -31,7 +32,7 @@ public abstract class BasicLoadingActivity<T> extends BasicActivity implements O
 
     @Override
     public void dismiss() {
-        if(loading!=null){
+        if (loading != null) {
             loading.dismiss();
         }
     }

@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 
 public class UserConfig {
     public static final String NAME = "userConfig";
-    public static final String TOKEN="token";//token
-    public static final String UUID="uuid";//uuid androidid+设备序列号
+    public static final String TOKEN = "token";//token
+    public static final String UUID = "uuid";//uuid androidid+设备序列号
     public static final String ADCODE = "adcode";//当前城市信息
-    public static final String PUBLICKEY="publicKey";//RSA公钥
+    public static final String PUBLICKEY = "publicKey";//RSA公钥
     public static final String USERID = "userid";//userId
     public static final String NICKNAME = "nickname";//用户昵称
     public static final String USERNAME = "username";//用户帐号
@@ -29,6 +29,7 @@ public class UserConfig {
     public static String getToken(Context context) {
         return context.getSharedPreferences(NAME, Context.MODE_PRIVATE).getString(TOKEN, "");
     }
+
     public static void setUuid(Context context, String uuid) {
         SharedPreferences.Editor editor = context.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
         editor.putString(UUID, uuid);

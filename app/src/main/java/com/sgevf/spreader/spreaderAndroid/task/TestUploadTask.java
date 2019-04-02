@@ -16,8 +16,8 @@ public class TestUploadTask extends BaseService<TestService, String> {
         super(mActivity, mTarget);
     }
 
-    public TestUploadTask setClass(String url1, String url2){
-        params.put("url","123123");
+    public TestUploadTask setClass(String url1, String url2) {
+        params.put("url", "123123");
         return this;
     }
 

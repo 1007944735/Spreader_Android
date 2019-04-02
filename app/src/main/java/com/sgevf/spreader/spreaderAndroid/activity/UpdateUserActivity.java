@@ -53,8 +53,8 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
                             @Override
                             public void onClick(View v) {
                                 String nickname = input.getText().toString().trim();
-                                data=nickname;
-                                new UpdateInfoTask(UpdateUserActivity.this,this).setClass(type+"",nickname,"").request();
+                                data = nickname;
+                                new UpdateInfoTask(UpdateUserActivity.this, this).setClass(type + "", nickname, "").request();
                             }
                         });
                 input.setVisibility(View.VISIBLE);
@@ -68,8 +68,8 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
                             @Override
                             public void onClick(View v) {
                                 String phone = input.getText().toString().trim();
-                                data=phone;
-                                new UpdateInfoTask(UpdateUserActivity.this,this).setClass(type+"","",phone).request();
+                                data = phone;
+                                new UpdateInfoTask(UpdateUserActivity.this, this).setClass(type + "", "", phone).request();
                             }
                         });
                 input.setVisibility(View.VISIBLE);
@@ -85,11 +85,11 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
                                 String oldP = oldPass.getText().toString().trim();
                                 String newP = newPass.getText().toString().trim();
                                 String reP = rePass.getText().toString().trim();
-                                data=newP;
-                                if(!newP.isEmpty()&&newP.equals(reP)) {
-                                    new UpdatePasswordTask(UpdateUserActivity.this,UpdateUserActivity.this).setClass(oldP,newP).request();
-                                }else {
-                                    ToastUtils.Toast(UpdateUserActivity.this,"密码不一致");
+                                data = newP;
+                                if (!newP.isEmpty() && newP.equals(reP)) {
+                                    new UpdatePasswordTask(UpdateUserActivity.this, UpdateUserActivity.this).setClass(oldP, newP).request();
+                                } else {
+                                    ToastUtils.Toast(UpdateUserActivity.this, "密码不一致");
                                 }
 
 
@@ -103,15 +103,15 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
 
     @Override
     public void onLoadFinish(String s) {
-        ToastUtils.Toast(this,s);
-        Intent intent=new Intent();
-        intent.putExtra("data",data);
-        if(type==1){
-            setResult(1001,intent);
-        }else if(type==2){
-            setResult(2001,intent);
-        }else if(type==3){
-            setResult(3001,intent);
+        ToastUtils.Toast(this, s);
+        Intent intent = new Intent();
+        intent.putExtra("data", data);
+        if (type == 1) {
+            setResult(1001, intent);
+        } else if (type == 2) {
+            setResult(2001, intent);
+        } else if (type == 3) {
+            setResult(3001, intent);
         }
         finish();
     }
