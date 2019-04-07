@@ -160,8 +160,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/bg_map_walk"
+                android:enabled="false"
                 android:foreground="@drawable/fg_ripple_general"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="暂无" />
 
             <TextView
                 android:id="@+id/driving"
@@ -169,8 +171,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/bg_map_driving"
+                android:enabled="false"
                 android:foreground="@drawable/fg_ripple_general"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="暂无" />
 
             <TextView
                 android:id="@+id/bus"
@@ -178,8 +182,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/bg_map_bus"
+                android:enabled="false"
                 android:foreground="@drawable/fg_ripple_general"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="暂无" />
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorBackground" />
 </LinearLayout>

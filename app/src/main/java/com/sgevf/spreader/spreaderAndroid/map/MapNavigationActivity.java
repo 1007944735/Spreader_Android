@@ -2,10 +2,14 @@ package com.sgevf.spreader.spreaderAndroid.map;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -33,6 +37,7 @@ import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import utils.WindowHelper;
 
 public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsModel> implements MapPathPlanHelper.MapPathPlanListener, AMap.OnMapLoadedListener, AMap.OnMyLocationChangeListener {
     private static final String WALK="walk";
@@ -61,15 +66,20 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
 
     private MapRoutesPathAdapter adapter;
 
+    private BottomSheetBehavior routePlanBeHavior;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_map_navigation);
         setContentView(R.layout.layout_map_navigation);
         ButterKnife.bind(this);
         new HeaderView(this).setToolbarBackground(android.R.color.transparent);
         //创建地图
         init();
         initMap(savedInstanceState);
+        initBeHavior();
     }
 
     private void init() {
@@ -96,6 +106,25 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
     private void registerListener() {
         aMap.setOnMapLoadedListener(this);
         aMap.setOnMyLocationChangeListener(this);
+    }
+
+    private void initBeHavior() {
+        routePlanBeHavior=BottomSheetBehavior.from(routePlan);
+        routePlanBeHavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+                if(view.getHeight()*v>= WindowHelper.getScreenHeight(MapNavigationActivity.this)*0.4){
+                    ViewGroup.LayoutParams params = routePlan.getLayoutParams();
+                    params.height = (int) (WindowHelper.getScreenHeight(MapNavigationActivity.this)*0.4);
+                    routePlan.setLayoutParams(params);
+                }
+            }
+        });
     }
 
     private void initRoutePlan(String type) {
