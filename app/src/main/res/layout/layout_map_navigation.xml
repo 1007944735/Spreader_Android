@@ -12,13 +12,30 @@
 
     </com.amap.api.maps.MapView>
 
-    <include layout="@layout/layout_head_view" />
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="@dimen/margin_14"
+        android:layout_marginTop="@dimen/margin_28"
+        android:background="#ff0000" />
+
+    <ImageView
+        android:id="@+id/goTo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/margin_14"
+        android:layout_marginRight="@dimen/margin_28"
+        android:background="#00ff00" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/routePlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
+        android:layout_marginLeft="@dimen/margin_14"
+        android:layout_marginRight="@dimen/margin_14"
+        android:background="@drawable/bg_radius_white_top"
         app:behavior_peekHeight="40dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 

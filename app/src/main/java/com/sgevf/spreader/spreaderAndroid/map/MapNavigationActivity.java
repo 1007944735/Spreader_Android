@@ -37,6 +37,7 @@ import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import utils.WindowHelper;
 
 public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsModel> implements MapPathPlanHelper.MapPathPlanListener, AMap.OnMapLoadedListener, AMap.OnMyLocationChangeListener {
@@ -73,9 +74,7 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_map_navigation);
-        setContentView(R.layout.layout_map_navigation);
         ButterKnife.bind(this);
-        new HeaderView(this).setToolbarBackground(android.R.color.transparent);
         //创建地图
         init();
         initMap(savedInstanceState);
@@ -99,6 +98,7 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
         myLocationStyle.showMyLocation(false);
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.setMyLocationEnabled(true);
+        aMap.getUiSettings().setZoomControlsEnabled(false);
         registerListener();
 
     }
@@ -169,7 +169,6 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
 
     @Override
     public void walkRoutePlan(WalkRouteResult result, int i) {
-        this.show();
         initRoutePlan(WALK);
         adapter.addData(result.getPaths().get(0).getSteps());
         aMap.clear();
@@ -187,6 +186,7 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
 
                     adapter.addData(walkPath.getSteps());
                 }
+                routePlanBeHavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         } else {
             ToastUtils.Toast(this,"对不起，没有搜索到相关数据！");
@@ -210,6 +210,7 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
                     drivingRouteOverlay.zoomToSpan();
                     adapter.addData(drivePath.getSteps());
                 }
+                routePlanBeHavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         } else {
             ToastUtils.Toast(this,"对不起，没有搜索到相关数据！");
@@ -248,5 +249,15 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
     public void onMyLocationChange(Location location) {
 //        Log.d("TAG", "onMyLocationChange: " + location.toString());
         this.location=location;
+    }
+
+    @OnClick(R.id.back)
+    public void back(){
+        this.finish();
+    }
+
+    @OnClick(R.id.goTo)
+    public void goToMapApp(){
+
     }
 }
