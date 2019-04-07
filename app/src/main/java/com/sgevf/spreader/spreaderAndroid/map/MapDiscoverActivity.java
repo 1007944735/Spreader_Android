@@ -414,7 +414,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         //导航
         Intent intent=new Intent(this,MapNavigationActivity.class);
         intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
-        intent.putExtra("location",curLocation);
+//        intent.putExtra("location",curLocation);
         intent.putExtra("tripWay",1);
         startActivity(intent);
     }
@@ -424,7 +424,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         //导航
         Intent intent=new Intent(this,MapNavigationActivity.class);
         intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
-        intent.putExtra("location",curLocation);
+//        intent.putExtra("location",curLocation);
         intent.putExtra("tripWay",2);
         startActivity(intent);
     }
@@ -434,7 +434,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         //导航
         Intent intent=new Intent(this,MapNavigationActivity.class);
         intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
-        intent.putExtra("location",curLocation);
+//        intent.putExtra("location",curLocation);
         intent.putExtra("tripWay",2);
         startActivity(intent);
     }

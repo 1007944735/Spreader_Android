@@ -3,19 +3,30 @@ package com.sgevf.spreader.spreaderAndroid.map;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
-import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.BusStep;
+import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.DriveStep;
+import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
+import com.amap.api.services.route.WalkStep;
 import com.autonavi.amap.mapcore.Inner_3dMap_location;
+import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
+import com.sgevf.spreader.spreaderAndroid.adapter.MapRoutesPathAdapter;
+import com.sgevf.spreader.spreaderAndroid.map.overlay.DrivingRouteOverlay;
+import com.sgevf.spreader.spreaderAndroid.map.overlay.WalkRouteOverlay;
 import com.sgevf.spreader.spreaderAndroid.model.RedPacketDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.task.RedPacketDetailsTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
@@ -24,8 +35,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsModel> implements MapPathPlanHelper.MapPathPlanListener, AMap.OnMapLoadedListener, AMap.OnMyLocationChangeListener {
+    private static final String WALK="walk";
+    private static final String DRIVING="driving";
+    private static final String BUS="bus";
+
     @BindView(R.id.aMap)
     MapView mapView;
+    @BindView(R.id.routePlan)
+    NestedScrollView routePlan;
+    @BindView(R.id.result_tip)
+    TextView resultTip;
+    @BindView(R.id.routes)
+    RecyclerView routes;
 
     AMap aMap;
     MyLocationStyle myLocationStyle;
@@ -34,6 +55,11 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
     private Location location;
     private int tripWay;
     private MapPathPlanHelper helper;
+
+    private WalkRouteOverlay walkRouteOverlay;
+    private DrivingRouteOverlay drivingRouteOverlay;
+
+    private MapRoutesPathAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +74,6 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
 
     private void init() {
         redPacketId = getIntent().getIntExtra("redPacketId", 0);
-        location = getIntent().getParcelableExtra("location");
         tripWay = getIntent().getIntExtra("tripWay", 1);
         helper = new MapPathPlanHelper(this);
         helper.setMapPathPlanListener(this);
@@ -71,6 +96,18 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
     private void registerListener() {
         aMap.setOnMapLoadedListener(this);
         aMap.setOnMyLocationChangeListener(this);
+    }
+
+    private void initRoutePlan(String type) {
+        if(WALK.equals(type)){
+            adapter=new MapRoutesPathAdapter<WalkStep>(this);
+        }else if(DRIVING.equals(type)){
+            adapter=new MapRoutesPathAdapter<DriveStep>(this);
+        }else if(BUS.equals(type)){
+            adapter=new MapRoutesPathAdapter<BusStep>(this);
+        }
+        routes.setLayoutManager(new LinearLayoutManager(this));
+        routes.setAdapter(adapter);
     }
 
     @Override
@@ -103,19 +140,50 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
 
     @Override
     public void walkRoutePlan(WalkRouteResult result, int i) {
+        this.show();
+        initRoutePlan(WALK);
+        adapter.addData(result.getPaths().get(0).getSteps());
+        aMap.clear();
         if (i == AMapException.CODE_AMAP_SUCCESS) {
+            if(result!=null&&result.getPaths()!=null){
+                if(result.getPaths().size()>0){
+                    WalkPath walkPath=result.getPaths().get(0);
+                    if(walkRouteOverlay!=null){
+                        walkRouteOverlay.removeFromMap();
+                    }
 
+                    walkRouteOverlay=new WalkRouteOverlay(this,aMap,walkPath,result.getStartPos(),result.getTargetPos());
+                    walkRouteOverlay.addToMap();
+                    walkRouteOverlay.zoomToSpan();
+
+                    adapter.addData(walkPath.getSteps());
+                }
+            }
         } else {
-
+            ToastUtils.Toast(this,"对不起，没有搜索到相关数据！");
         }
     }
 
     @Override
     public void drivingRoutePlan(DriveRouteResult result, int i) {
+        initRoutePlan(DRIVING);
+        adapter.addData(result.getPaths().get(0).getSteps());
+        aMap.clear();
         if (i == AMapException.CODE_AMAP_SUCCESS) {
-
+            if(result!=null&&result.getPaths()!=null){
+                if(result.getPaths().size()>0){
+                    DrivePath drivePath=result.getPaths().get(0);
+                    if(drivingRouteOverlay!=null){
+                        drivingRouteOverlay.removeFromMap();
+                    }
+                    drivingRouteOverlay=new DrivingRouteOverlay(this,aMap,drivePath,result.getStartPos(),result.getTargetPos());
+                    drivingRouteOverlay.addToMap();
+                    drivingRouteOverlay.zoomToSpan();
+                    adapter.addData(drivePath.getSteps());
+                }
+            }
         } else {
-
+            ToastUtils.Toast(this,"对不起，没有搜索到相关数据！");
         }
     }
 
@@ -124,7 +192,7 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
         if (i == AMapException.CODE_AMAP_SUCCESS) {
 
         } else {
-
+            ToastUtils.Toast(this,"对不起，没有搜索到相关数据！");
         }
     }
 
@@ -149,6 +217,7 @@ public class MapNavigationActivity extends BaseLoadingActivity<RedPacketDetailsM
 
     @Override
     public void onMyLocationChange(Location location) {
-        Log.d("TAG", "onMyLocationChange: " + location.toString());
+//        Log.d("TAG", "onMyLocationChange: " + location.toString());
+        this.location=location;
     }
 }

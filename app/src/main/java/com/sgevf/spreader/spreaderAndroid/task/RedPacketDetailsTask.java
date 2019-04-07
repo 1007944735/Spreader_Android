@@ -3,6 +3,7 @@ package com.sgevf.spreader.spreaderAndroid.task;
 import android.app.Activity;
 
 import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
+import com.sgevf.spreader.spreaderAndroid.map.MapNavigationActivity;
 import com.sgevf.spreader.spreaderAndroid.model.RedPacketDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.task.impl.PubService;
 
@@ -32,6 +33,8 @@ public class RedPacketDetailsTask extends BaseService<PubService, RedPacketDetai
     public void onSuccess(RedPacketDetailsModel redPacketDetailsModel) {
         if (mTarget instanceof MapDiscoverActivity) {
             ((MapDiscoverActivity) mTarget).initDetailsLayout(redPacketDetailsModel);
+        }else if(mTarget instanceof MapNavigationActivity){
+            ((MapNavigationActivity) mTarget).onLoadFinish(redPacketDetailsModel);
         }
     }
 
