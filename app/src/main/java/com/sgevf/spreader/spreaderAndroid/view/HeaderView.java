@@ -19,7 +19,6 @@ public class HeaderView implements View.OnClickListener {
     private TextView title;
     private TextView right;
     private ImageView rightIcon;
-    private DrawerLayout drawerLayout;
     private Activity activity;
 
     public HeaderView(Activity activity) {
@@ -28,11 +27,8 @@ public class HeaderView implements View.OnClickListener {
         title = activity.findViewById(R.id.title);
         right = activity.findViewById(R.id.right);
         rightIcon = activity.findViewById(R.id.rightIcon);
-        WindowHelper.setViewPaddingTop(activity, toolbar);
+//        WindowHelper.setViewPaddingTop(activity, toolbar);
         toolbar.setNavigationOnClickListener(this);
-        if (isHomeActivity()) {
-            toolbar.setNavigationIcon(R.mipmap.icon_header_menu);
-        }
     }
 
     public HeaderView setRight(String str) {
@@ -74,30 +70,12 @@ public class HeaderView implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (isHomeActivity()) {
-            drawerLayout = activity.findViewById(R.id.drawer);
-            if (drawerLayout.isDrawerOpen(Gravity.START)) {
-                drawerLayout.closeDrawer(Gravity.START);
-            } else {
-                drawerLayout.openDrawer(Gravity.START);
-            }
-        } else {
-            activity.finish();
-        }
+        activity.finish();
     }
 
     public HeaderView setToolbarBackground(int resid) {
         toolbar.setBackgroundColor(resid);
         return this;
-    }
-
-    /**
-     * 判断是否是homeActivity
-     *
-     * @return
-     */
-    private boolean isHomeActivity() {
-        return activity instanceof HomeActivity;
     }
 
     public HeaderView setRightIcon(int resid, View.OnClickListener listener) {

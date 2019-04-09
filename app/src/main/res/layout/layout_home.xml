@@ -1,35 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_head_view" />
+        <!--<include layout="@layout/layout_head_view" />-->
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout"
-            style="@style/TabLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabBackground="@android:color/transparent"
-            app:tabRippleColor="@android:color/transparent">
+        <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/viewPager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
 
-        </android.support.design.widget.TabLayout>
+        <!--</android.support.v4.view.ViewPager>-->
 
+        <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tabLayout"-->
+        <!--style="@style/TabLayoutStyle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:tabBackground="@android:color/transparent"-->
+        <!--app:tabRippleColor="@android:color/transparent">-->
+
+        <!--</android.support.design.widget.TabLayout>-->
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         </android.support.v4.view.ViewPager>
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/bottom_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:tabBackground="@android:color/transparent"
+            app:tabIndicatorHeight="0dp"
+            app:tabRippleColor="@android:color/transparent">
+
+        </android.support.design.widget.TabLayout>
     </LinearLayout>
 
-    <include layout="@layout/layout_home_side_slip" />
-</android.support.v4.widget.DrawerLayout>
+    <LinearLayout
+        android:id="@+id/pub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center">
+
+        <com.sgevf.spreader.spreaderAndroid.view.CircleView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/icon_pub" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            android:textColor="#333333"
+            android:textSize="@dimen/dimen_12"
+            android:layout_marginBottom="3dp"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -42,7 +42,7 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
 
     private void init() {
         //配置glide
-        GlideConfig.errorId = R.mipmap.icon_head_image_default;
+        GlideConfig.errorId = R.mipmap.icon_error;
         GlideConfig.placeHolder = R.mipmap.icon_head_image_default;
         GlideConfig.fallBack = R.mipmap.icon_head_image_default;
         new InitTask(this, this).request();

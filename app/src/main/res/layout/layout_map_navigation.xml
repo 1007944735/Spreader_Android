@@ -12,22 +12,22 @@
 
     </com.amap.api.maps.MapView>
 
-    <ImageView
+    <com.sgevf.spreader.spreaderAndroid.view.CircleView
         android:id="@+id/back"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginLeft="@dimen/margin_14"
         android:layout_marginTop="@dimen/margin_28"
-        android:background="#ff0000" />
+        android:src="@mipmap/icon_map_back"/>
 
-    <ImageView
+    <com.sgevf.spreader.spreaderAndroid.view.CircleView
         android:id="@+id/goTo"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="right"
-        android:layout_marginTop="@dimen/margin_14"
-        android:layout_marginRight="@dimen/margin_28"
-        android:background="#00ff00" />
+        android:layout_marginTop="@dimen/margin_28"
+        android:layout_marginRight="@dimen/margin_14"
+        android:src="@mipmap/icon_map_earth" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/routePlan"

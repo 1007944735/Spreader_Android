@@ -11,19 +11,20 @@ import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.WalletHistoryDetailsAdapter;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryDetailsModel;
+import com.sgevf.spreader.spreaderAndroid.task.WalletDetailedHistoryTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WalletHistoryDetailsActivity extends BaseLoadingActivity<List<HistoryDetailsModel>> implements AdapterView.OnItemClickListener {
+public class WalletHistoryDetailsActivity extends BaseLoadingActivity<HistoryDetailsModel> implements AdapterView.OnItemClickListener {
     @BindView(R.id.history)
     public ListView history;
 
     private WalletHistoryDetailsAdapter adapter;
+    private ArrayList<HistoryDetailsModel.HistoryListModel> models;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,23 +36,25 @@ public class WalletHistoryDetailsActivity extends BaseLoadingActivity<List<Histo
     }
 
     private void init() {
+        new WalletDetailedHistoryTask(this, this).request();
         history.setOnItemClickListener(this);
-        List<HistoryDetailsModel> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            list.add(new HistoryDetailsModel());
-        }
-        adapter = new WalletHistoryDetailsAdapter(this, list);
-        history.setAdapter(adapter);
     }
 
     @Override
-    public void onLoadFinish(List<HistoryDetailsModel> historyDetailsModels) {
-        adapter = new WalletHistoryDetailsAdapter(this, historyDetailsModels);
+    public void onLoadFinish(HistoryDetailsModel historyDetailsModel) {
+        this.models = historyDetailsModel.list;
+        adapter = new WalletHistoryDetailsAdapter(this, historyDetailsModel.list);
         history.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(this, WalletHistoryMoreDetailsActivity.class));
+        if ("0".equals(models.get(position).type)) {
+            //提现详情
+            startActivity(new Intent(this, WalletHistoryWithdrawDetailsActivity.class).putExtra("model", models.get(position)));
+        }else if("1".equals(models.get(position).type)){
+            //红包详情
+            startActivity(new Intent(this, WalletHistoryRedPacketDetailsActivity.class).putExtra("model", models.get(position)));
+        }
     }
 }

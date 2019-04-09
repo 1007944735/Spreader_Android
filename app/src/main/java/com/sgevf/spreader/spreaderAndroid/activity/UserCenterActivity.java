@@ -32,7 +32,7 @@ public class UserCenterActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_user_center);
+        setContentView(R.layout.fragment_home_user_center);
         ButterKnife.bind(this);
         new HeaderView(this).setTitle(R.string.user_center);
         init();

@@ -2,8 +2,7 @@ package com.sgevf.spreader.spreaderAndroid.task;
 
 import android.app.Activity;
 
-import com.sgevf.spreader.spreaderAndroid.fragment.HomeFixedFragment;
-import com.sgevf.spreader.spreaderAndroid.fragment.HomeRandomFragment;
+import com.sgevf.spreader.spreaderAndroid.activity.PubActivity;
 import com.sgevf.spreader.spreaderAndroid.task.impl.PubService;
 
 import java.util.Map;
@@ -25,10 +24,8 @@ public class PubTask extends BaseService<PubService, String> {
 
     @Override
     public void onSuccess(String s) {
-        if (mTarget instanceof HomeFixedFragment) {
-            ((HomeFixedFragment) mTarget).onLoadFinish(s);
-        } else if (mTarget instanceof HomeRandomFragment) {
-            ((HomeRandomFragment) mTarget).onLoadFinish(s);
+        if (mTarget instanceof PubActivity) {
+            ((PubActivity) mTarget).onLoadFinish(s);
         }
     }
 }

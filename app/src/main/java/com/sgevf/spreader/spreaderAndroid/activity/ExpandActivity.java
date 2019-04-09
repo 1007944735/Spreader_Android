@@ -58,18 +58,17 @@ public class ExpandActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_expand);
         ButterKnife.bind(this);
-        AndroidBugsSolution.assistActivity(this, null);
+//        AndroidBugsSolution.assistActivity(this, null);
         new HeaderView(this)
                 .setTitle(R.string.history_release)
-                .setRight("完成", new View.OnClickListener() {
+                .setRight("下一步", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent();
+                        Intent intent = new Intent(ExpandActivity.this,PubActivity.class);
                         infos.title = inputTitle.getText().toString().trim();
                         infos.info = inputInfo.getText().toString().trim();
                         intent.putExtra("infos", infos);
-                        setResult(2001, intent);
-                        finish();
+                        startActivity(intent);
                     }
                 });
 

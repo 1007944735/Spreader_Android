@@ -13,7 +13,7 @@ public abstract class BaseActivity extends BasicActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowHelper.fullScreen(this);
+//        WindowHelper.fullScreen(this);
     }
 
     @Override

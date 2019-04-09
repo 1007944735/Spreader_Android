@@ -7,8 +7,9 @@
         android:id="@+id/front"
         layout="@layout/layout_red_packet_front" />
 
-    <include
-        android:id="@+id/reverse"
-        layout="@layout/layout_red_packet_reverse"
-        android:visibility="gone" />
+    <!--<include-->
+        <!--android:id="@+id/reverse"-->
+        <!--layout="@layout/layout_red_packet_reverse" />-->
+
+
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -74,6 +75,7 @@ public class WindowHelper {
 
     public static void setViewPaddingTop(View view, int paddingTop) {
         view.setPadding(view.getPaddingLeft(), paddingTop, view.getPaddingRight(), view.getPaddingBottom());
+        Log.d("TAG", "setViewPaddingTop: "+view.getPaddingLeft()+":"+paddingTop+":"+view.getPaddingRight()+":"+view.getPaddingBottom());
     }
 
     /**

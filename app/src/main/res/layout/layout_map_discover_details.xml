@@ -117,7 +117,7 @@
         <Button
             android:id="@+id/open"
             android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_height="27dp"
             android:background="#fa897b"
             android:text="领取"
             android:textColor="@color/colorWhite"

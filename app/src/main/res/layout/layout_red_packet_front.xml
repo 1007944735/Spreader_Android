@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_red_packet_radius_front_bottom">
@@ -9,19 +10,54 @@
         android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:color="@color/colorTheme" />
+        app:color="#A62732" />
+
+    <ImageView
+        android:id="@+id/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/margin_6"
+        android:layout_marginRight="@dimen/margin_6"
+        android:src="@mipmap/icon_expand_resource_exit" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/from_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_20"
+            tools:text="来自***的" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FCDC73"
+            android:textSize="@dimen/dimen_60"
+            tools:text="0.01" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已存入钱包" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/open"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignBottom="@+id/head"
+        android:id="@+id/receive_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看领取详情 〉"
+        android:textColor="#FCDC73"
+        android:textSize="@dimen/dimen_16"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_red_open"
-        android:gravity="center"
-        android:scaleType="fitCenter"
-        android:text="拆红包"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/dimen_22"
-        android:translationY="50dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_10"/>
 </RelativeLayout>

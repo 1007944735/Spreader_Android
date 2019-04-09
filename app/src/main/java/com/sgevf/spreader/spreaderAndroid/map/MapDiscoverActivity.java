@@ -46,9 +46,11 @@ import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import com.sgevf.spreader.spreaderAndroid.map.overlay.PoiOverlay;
+import com.sgevf.spreader.spreaderAndroid.model.GrabRedPacketModel;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.MapSearchLocationModel;
 import com.sgevf.spreader.spreaderAndroid.model.RedPacketDetailsModel;
+import com.sgevf.spreader.spreaderAndroid.task.GrabRedPacketTask;
 import com.sgevf.spreader.spreaderAndroid.task.MapSearchTask;
 import com.sgevf.spreader.spreaderAndroid.task.RedPacketDetailsTask;
 import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
@@ -61,6 +63,7 @@ import com.youth.banner.Transformer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +73,7 @@ import utils.DialogUtils;
 import utils.MapUtils;
 import utils.WindowHelper;
 
-public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels> implements View.OnClickListener, MapDiscoverBottomSheetAdapter.OnItemClickListener, RedPacketDialog.OnOpenListener, AMap.OnMarkerClickListener, AMap.OnMapTouchListener, MapPathPlanHelper.MapPathPlanListener {
+public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels> implements View.OnClickListener, MapDiscoverBottomSheetAdapter.OnItemClickListener, AMap.OnMarkerClickListener, AMap.OnMapTouchListener, MapPathPlanHelper.MapPathPlanListener {
     private String[] titles = {"排序", "筛选"};
     @BindView(R.id.aMap)
     MapView mapView;
@@ -404,38 +407,36 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     @OnClick(R.id.open)
     public void open() {
-        dialog = new RedPacketDialog(this);
-        dialog.setOnOpenListener(this);
-        dialog.show();
+        new GrabRedPacketTask(this, this).setClass(recyclerData.get(clickPosition).id, curLocation.getLongitude() + "", curLocation.getLatitude() + "").request();
     }
 
     @OnClick(R.id.walk)
     public void walk() {
         //导航
-        Intent intent=new Intent(this,MapNavigationActivity.class);
-        intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
+        Intent intent = new Intent(this, MapNavigationActivity.class);
+        intent.putExtra("redPacketId", recyclerData.get(clickPosition).id);
 //        intent.putExtra("location",curLocation);
-        intent.putExtra("tripWay",1);
+        intent.putExtra("tripWay", 1);
         startActivity(intent);
     }
 
     @OnClick(R.id.driving)
     public void driving() {
         //导航
-        Intent intent=new Intent(this,MapNavigationActivity.class);
-        intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
+        Intent intent = new Intent(this, MapNavigationActivity.class);
+        intent.putExtra("redPacketId", recyclerData.get(clickPosition).id);
 //        intent.putExtra("location",curLocation);
-        intent.putExtra("tripWay",2);
+        intent.putExtra("tripWay", 2);
         startActivity(intent);
     }
 
     @OnClick(R.id.bus)
     public void bus() {
         //导航
-        Intent intent=new Intent(this,MapNavigationActivity.class);
-        intent.putExtra("redPacketId",recyclerData.get(clickPosition).id);
+        Intent intent = new Intent(this, MapNavigationActivity.class);
+        intent.putExtra("redPacketId", recyclerData.get(clickPosition).id);
 //        intent.putExtra("location",curLocation);
-        intent.putExtra("tripWay",2);
+        intent.putExtra("tripWay", 2);
         startActivity(intent);
     }
 
@@ -506,6 +507,13 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         refreshPoi(mapRedResultModels.list);
     }
 
+    public void grabResult(GrabRedPacketModel model) {
+        dialog = new RedPacketDialog(this);
+        dialog.show();
+        dialog.setFromName(model.name);
+        dialog.setMoney(model.money);
+    }
+
     public void initDetailsLayout(RedPacketDetailsModel model) {
         //加载detailsLayout数据
         GlideManager.circleImage(this, model.sponserImage, sponsorImage);
@@ -516,7 +524,18 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
         long et = DateUtils.reFormat(model.endTime);
         long ct = new Date().getTime();
-        timer = new Timer(et - ct, 1000);
+        if ("1".equals(model.isGrab)) {
+            open.setEnabled(false);
+            open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
+            open.setText("已领取");
+            timer = new Timer(et - ct, 1000, true);
+        } else {
+            open.setEnabled(true);
+            open.setBackgroundColor(Color.parseColor("#fa897b"));
+            open.setText("领取");
+            timer = new Timer(et - ct, 1000, false);
+        }
+
         timer.setView(remainingTime, open);
         timer.start();
 
@@ -655,41 +674,41 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         detailsBanner.start();
     }
 
-    @Override
-    public void onClick(final RedPacketDialog dialog) {
-        DialogUtils.showConfirm(this,
-                "温馨提示",
-                "观看视频广告能提升大红包的概率哦！！！",
-                "立即观看",
-                "忍心拒绝",
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        startActivity(new Intent(MapDiscoverActivity.this, VideoThreeActivity.class));
-                    }
-                }, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openRedPacket();
-                    }
-                });
-    }
+//    @Override
+//    public void onClick(final RedPacketDialog dialog) {
+//        DialogUtils.showConfirm(this,
+//                "温馨提示",
+//                "观看视频广告能提升大红包的概率哦！！！",
+//                "立即观看",
+//                "忍心拒绝",
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                        startActivity(new Intent(MapDiscoverActivity.this, VideoThreeActivity.class));
+//                    }
+//                }, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        openRedPacket();
+//                    }
+//                });
+//    }
 
-    private void openRedPacket() {
-        ToastUtils.Toast(MapDiscoverActivity.this, "开始模拟网络请求");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ToastUtils.Toast(MapDiscoverActivity.this, "结束模拟网络请求");
-        finishOpenRedPacket(null);
-    }
+//    private void openRedPacket() {
+//        ToastUtils.Toast(MapDiscoverActivity.this, "开始模拟网络请求");
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        ToastUtils.Toast(MapDiscoverActivity.this, "结束模拟网络请求");
+//        finishOpenRedPacket(null);
+//    }
 
-    private void finishOpenRedPacket(Object o) {
-        dialog.startAnimation();
-    }
+//    private void finishOpenRedPacket(Object o) {
+//        dialog.startAnimation();
+//    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -775,6 +794,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     class Timer extends CountDownTimer {
         private TextView remainingTime;
         private Button open;
+        private boolean isGrab;
 
         /**
          * @param millisInFuture    The number of millis in the future from the call
@@ -783,8 +803,9 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
          * @param countDownInterval The interval along the way to receive
          *                          {@link #onTick(long)} callbacks.
          */
-        public Timer(long millisInFuture, long countDownInterval) {
+        public Timer(long millisInFuture, long countDownInterval, boolean isGrab) {
             super(millisInFuture, countDownInterval);
+            this.isGrab = isGrab;
         }
 
         public void setView(TextView view, Button open) {
@@ -794,7 +815,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if (!open.isEnabled()) {
+            if (!isGrab && !open.isEnabled()) {
                 open.setBackgroundColor(Color.parseColor("#fa897b"));
                 open.setEnabled(true);
             }
@@ -820,9 +841,12 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
         @Override
         public void onFinish() {
-            remainingTime.setText("活动已结束");
-            open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
-            open.setEnabled(false);
+            if (!isGrab) {
+                remainingTime.setText("活动已结束");
+                open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
+                open.setEnabled(false);
+                open.setText("领取");
+            }
         }
     }
 }

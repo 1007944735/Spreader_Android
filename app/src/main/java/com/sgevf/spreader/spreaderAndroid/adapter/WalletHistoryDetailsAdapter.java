@@ -1,21 +1,23 @@
 package com.sgevf.spreader.spreaderAndroid.adapter;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sgevf.multimedia.video.MediaVideo;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryDetailsModel;
 
 import java.util.List;
 
-public class WalletHistoryDetailsAdapter extends FactoryAdapter<HistoryDetailsModel> {
-    public WalletHistoryDetailsAdapter(Context context, List<HistoryDetailsModel> items) {
+public class WalletHistoryDetailsAdapter extends FactoryAdapter<HistoryDetailsModel.HistoryListModel> {
+    public WalletHistoryDetailsAdapter(Context context, List<HistoryDetailsModel.HistoryListModel> items) {
         super(context, items);
     }
 
     @Override
-    protected ViewHolderFactory<HistoryDetailsModel> createFactory(View view) {
+    protected ViewHolderFactory<HistoryDetailsModel.HistoryListModel> createFactory(View view) {
         return new ViewHolder(view);
     }
 
@@ -24,7 +26,7 @@ public class WalletHistoryDetailsAdapter extends FactoryAdapter<HistoryDetailsMo
         return R.layout.item_wallet_history_adapter;
     }
 
-    class ViewHolder implements ViewHolderFactory<HistoryDetailsModel> {
+    class ViewHolder implements ViewHolderFactory<HistoryDetailsModel.HistoryListModel> {
         private TextView way;
         private TextView date;
         private TextView money;
@@ -36,8 +38,15 @@ public class WalletHistoryDetailsAdapter extends FactoryAdapter<HistoryDetailsMo
         }
 
         @Override
-        public void init(HistoryDetailsModel item, int position, FactoryAdapter<HistoryDetailsModel> adapter) {
-
+        public void init(HistoryDetailsModel.HistoryListModel item, int position, FactoryAdapter<HistoryDetailsModel.HistoryListModel> adapter) {
+            if("1".equals(item.type)){
+                way.setText("红包");
+                money.setText("+"+item.money+"元");
+            }else if("0".equals(item.type)){
+                way.setText("提现");
+                money.setText("-"+item.money+"元");
+            }
+            date.setText(item.time);
         }
     }
 }

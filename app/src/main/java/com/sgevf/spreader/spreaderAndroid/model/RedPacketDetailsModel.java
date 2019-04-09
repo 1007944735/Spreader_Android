@@ -20,6 +20,7 @@ public class RedPacketDetailsModel {
     public Double distance;
     public String title;
     public String info;
+    public String isGrab;
 
     public RedPacketDetailsModel(JSONObject obj) {
         id = obj.optInt("id");
@@ -38,5 +39,6 @@ public class RedPacketDetailsModel {
         distance = obj.optDouble("distance");
         title = obj.optString("title");
         info = obj.optString("info");
+        isGrab = obj.optString("isGrab");
     }
 }

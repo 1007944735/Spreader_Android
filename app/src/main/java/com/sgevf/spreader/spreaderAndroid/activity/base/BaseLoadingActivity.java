@@ -13,7 +13,7 @@ public abstract class BaseLoadingActivity<T> extends BasicLoadingActivity<T> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowHelper.fullScreen(this);
+//        WindowHelper.fullScreen(this);
     }
 
     @Override

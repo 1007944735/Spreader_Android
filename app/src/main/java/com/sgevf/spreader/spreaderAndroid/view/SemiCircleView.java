@@ -48,6 +48,6 @@ public class SemiCircleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 //        canvas.drawColor(Color.TRANSPARENT);
-        canvas.drawCircle(getMeasuredWidth() / 2, 0, getMeasuredWidth() / 2, paint);
+        canvas.drawCircle(getMeasuredWidth() / 2, (float) (-0.7*getMeasuredWidth()), getMeasuredWidth(), paint);
     }
 }
