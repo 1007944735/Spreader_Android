@@ -67,6 +67,7 @@
         <activity android:name=".map.MapNavigationActivity" />
         <activity android:name=".activity.PubActivity" />
         <activity android:name=".activity.WalletHistoryRedPacketDetailsActivity" />
+        <activity android:name=".activity.PayActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data
