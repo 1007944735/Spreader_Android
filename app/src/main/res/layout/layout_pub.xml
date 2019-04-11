@@ -200,7 +200,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_14"
                 android:layout_marginEnd="@dimen/margin_10"
-                android:text="@string/home_put_money"/>
+                android:text="@string/home_upload"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

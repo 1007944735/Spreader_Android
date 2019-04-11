@@ -77,7 +77,6 @@ public class ExpandActivity extends BaseActivity {
     }
 
     private void init() {
-        infos = getIntent().getParcelableExtra("infos");
         if (infos != null) {
             inputTitle.setText(infos.title);
             inputInfo.setText(infos.info);
@@ -102,7 +101,6 @@ public class ExpandActivity extends BaseActivity {
                     videoBox.removeAllViews();
                 }
             });
-
         } else {
             infos = new ExpandInfoModel();
         }

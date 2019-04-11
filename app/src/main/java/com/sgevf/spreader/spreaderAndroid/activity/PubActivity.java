@@ -19,6 +19,7 @@ import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.map.MapActivity;
 import com.sgevf.spreader.spreaderAndroid.model.ExpandInfoModel;
 import com.sgevf.spreader.spreaderAndroid.model.ExpandPhotoModel;
+import com.sgevf.spreader.spreaderAndroid.model.PubResultModel;
 import com.sgevf.spreader.spreaderAndroid.task.PubTask;
 import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.DialogUtils;
 
-public class PubActivity extends BaseLoadingActivity<String> {
+public class PubActivity extends BaseLoadingActivity<PubResultModel> {
     @BindView(R.id.count)
     public EditText count;
     @BindView(R.id.price)
@@ -101,46 +102,41 @@ public class PubActivity extends BaseLoadingActivity<String> {
         if (requestCode == 1000 && resultCode == 1001) {
             poi = data.getParcelableExtra("poi");
             address.setText(poi.getTitle());
-        } else if (requestCode == 2000 && resultCode == 2001) {
-            PubTask task = new PubTask(this, this);
-            if (type == 1) {
-                task.params.put("amount", "" + Integer.valueOf(count.getText().toString()) * Double.valueOf(price.getText().toString()));
-            } else if (type == 0) {
-                task.params.put("amount", "" + Double.valueOf(price.getText().toString()));
-            }
-            task.params.put("type", type + "");
-            task.params.put("pubLongitude", poi.getLatLonPoint().getLongitude() + "");
-            task.params.put("pubLatitude", poi.getLatLonPoint().getLatitude() + "");
-            task.params.put("startTime", start.getText().toString());
-            task.params.put("endTime", end.getText().toString());
-            task.params.put("maxNumber", count.getText().toString());
-            task.params.put("pubAddress", address.getText().toString());
-            task.params.put("title", infos.title);
-            task.params.put("info", infos.info);
-            task.params.put("video", new File(infos.video.path));
-            task.params.put("orderId", data.getIntExtra("orderId", 0) + "");
-            for (ExpandPhotoModel picture : infos.pictures) {
-                task.params.put("pictures", new File(picture.path));
-            }
-            task.request();
         }
     }
 
     @OnClick(R.id.submit)
     public void submit() {
-        String m = null;
+        PubTask task = new PubTask(this, this);
         if (type == 1) {
-            m = "" + Integer.valueOf(count.getText().toString()) * Double.valueOf(price.getText().toString());
+            task.params.put("amount", "" + Integer.valueOf(count.getText().toString()) * Double.valueOf(price.getText().toString()));
         } else if (type == 0) {
-            m = "" + Double.valueOf(price.getText().toString());
+            task.params.put("amount", "" + Double.valueOf(price.getText().toString()));
         }
-        startActivityForResult(new Intent(this, PayActivity.class).putExtra("amount", m), 2000);
+        task.params.put("type", type + "");
+        task.params.put("pubLongitude", poi.getLatLonPoint().getLongitude() + "");
+        task.params.put("pubLatitude", poi.getLatLonPoint().getLatitude() + "");
+        task.params.put("startTime", start.getText().toString());
+        task.params.put("endTime", end.getText().toString());
+        task.params.put("maxNumber", count.getText().toString());
+        task.params.put("pubAddress", address.getText().toString());
+        task.params.put("title", infos.title);
+        task.params.put("info", infos.info);
+        if (infos.video != null && infos.video.path != null) {
+            task.params.put("video", new File(infos.video.path));
+        }
+        if (infos.pictures != null) {
+            for (ExpandPhotoModel picture : infos.pictures) {
+                task.params.put("pictures", new File(picture.path));
+            }
+        }
+        task.request();
     }
 
     @Override
-    public void onLoadFinish(String s) {
-        ToastUtils.Toast(this, s);
-        startActivity(new Intent(this, HomeActivity.class));
+    public void onLoadFinish(PubResultModel model) {
+        ToastUtils.Toast(this, "发布成功");
+        startActivity(new Intent(this, PayActivity.class).putExtra("redPacketId", model.id).putExtra("amount",model.amount));
     }
 
     private void changeTextColor(int t) {

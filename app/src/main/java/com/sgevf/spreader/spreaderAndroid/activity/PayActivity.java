@@ -29,8 +29,10 @@ public class PayActivity extends BaseLoadingActivity<PubOrderModel> {
     public RadioButton ali;
     @BindView(R.id.pay)
     public Button pay;
+    private String redPacketId;
     private String amount;
     private PubOrderModel model;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
@@ -38,8 +40,9 @@ public class PayActivity extends BaseLoadingActivity<PubOrderModel> {
         setContentView(R.layout.layout_pub_pay);
         ButterKnife.bind(this);
         new HeaderView(this).setTitle("支付");
+        redPacketId = getIntent().getStringExtra("redPacketId");
         amount = getIntent().getStringExtra("amount");
-        new PubOrderTask(this, this).setClass(amount).request();
+        new PubOrderTask(this, this).setClass(amount, redPacketId).request();
     }
 
     @Override
@@ -53,10 +56,7 @@ public class PayActivity extends BaseLoadingActivity<PubOrderModel> {
         new AppAlipayUtil(this).pay(model.orderString).setCallback(new AppAlipayUtil.PayResultCallback() {
             @Override
             public void success() {
-                Intent intent=new Intent();
-                intent.putExtra("orderId",model.id);
-                setResult(2001,intent);
-                finish();
+                startActivity(new Intent(PayActivity.this, HomeActivity.class));
             }
 
             @Override

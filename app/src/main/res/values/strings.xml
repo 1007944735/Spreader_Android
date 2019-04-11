@@ -20,7 +20,7 @@
     <string name="home_expand_add_tip">添加推广信息</string>
     <string name="home_upload_image">上传图片</string>
     <string name="home_hint_expand_tip">请输入推广信息（100字以内）</string>
-    <string name="home_put_money">塞钱</string>
+    <string name="home_upload">上传</string>
     <string name="home_exit">退出</string>
     <string name="hone_click_login">点击登录</string>
     <string name="home_slip_user_center">个人中心</string>

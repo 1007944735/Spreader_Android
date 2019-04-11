@@ -3,6 +3,7 @@ package com.sgevf.spreader.spreaderAndroid.task;
 import android.app.Activity;
 
 import com.sgevf.spreader.spreaderAndroid.activity.PubActivity;
+import com.sgevf.spreader.spreaderAndroid.model.PubResultModel;
 import com.sgevf.spreader.spreaderAndroid.task.impl.PubService;
 
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 
-public class PubTask extends BaseService<PubService, String> {
+public class PubTask extends BaseService<PubService, PubResultModel> {
 
 
     public PubTask(Activity mActivity, Object mTarget) {
@@ -23,7 +24,7 @@ public class PubTask extends BaseService<PubService, String> {
     }
 
     @Override
-    public void onSuccess(String s) {
+    public void onSuccess(PubResultModel s) {
         if (mTarget instanceof PubActivity) {
             ((PubActivity) mTarget).onLoadFinish(s);
         }
