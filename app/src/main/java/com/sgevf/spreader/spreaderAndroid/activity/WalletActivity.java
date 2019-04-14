@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.model.UserAccountModel;
@@ -19,6 +21,8 @@ import butterknife.OnClick;
 public class WalletActivity extends BaseLoadingActivity<UserAccountModel> {
     @BindView(R.id.balance)
     public TextView balance;
+    private UserAccountModel userAccountModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +34,11 @@ public class WalletActivity extends BaseLoadingActivity<UserAccountModel> {
 
     @OnClick(R.id.withdraw)
     public void withdraw(View view) {
-        startActivity(new Intent(this, WalletWithdrawActivity.class));
+        if (!userAccountModel.alipayAccount.isEmpty()) {
+            startActivity(new Intent(this, WalletWithdrawActivity.class).putExtra("model", userAccountModel));
+        }else {
+            ToastUtils.Toast(this,"请先绑定支付宝帐号");
+        }
     }
 
     @OnClick(R.id.history_details)
@@ -40,6 +48,7 @@ public class WalletActivity extends BaseLoadingActivity<UserAccountModel> {
 
     @Override
     public void onLoadFinish(UserAccountModel userAccountModel) {
+        this.userAccountModel=userAccountModel;
         balance.setText(userAccountModel.balance);
     }
 }
