@@ -149,23 +149,25 @@
                 android:id="@+id/unLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:padding="@dimen/padding_28"
                 android:visibility="gone">
+
                 <Button
                     android:id="@+id/login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:background="@drawable/bg_border_white"
-                    android:text="登录"
-                    android:layout_marginRight="@dimen/margin_10"/>
+                    android:text="登录" />
+
                 <Button
                     android:id="@+id/register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_border_white"
-                    android:text="注册"/>
+                    android:text="注册" />
             </LinearLayout>
 
             <View
@@ -284,30 +286,42 @@
                     android:textSize="@dimen/dimen_18" />
             </LinearLayout>
 
-
-            <LinearLayout
+            <Button
                 android:id="@+id/exit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="@drawable/fg_ripple_general"
-                android:orientation="horizontal"
-                android:padding="@dimen/padding_14"
-                android:visibility="gone">
+                android:layout_marginLeft="@dimen/margin_28"
+                android:layout_marginTop="@dimen/margin_28"
+                android:layout_marginRight="@dimen/margin_28"
+                android:layout_marginBottom="@dimen/margin_28"
+                android:background="@drawable/bg_stroke_raduis_white"
+                android:text="@string/home_exit"
+                android:textColor="#ff0000"
+                android:visibility="gone" />
 
-                <TextView
-                    android:layout_width="4dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_4"
-                    android:background="@drawable/bg_radius_red" />
+            <!--<LinearLayout-->
+            <!---->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:foreground="@drawable/fg_ripple_general"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="@dimen/padding_14"-->
+            <!--android:visibility="gone">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/home_exit"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/dimen_18" />
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:layout_width="4dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="@dimen/margin_4"-->
+            <!--android:background="@drawable/bg_radius_red" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/home_exit"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:textSize="@dimen/dimen_18" />-->
+            <!--</LinearLayout>-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

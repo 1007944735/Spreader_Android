@@ -29,12 +29,17 @@ public class WalletActivity extends BaseLoadingActivity<UserAccountModel> {
         setContentView(R.layout.layout_wallet);
         ButterKnife.bind(this);
         new HeaderView(this).setTitle(R.string.home_slip_wallet);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         new AccountSelectTask(this,this).request();
     }
 
     @OnClick(R.id.withdraw)
     public void withdraw(View view) {
-        if (!userAccountModel.alipayAccount.isEmpty()) {
+        if (userAccountModel.alipayAccount!=null) {
             startActivity(new Intent(this, WalletWithdrawActivity.class).putExtra("model", userAccountModel));
         }else {
             ToastUtils.Toast(this,"请先绑定支付宝帐号");

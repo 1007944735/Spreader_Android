@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ public class UserCenterFragment extends Fragment {
     @BindView(R.id.logining)
     LinearLayout logining;
     @BindView(R.id.exit)
-    LinearLayout exit;
+    Button exit;
 
     private Context context;
 
@@ -88,7 +89,7 @@ public class UserCenterFragment extends Fragment {
     }
 
     private void init() {
-        if(UserConfig.isLogin(context)){
+        if (UserConfig.isLogin(context)) {
             unLogin.setVisibility(View.GONE);
             logining.setVisibility(View.VISIBLE);
             GlideManager.circleImage(this, UserConfig.getUserHead(context), head);
@@ -98,7 +99,7 @@ public class UserCenterFragment extends Fragment {
             if (!TextUtils.isEmpty(p))
                 phone.setText(p.substring(0, 3) + "****" + p.substring(7));
             exit.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             unLogin.setVisibility(View.VISIBLE);
             logining.setVisibility(View.GONE);
             exit.setVisibility(View.GONE);
@@ -123,7 +124,7 @@ public class UserCenterFragment extends Fragment {
 
     @OnClick(R.id.ali)
     public void bindAli() {
-        startActivity(new Intent (context, BindAlipayActivity.class));
+        startActivity(new Intent(context, BindAlipayActivity.class));
     }
 
     @OnClick(R.id.resetPassword)
@@ -132,13 +133,14 @@ public class UserCenterFragment extends Fragment {
         intent.putExtra("type", 3);
         startActivityForResult(intent, 3000);
     }
+
     @OnClick(R.id.login)
-    public void login(){
-        startActivity(new Intent(context,LoginActivity.class));
+    public void login() {
+        startActivity(new Intent(context, LoginActivity.class));
     }
 
     @OnClick(R.id.register)
-    public void register(){
+    public void register() {
         startActivity(new Intent(context, RegisterActivity.class));
     }
 

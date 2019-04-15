@@ -3,9 +3,7 @@ package com.sgevf.spreader.spreaderAndroid.task;
 import android.app.Activity;
 
 import com.sgevf.spreader.spreaderAndroid.activity.WalletHistoryRedPacketDetailsActivity;
-import com.sgevf.spreader.spreaderAndroid.activity.WalletHistoryWithdrawDetailsActivity;
 import com.sgevf.spreader.spreaderAndroid.model.WalletHistoryRedPacketDetailsModel;
-import com.sgevf.spreader.spreaderAndroid.model.WalletHistoryWithdrawDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.task.impl.AccountService;
 
 import java.util.Map;

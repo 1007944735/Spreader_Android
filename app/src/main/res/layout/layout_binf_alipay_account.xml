@@ -1,13 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/layout_head_view"/>
+
+    <include layout="@layout/layout_head_view" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="@dimen/margin_10"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        android:visibility="gone">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_10">
+
+            <ImageView
+                android:id="@+id/alipayHead"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/alipayName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="@dimen/dimen_22"
+                app:layout_constraintBottom_toTopOf="@+id/alipayUid"
+                app:layout_constraintStart_toEndOf="@+id/alipayHead"
+                app:layout_constraintTop_toTopOf="@+id/alipayHead"
+                tools:text="测试测试" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="UID:"
+                app:layout_constraintBottom_toBottomOf="@+id/alipayHead"
+                app:layout_constraintStart_toEndOf="@+id/alipayHead" />
+
+            <TextView
+                android:id="@+id/alipayUid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/alipayHead"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                tools:text="1321231231213" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/bind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:text="立即绑定"
+        android:textColor="@color/colorInfo"
         android:visibility="gone"/>
 </LinearLayout>

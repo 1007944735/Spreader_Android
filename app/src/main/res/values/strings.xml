@@ -51,7 +51,7 @@
     <string name="user_center_accounts">帐号</string>
     <string name="user_center_nickname">昵称</string>
     <string name="user_center_phone">手机号</string>
-    <string name="user_center_ali">绑定支付宝帐号</string>
+    <string name="user_center_ali">支付宝帐号</string>
     <string name="user_center_update_password">修改密码</string>
     <string name="user_center_complete">完成</string>
     <string name="user_center_old_pass">旧密码</string>

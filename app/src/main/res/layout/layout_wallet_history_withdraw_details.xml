@@ -55,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="right"
                     android:text="名称" />
 
@@ -66,7 +66,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textColor="@color/colorBlack"
-                    tools:text="抢到的红包" />
+                    tools:text="提现" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="right"
                     android:text="提现时间" />
 
@@ -103,7 +103,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="right"
                     android:text="方式" />
 
@@ -114,7 +114,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textColor="@color/colorBlack"
-                    tools:text="抢到的红包" />
+                    tools:text="支付宝" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,7 +127,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="right"
                     android:text="状态" />
 
@@ -137,7 +137,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="抢到的红包"
+                    android:text="转账中"
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
 
@@ -146,12 +146,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/padding_8"
-                android:paddingBottom="@dimen/padding_8">
+                android:paddingBottom="@dimen/padding_8"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="right"
                     android:text="失败原因" />
 
@@ -161,7 +162,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="抢到的红包"
+                    android:text="没钱"
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
 
@@ -175,43 +176,52 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
-                    android:gravity="right"
-                    android:text="收款方" />
-
-                <TextView
-                    android:id="@+id/payee"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="抢到的红包"
-                    android:textColor="@color/colorBlack" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/padding_8"
-                android:paddingBottom="@dimen/padding_8">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="right"
                     android:text="订单号" />
 
                 <TextView
-                    android:id="@+id/order_number"
+                    android:id="@+id/order"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="抢到的红包"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="@color/colorBlack"
+                    tools:text="123123" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/padding_8"
+                android:paddingBottom="@dimen/padding_8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="6"
+                    android:gravity="right"
+                    android:text="支付宝单据号" />
+
+                <TextView
+                    android:id="@+id/alipayOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textColor="@color/colorBlack"
+                    tools:text="123123" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击刷新"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:textColor="@color/colorInfo"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

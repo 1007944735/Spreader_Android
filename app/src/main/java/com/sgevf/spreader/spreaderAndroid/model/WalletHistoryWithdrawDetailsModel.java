@@ -10,6 +10,8 @@ public class WalletHistoryWithdrawDetailsModel {
     public String way;
     public String status;
     public String failReason;
+    public String withdrawOrder;
+    public String alipayOrder;
 
     public WalletHistoryWithdrawDetailsModel(JSONObject obj) {
         id = obj.optInt("id");
@@ -19,5 +21,7 @@ public class WalletHistoryWithdrawDetailsModel {
         way = obj.optString("way");
         status = obj.optString("status");
         failReason = obj.optString("failReason");
+        withdrawOrder = obj.optString("withdrawOrder");
+        alipayOrder = obj.optString("alipayOrder");
     }
 }

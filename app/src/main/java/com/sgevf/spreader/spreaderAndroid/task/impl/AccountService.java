@@ -1,14 +1,12 @@
 package com.sgevf.spreader.spreaderAndroid.task.impl;
 
 import com.sgevf.spreader.http.entity.BasicResult;
-import com.sgevf.spreader.spreaderAndroid.glide.MyAppGlideModule;
 import com.sgevf.spreader.spreaderAndroid.model.BindAlipayModel;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.model.UserAccountModel;
 import com.sgevf.spreader.spreaderAndroid.model.WalletHistoryRedPacketDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.model.WalletHistoryWithdrawDetailsModel;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;

@@ -95,4 +95,9 @@ public class HeaderView implements View.OnClickListener {
         return right;
     }
 
+    public HeaderView setBack(View.OnClickListener onClick){
+        toolbar.setNavigationOnClickListener(onClick);
+        return this;
+    }
+
 }

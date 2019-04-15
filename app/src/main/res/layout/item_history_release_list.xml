@@ -1,27 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingLeft="@dimen/padding_14"
-    android:paddingRight="@dimen/padding_14"
     android:paddingTop="@dimen/padding_8"
+    android:paddingRight="@dimen/padding_14"
     android:paddingBottom="@dimen/padding_8">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:foreground="@drawable/fg_ripple_general"
-        app:cardBackgroundColor="@color/colorTheme"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp">
 
         <TextView
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="此处是推广信息列表，显示样式暂时没想好，占位"
-            android:textColor="@color/colorWhite" />
+            android:layout_gravity="right"
+            android:background="@drawable/bg_item_history_status_selector"
+            android:padding="@dimen/padding_6"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_12"
+            tools:text="活动进行中" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_14">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_6"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="@dimen/dimen_20"
+                tools:text="标题" />
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2"
+                android:ellipsize="end"
+                android:maxLines="2"
+                tools:text="啊看涉及到刻录机啊上课了建档立卡就是来得及" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2"
+                tools:text="地点" />
+
+            <TextView
+                android:id="@+id/redPacketInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2"
+                tools:text="86人|78元" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2019-04-09 20:41:26~2019-04-09 20:41:26" />
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

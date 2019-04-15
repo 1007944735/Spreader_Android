@@ -1,7 +1,12 @@
 package com.sgevf.spreader.spreaderAndroid.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
@@ -34,7 +39,9 @@ public class WalletHistoryRedPacketDetailsActivity extends BaseLoadingActivity<W
 
     @Override
     public void onLoadFinish(WalletHistoryRedPacketDetailsModel model) {
-        name.setText("来自"+model.nickname+"的红包");
+        SpannableString spannableString=SpannableString.valueOf("来自"+model.nickname+"的红包");
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#49afcd")),2,2+model.nickname.length(),Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        name.setText(spannableString);
         money.setText("￥"+model.robMoney);
         takeTime.setText(model.robTime);
     }

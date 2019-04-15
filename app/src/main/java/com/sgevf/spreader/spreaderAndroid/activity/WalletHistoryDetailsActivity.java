@@ -51,7 +51,7 @@ public class WalletHistoryDetailsActivity extends BaseLoadingActivity<HistoryDet
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if ("0".equals(models.get(position).type)) {
             //提现详情
-            startActivity(new Intent(this, WalletHistoryWithdrawDetailsActivity.class).putExtra("model", models.get(position)));
+            startActivity(new Intent(this, WalletHistoryWithdrawDetailsActivity.class).putExtra("id", models.get(position).id).putExtra("from",WalletHistoryWithdrawDetailsActivity.FROM_RECODE));
         }else if("1".equals(models.get(position).type)){
             //红包详情
             startActivity(new Intent(this, WalletHistoryRedPacketDetailsActivity.class).putExtra("model", models.get(position)));

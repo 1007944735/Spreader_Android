@@ -1,5 +1,6 @@
 package com.sgevf.spreader.spreaderAndroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -11,14 +12,17 @@ import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
+import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
+import com.sgevf.spreader.spreaderAndroid.model.CashWithdrawModel;
 import com.sgevf.spreader.spreaderAndroid.model.UserAccountModel;
+import com.sgevf.spreader.spreaderAndroid.task.WithdrawTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WalletWithdrawActivity extends BaseActivity {
+public class WalletWithdrawActivity extends BaseLoadingActivity<CashWithdrawModel> {
     @BindView(R.id.count)
     public EditText count;
     @BindView(R.id.balance)
@@ -40,15 +44,18 @@ public class WalletWithdrawActivity extends BaseActivity {
     private void init() {
         model = getIntent().getParcelableExtra("model");
         balance.setText("当前可用余额" + model.balance + "元");
-
         count.addTextChangedListener(new EditChangeListener(confirm, Double.valueOf(model.balance)));
     }
 
     @OnClick(R.id.confirm)
     public void confirm(View view) {
         String m = count.getText().toString().trim();
+        new WithdrawTask(this, this).setClass(m, model.alipayAccount).request();
+    }
 
-
+    @Override
+    public void onLoadFinish(CashWithdrawModel model) {
+        startActivity(new Intent(this, WalletHistoryWithdrawDetailsActivity.class).putExtra("id", model.withdrawId).putExtra("from",WalletHistoryWithdrawDetailsActivity.FROM_WALLET));
     }
 
 
@@ -75,6 +82,8 @@ public class WalletWithdrawActivity extends BaseActivity {
         public void afterTextChanged(Editable s) {
             if (!s.toString().isEmpty() && Double.valueOf(s.toString()) < count) {
                 confirm.setEnabled(true);
+            } else {
+                confirm.setEnabled(false);
             }
         }
     }
