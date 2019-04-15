@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.activity.BindAlipayActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.HistoryReleaseActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.HomeActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.LoginActivity;
@@ -122,7 +123,7 @@ public class UserCenterFragment extends Fragment {
 
     @OnClick(R.id.ali)
     public void bindAli() {
-
+        startActivity(new Intent (context, BindAlipayActivity.class));
     }
 
     @OnClick(R.id.resetPassword)

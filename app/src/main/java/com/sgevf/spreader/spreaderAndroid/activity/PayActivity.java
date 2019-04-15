@@ -53,9 +53,10 @@ public class PayActivity extends BaseLoadingActivity<PubOrderModel> {
 
     @OnClick(R.id.pay)
     public void pay() {
-        new AppAlipayUtil(this).pay(model.orderString).setCallback(new AppAlipayUtil.PayResultCallback() {
+        new AppAlipayUtil(this,AppAlipayUtil.SDK_PAY_FLAG).pay(model.orderString).setCallback(new AppAlipayUtil.AliResultCallback() {
+
             @Override
-            public void success() {
+            public void success(Object obj) {
                 startActivity(new Intent(PayActivity.this, HomeActivity.class));
             }
 

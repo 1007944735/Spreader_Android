@@ -48,7 +48,7 @@ public class UserCenterActivity extends BaseActivity {
     }
 
     @OnClick(R.id.p_nickName)
-    public void updateNickName(View view) {
+    public void updateNickName() {
         Intent intent = new Intent(this, UpdateUserActivity.class);
         intent.putExtra("type", 1);
         startActivityForResult(intent, 1000);
@@ -56,19 +56,19 @@ public class UserCenterActivity extends BaseActivity {
     }
 
     @OnClick(R.id.p_phone)
-    public void updatePhone(View view) {
+    public void updatePhone() {
         Intent intent = new Intent(this, UpdateUserActivity.class);
         intent.putExtra("type", 2);
         startActivityForResult(intent, 2000);
     }
 
     @OnClick(R.id.ali)
-    public void bindAli(View view) {
-
+    public void bindAli() {
+        startActivity(new Intent (this,BindAlipayActivity.class));
     }
 
     @OnClick(R.id.resetPassword)
-    public void resetPassword(View view) {
+    public void resetPassword() {
         Intent intent = new Intent(this, UpdateUserActivity.class);
         intent.putExtra("type", 3);
         startActivityForResult(intent, 3000);

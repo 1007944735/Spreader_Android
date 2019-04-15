@@ -68,6 +68,19 @@
         <activity android:name=".activity.PubActivity" />
         <activity android:name=".activity.WalletHistoryRedPacketDetailsActivity" />
         <activity android:name=".activity.PayActivity" />
+        <activity android:name=".activity.BindAlipayActivity" />
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

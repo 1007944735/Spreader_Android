@@ -1,6 +1,8 @@
 package com.sgevf.spreader.spreaderAndroid.task.impl;
 
 import com.sgevf.spreader.http.entity.BasicResult;
+import com.sgevf.spreader.spreaderAndroid.glide.MyAppGlideModule;
+import com.sgevf.spreader.spreaderAndroid.model.BindAlipayModel;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryDetailsModel;
 import com.sgevf.spreader.spreaderAndroid.model.UserAccountModel;
 import com.sgevf.spreader.spreaderAndroid.model.WalletHistoryRedPacketDetailsModel;
@@ -31,4 +33,8 @@ public interface AccountService {
     @POST("S0013")
     @Multipart
     Observable<BasicResult<WalletHistoryRedPacketDetailsModel>> redPacketDetails(@PartMap Map<String,RequestBody> data);
+
+    @POST("S0016")
+    @Multipart
+    Observable<BasicResult<BindAlipayModel>> searchIsBindAlipay(@PartMap Map<String,RequestBody> data);
 }

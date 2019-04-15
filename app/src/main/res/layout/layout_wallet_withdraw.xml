@@ -57,6 +57,7 @@
             android:background="@color/colorHintText" />
 
         <TextView
+            android:id="@+id/balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="当前可用余额0.00元"
@@ -71,5 +72,6 @@
         android:layout_marginLeft="@dimen/margin_14"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginRight="@dimen/margin_14"
-        android:text="@string/wallet_withdraw_confirm" />
+        android:text="@string/wallet_withdraw_confirm"
+        android:enabled="false"/>
 </LinearLayout>
