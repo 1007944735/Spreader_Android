@@ -14,7 +14,7 @@ public class VideoThreeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_video_three);
         mediaVideo = findViewById(R.id.mediaVideo);
-        mediaVideo.setDataSource("http://m10.music.126.net/20190307143706/467d120980f80180c2d5b757692ff76f/ymusic/cb4b/34dc/fc81/cd3a190a35cb65480992ad3b1542ec7b.mp3");
+        mediaVideo.setDataSource("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318231014076505.mp4");
     }
 
     @Override

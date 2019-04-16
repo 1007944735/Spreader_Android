@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.amap.api.location.AMapLocation;
 import com.sgevf.multimedia.camera.CameraActivity;
+import com.sgevf.multimedia.video.VideoThreeActivity;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
@@ -63,12 +64,11 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         startActivity(new Intent(this, HomeActivity.class));
     }
 
-    public void camera(View view) {
-        startActivity(new Intent(this, CameraActivity.class));
+    public void video(View view) {
+        startActivity(new Intent(this, VideoThreeActivity.class));
     }
 
-
-    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA})
+    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA})
     void getMultiPermission() {
     }
 
@@ -90,22 +90,10 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         helper.destroyLocation();
     }
 
-    public void systemPhoto(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent, 1000);
-    }
-
-    public void jump(View view) {
-//        Intent intent=new Intent(this, TestActivity.class);
-//        startActivity(intent);
-        MapPathPlanHelper helper = new MapPathPlanHelper(this);
-        helper.walkPathPlan(116.479271, 39.996678, 116.468939, 39.997796);
-    }
-
     @Override
     public void onLoadFinish(InitModel initModel) {
         UserConfig.setPublicKey(this, initModel.publicKey);
-
     }
+
+
 }
