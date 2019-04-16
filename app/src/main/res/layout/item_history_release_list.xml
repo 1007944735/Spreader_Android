@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:foreground="@drawable/fg_ripple_general"
         app:cardCornerRadius="5dp"
-        app:cardElevation="5dp">
+        app:cardElevation="0dp">
 
         <TextView
             android:id="@+id/status"

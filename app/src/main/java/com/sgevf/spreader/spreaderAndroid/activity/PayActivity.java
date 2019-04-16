@@ -31,6 +31,7 @@ public class PayActivity extends BaseLoadingActivity<PubOrderModel> {
     public Button pay;
     private String redPacketId;
     private String amount;
+    private String order;
     private PubOrderModel model;
 
     @Override
@@ -42,7 +43,8 @@ public class PayActivity extends BaseLoadingActivity<PubOrderModel> {
         new HeaderView(this).setTitle("支付");
         redPacketId = getIntent().getStringExtra("redPacketId");
         amount = getIntent().getStringExtra("amount");
-        new PubOrderTask(this, this).setClass(amount, redPacketId).request();
+        order = getIntent().getStringExtra("order");
+        new PubOrderTask(this, this).setClass(amount, redPacketId, order == null ? "" : order).request();
     }
 
     @Override
@@ -53,7 +55,7 @@ public class PayActivity extends BaseLoadingActivity<PubOrderModel> {
 
     @OnClick(R.id.pay)
     public void pay() {
-        new AppAlipayUtil(this,AppAlipayUtil.SDK_PAY_FLAG).pay(model.orderString).setCallback(new AppAlipayUtil.AliResultCallback() {
+        new AppAlipayUtil(this, AppAlipayUtil.SDK_PAY_FLAG).pay(model.orderString).setCallback(new AppAlipayUtil.AliResultCallback() {
 
             @Override
             public void success(Object obj) {

@@ -1,11 +1,9 @@
 package com.sgevf.spreader.spreaderAndroid.adapter;
 
 import android.content.Context;
-import android.content.IntentFilter;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sgevf.multimedia.video.MediaVideo;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryDetailsModel;
 

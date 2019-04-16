@@ -16,9 +16,10 @@ public class PubOrderTask extends BaseService<PayService, PubOrderModel> {
         super(mActivity, mTarget);
     }
 
-    public PubOrderTask setClass(String amount,String redPacketId){
+    public PubOrderTask setClass(String amount,String redPacketId,String order){
         params.put("amount",amount);
         params.put("redPacketId",redPacketId);
+        params.put("order",order);
         return this;
     }
 

@@ -1,6 +1,8 @@
 package com.sgevf.spreader.spreaderAndroid.task.impl;
 
 import com.sgevf.spreader.http.entity.BasicResult;
+import com.sgevf.spreader.spreaderAndroid.model.HistoryReleaseListModel;
+import com.sgevf.spreader.spreaderAndroid.model.HistorySurplusModel;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.PubResultModel;
 import com.sgevf.spreader.spreaderAndroid.model.RedPacketDetailsModel;
@@ -26,4 +28,16 @@ public interface PubService {
     @POST("S0008")
     @Multipart
     Observable<BasicResult<RedPacketDetailsModel>> redPacketDetails(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0021")
+    @Multipart
+    Observable<BasicResult<HistoryReleaseListModel>> historyRelease(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0022")
+    @Multipart
+    Observable<BasicResult<HistorySurplusModel>> surplusRefresh(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0023")
+    @Multipart
+    Observable<BasicResult<String>> cancelPub(@PartMap Map<String, RequestBody> data);
 }

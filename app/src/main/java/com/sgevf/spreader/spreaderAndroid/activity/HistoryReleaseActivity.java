@@ -10,19 +10,21 @@ import android.widget.ListView;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.HistoryReleaseListAdapter;
-import com.sgevf.spreader.spreaderAndroid.model.HistoryReleaseModel;
+import com.sgevf.spreader.spreaderAndroid.model.HistoryReleaseListModel;
+import com.sgevf.spreader.spreaderAndroid.task.HistoryReleaseTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryReleaseModel>> implements AdapterView.OnItemClickListener {
+public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryReleaseListModel.HistoryReleaseModel>> implements AdapterView.OnItemClickListener {
     @BindView(R.id.history)
     public ListView history;
     private HistoryReleaseListAdapter adapter;
+
+    private List<HistoryReleaseListModel.HistoryReleaseModel> historyReleaseModels;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,21 +37,17 @@ public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryRele
 
     private void init() {
         history.setOnItemClickListener(this);
-        List<HistoryReleaseModel> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new HistoryReleaseModel());
-        }
-        adapter = new HistoryReleaseListAdapter(this, list);
-        history.setAdapter(adapter);
+        new HistoryReleaseTask(this,this).request();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(this, HistoryReleaseDetailsActivity.class));
+        startActivity(new Intent(this, HistoryReleaseDetailsActivity.class).putExtra("historyDetails",historyReleaseModels.get(position)));
     }
 
     @Override
-    public void onLoadFinish(List<HistoryReleaseModel> historyReleaseModels) {
+    public void onLoadFinish(List<HistoryReleaseListModel.HistoryReleaseModel> historyReleaseModels) {
+        this.historyReleaseModels=historyReleaseModels;
         adapter = new HistoryReleaseListAdapter(this, historyReleaseModels);
         history.setAdapter(adapter);
     }
