@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/layout_head_view" />
@@ -10,23 +10,28 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="跳转"
-        android:onClick="skip" />
+        android:onClick="skip"
+        android:text="跳转" />
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="视频"
-        android:onClick="video" />
+        android:onClick="video"
+        android:text="视频" />
 
     <com.sgevf.spreader.spreaderAndroid.view.BubbleTextView
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
         android:text="123123123"
         app:backColor="#00ff00"
-        app:storkWidth="2dp"
         app:radius="10dp"
-        android:layout_gravity="center_horizontal" />
+        app:storkWidth="2dp" />
+
+    <com.sgevf.spreader.spreaderAndroid.view.SuperProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

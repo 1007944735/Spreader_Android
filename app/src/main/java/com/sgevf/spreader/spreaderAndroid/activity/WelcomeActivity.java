@@ -21,6 +21,7 @@ import com.sgevf.spreader.spreaderAndroid.map.MapPathPlanHelper;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.task.InitTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
+import com.sgevf.spreader.spreaderAndroid.view.SuperProgressBar;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -29,6 +30,7 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     private MapLocationHelper helper;
+    private SuperProgressBar progress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +41,10 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         init();
         initMap();
         WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
+
+        progress=findViewById(R.id.progress);
+
+
     }
 
     private void init() {
@@ -65,7 +71,27 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     }
 
     public void video(View view) {
-        startActivity(new Intent(this, VideoThreeActivity.class));
+        Thread thread=new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                for (int i=0;i<=100;i++){
+                    final float k=i/100f;
+                    try {
+                        sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progress.setProgress(k,"1");
+                        }
+                    });
+                }
+            }
+        };
+        thread.start();
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA})
@@ -94,6 +120,5 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     public void onLoadFinish(InitModel initModel) {
         UserConfig.setPublicKey(this, initModel.publicKey);
     }
-
 
 }

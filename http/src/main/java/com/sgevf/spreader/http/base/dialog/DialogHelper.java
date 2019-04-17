@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.ProgressBar;
 
 public class DialogHelper {
@@ -11,12 +12,13 @@ public class DialogHelper {
         return new DefaultLoading(context);
     }
 
-    public static Dialog initLoading(Context context) {
-        return new DialogLoading(context);
+    public static Dialog initLoading(Context context, View view) {
+        return new DialogLoading(context,view);
     }
 
     static class DefaultLoading extends Dialog {
         private Context context;
+        private boolean upload;
 
         public DefaultLoading(@NonNull Context context) {
             super(context);
@@ -30,6 +32,4 @@ public class DialogHelper {
             setContentView(bar);
         }
     }
-
-
 }

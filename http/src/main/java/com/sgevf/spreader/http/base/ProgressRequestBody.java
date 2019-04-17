@@ -21,10 +21,12 @@ public class ProgressRequestBody extends RequestBody {
     private RequestBody requestBody;
     private UploadProgressListener progressListener;
     private BufferedSink bufferedSink;
+    private String name;
 
-    public ProgressRequestBody(RequestBody requestBody, UploadProgressListener progressListener) {
+    public ProgressRequestBody(RequestBody requestBody, UploadProgressListener progressListener,String name) {
         this.requestBody = requestBody;
         this.progressListener = progressListener;
+        this.name=name;
     }
 
     @Nullable
@@ -64,7 +66,7 @@ public class ProgressRequestBody extends RequestBody {
                         .subscribe(new Consumer<Long>() {
                             @Override
                             public void accept(Long aLong) throws Exception {
-                                progressListener.progress(writtenBytesCount, totalBytesCount);
+                                progressListener.progress(writtenBytesCount, totalBytesCount,name);
                             }
                         });
             }

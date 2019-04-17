@@ -8,11 +8,13 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.services.core.PoiItem;
+import com.sgevf.spreader.http.base.impl.UploadProgressListener;
 import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
@@ -23,6 +25,7 @@ import com.sgevf.spreader.spreaderAndroid.model.PubResultModel;
 import com.sgevf.spreader.spreaderAndroid.task.PubTask;
 import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
+import com.sgevf.spreader.spreaderAndroid.view.SuperProgressBar;
 
 import java.io.File;
 import java.lang.annotation.ElementType;
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.DialogUtils;
 
-public class PubActivity extends BaseLoadingActivity<PubResultModel> {
+public class PubActivity extends BaseLoadingActivity<PubResultModel> implements UploadProgressListener {
     @BindView(R.id.count)
     public EditText count;
     @BindView(R.id.price)
@@ -52,6 +55,8 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> {
     private ExpandInfoModel infos;
     private PoiItem poi;
     private int type = 1;
+    private SuperProgressBar progress;
+    private int num=1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +66,8 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> {
         new HeaderView(this).setTitle(R.string.history_release);
         infos = getIntent().getParcelableExtra("infos");
         changeTextColor(1);
+        progress=new SuperProgressBar(this);
+        setUpload(progress);
     }
 
     @OnClick(R.id.start_time)
@@ -107,7 +114,7 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> {
 
     @OnClick(R.id.submit)
     public void submit() {
-        PubTask task = new PubTask(this, this);
+        PubTask task = new PubTask(this, this,this);
         if (type == 1) {
             task.params.put("amount", "" + Integer.valueOf(count.getText().toString()) * Double.valueOf(price.getText().toString()));
         } else if (type == 0) {
@@ -122,13 +129,14 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> {
         task.params.put("pubAddress", address.getText().toString());
         task.params.put("title", infos.title);
         task.params.put("info", infos.info);
-        if (infos.video != null && infos.video.path != null) {
-            task.params.put("video", new File(infos.video.path));
-        }
         if (infos.pictures != null) {
             for (ExpandPhotoModel picture : infos.pictures) {
-                task.params.put("pictures", new File(picture.path));
+                task.params.put("pictures", new File(picture.path),"图片"+num);
+                num++;
             }
+        }
+        if (infos.video != null && infos.video.path != null) {
+            task.params.put("video", new File(infos.video.path),"视频");
         }
         task.request();
     }
@@ -158,5 +166,13 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> {
         start.setText("");
         end.setText("");
         address.setText("");
+    }
+
+    @Override
+    public void progress(long currentBytesCount, long totalBytesCount,String name) {
+        progress.setProgress(currentBytesCount*1.0f/totalBytesCount,name);
+        Log.d("TAG", "currentBytesCount: "+currentBytesCount);
+        Log.d("TAG", "totalBytesCount: "+totalBytesCount);
+        Log.d("TAG", "num: "+num);
     }
 }

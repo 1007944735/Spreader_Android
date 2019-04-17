@@ -38,8 +38,8 @@ import com.amap.api.services.route.RouteBusLineItem;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
 import com.autonavi.amap.mapcore.Inner_3dMap_location;
-import com.sgevf.multimedia.video.VideoThreeActivity;
-import com.sgevf.spreader.http.utils.ToastUtils;
+import com.dueeeke.videocontroller.StandardVideoController;
+import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
@@ -69,7 +69,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.DateUtils;
-import utils.DialogUtils;
 import utils.MapUtils;
 import utils.WindowHelper;
 
@@ -123,6 +122,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     @BindView(R.id.open)
     Button open;
 
+    @BindView(R.id.video)
+    IjkVideoView video;
     AMap aMap;
     MyLocationStyle myLocationStyle;
     boolean onlyOnce = true;
@@ -163,6 +164,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         initRecyclerView();
         initDetails();
         initResultFilter();
+        initVideo();
     }
 
     private void init() {
@@ -300,6 +302,11 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             });
 
         }
+    }
+
+    private void initVideo() {
+        StandardVideoController controller=new StandardVideoController(this);
+        video.setVideoController(controller);
     }
 
     private void clearAllSelected() {
@@ -448,6 +455,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         if (!onlyOnce) {
             new MapSearchTask(this, this).setClass(curLocation.getLongitude() + "", curLocation.getLatitude() + "", mslm.orderType, mslm.redPacketType, mslm.number, mslm.amount).request();
         }
+        video.resume();
     }
 
     @Override
@@ -463,6 +471,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             timer.cancel();
             timer = null;
         }
+        video.release();
     }
 
     @Override
@@ -470,6 +479,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         super.onPause();
         //暂停地图绘制
         mapView.onPause();
+        video.pause();
     }
 
     @Override
@@ -545,6 +555,12 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         pathHelper.drivingPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude));
         pathHelper.busPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude), ((Inner_3dMap_location) curLocation).getCityCode());
         requestLoading.setVisibility(View.GONE);
+        if(recyclerData.get(clickPosition).videoUrl!=null) {
+            video.setVisibility(View.VISIBLE);
+            video.setUrl(recyclerData.get(clickPosition).videoUrl);
+        }else{
+            video.setVisibility(View.GONE);
+        }
         //数据加载完才显示
         detailsLayout.setVisibility(View.VISIBLE);
     }
@@ -673,42 +689,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         detailsBanner.setIndicatorGravity(BannerConfig.CENTER);
         detailsBanner.start();
     }
-
-//    @Override
-//    public void onClick(final RedPacketDialog dialog) {
-//        DialogUtils.showConfirm(this,
-//                "温馨提示",
-//                "观看视频广告能提升大红包的概率哦！！！",
-//                "立即观看",
-//                "忍心拒绝",
-//                new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-//                        startActivity(new Intent(MapDiscoverActivity.this, VideoThreeActivity.class));
-//                    }
-//                }, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        openRedPacket();
-//                    }
-//                });
-//    }
-
-//    private void openRedPacket() {
-//        ToastUtils.Toast(MapDiscoverActivity.this, "开始模拟网络请求");
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        ToastUtils.Toast(MapDiscoverActivity.this, "结束模拟网络请求");
-//        finishOpenRedPacket(null);
-//    }
-
-//    private void finishOpenRedPacket(Object o) {
-//        dialog.startAnimation();
-//    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {

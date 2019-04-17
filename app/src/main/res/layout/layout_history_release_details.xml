@@ -45,13 +45,14 @@
                 android:gravity="center_vertical"
                 tools:text="地址" />
 
-            <TextView
+            <com.dueeeke.videoplayer.player.IjkVideoView
+                android:id="@+id/video"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginBottom="@dimen/margin_4"
-                android:background="#ff0"
-                android:gravity="center"
-                android:text="视频" />
+                android:visibility="gone">
+
+            </com.dueeeke.videoplayer.player.IjkVideoView>
 
             <com.youth.banner.Banner
                 android:id="@+id/banner"
@@ -235,7 +236,7 @@
                     android:id="@+id/space"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/pay"

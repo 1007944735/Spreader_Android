@@ -21,24 +21,24 @@ public abstract class BaseService<T, S> extends BasicApi<T, S> {
         }
     }
 
-    public BaseService(Activity mActivity, String url) {
-        super(mActivity, url);
+    public BaseService(Activity mActivity, Object mTarget, String url) {
+        super(mActivity,mTarget, url);
         String token = UserConfig.getToken(mActivity);
         if (params != null && !TextUtils.isEmpty(token)) {
             params.put("token", token);
         }
     }
 
-    public BaseService(Activity mActivity, UploadProgressListener listener) {
-        super(mActivity, listener);
+    public BaseService(Activity mActivity, Object mTarget, UploadProgressListener listener) {
+        super(mActivity,mTarget, listener);
         String token = UserConfig.getToken(mActivity);
         if (params != null && !TextUtils.isEmpty(token)) {
             params.put("token", token);
         }
     }
 
-    public BaseService(Activity mActivity, String url, UploadProgressListener listener) {
-        super(mActivity, url, listener);
+    public BaseService(Activity mActivity, Object mTarget, String url, UploadProgressListener listener) {
+        super(mActivity,mTarget, url, listener);
         String token = UserConfig.getToken(mActivity);
         if (params != null && !TextUtils.isEmpty(token)) {
             params.put("token", token);

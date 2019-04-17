@@ -87,4 +87,5 @@
     <string name="discover_red_packet_activity_info">活动信息</string>
     <string name="discover_red_packet_info">红包信息</string>
     <string name="discover_red_packet_navigation">地图导航</string>
+    <string name="discover_red_packet_coupon">优惠券</string>
 </resources>

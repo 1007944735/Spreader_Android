@@ -84,7 +84,7 @@ public class ExpandActivity extends BaseActivity {
             gridLayoutWidth = gridLayout.getWidth();
             gridLayout.removeAllViews();
             for (ExpandPhotoModel model : infos.pictures) {
-                createImageView(false, model.path);
+                createImageView(false, model);
             }
             createImageView(true, null);
             //视频
@@ -99,6 +99,7 @@ public class ExpandActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     videoBox.removeAllViews();
+                    infos.video=new ExpandVideoModel();
                 }
             });
         } else {
@@ -141,7 +142,7 @@ public class ExpandActivity extends BaseActivity {
             gridLayoutWidth = gridLayout.getWidth();
             gridLayout.removeAllViews();
             for (ExpandPhotoModel model : infos.pictures) {
-                createImageView(false, model.path);
+                createImageView(false, model);
             }
             createImageView(true, null);
         } else if (requestCode == 2000 && resultCode == 2001 && data != null) {
@@ -157,6 +158,7 @@ public class ExpandActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     videoBox.removeAllViews();
+                    infos.video=new ExpandVideoModel();
                 }
             });
         }
@@ -165,7 +167,7 @@ public class ExpandActivity extends BaseActivity {
     /**
      * 创建imageView
      */
-    private void createImageView(boolean first, String url) {
+    private void createImageView(boolean first, final ExpandPhotoModel model) {
         final FrameLayout frameLayout = new FrameLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((gridLayoutWidth - 6 * 5) / 3, (gridLayoutWidth - 6 * 5) / 3);
         params.setMargins(5, 5, 5, 5);
@@ -186,7 +188,7 @@ public class ExpandActivity extends BaseActivity {
                 }
             });
         } else {
-            GlideManager.showImage(this, url, imageView);
+            GlideManager.showImage(this, model.path, imageView);
         }
         frameLayout.addView(imageView);
 
@@ -201,8 +203,10 @@ public class ExpandActivity extends BaseActivity {
                 public void onClick(View v) {
                     if (gridLayout.getChildCount() > 2) {
                         gridLayout.removeView(frameLayout);
+                        infos.pictures.remove(model);
                     } else {
                         gridLayout.removeAllViews();
+                        infos.pictures=new ArrayList<>();
                     }
                 }
             });

@@ -12,12 +12,14 @@ import android.widget.ProgressBar;
 import android.widget.Space;
 import android.widget.TextView;
 
+import com.dueeeke.videocontroller.StandardVideoController;
+import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
-import com.sgevf.spreader.spreaderAndroid.model.HistorySurplusModel;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryReleaseListModel;
+import com.sgevf.spreader.spreaderAndroid.model.HistorySurplusModel;
 import com.sgevf.spreader.spreaderAndroid.task.BaseService;
 import com.sgevf.spreader.spreaderAndroid.task.ReFreshHistorySurplusTask;
 import com.sgevf.spreader.spreaderAndroid.task.impl.PubService;
@@ -34,7 +36,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
-import utils.AppAlipayUtil;
 
 public class HistoryReleaseDetailsActivity extends BaseLoadingActivity<HistorySurplusModel> {
     private HistoryReleaseListModel.HistoryReleaseModel model;
@@ -47,6 +48,8 @@ public class HistoryReleaseDetailsActivity extends BaseLoadingActivity<HistorySu
     public TextView address;
     @BindView(R.id.banner)
     public Banner banner;
+    @BindView(R.id.video)
+    public IjkVideoView video;
 
     @BindView(R.id.rpInfo)
     public TextView rpInfo;
@@ -91,6 +94,12 @@ public class HistoryReleaseDetailsActivity extends BaseLoadingActivity<HistorySu
         titles.setText(model.title);
         info.setText(model.info);
         address.setText(model.pubAddress);
+        StandardVideoController controller=new StandardVideoController(this);
+        video.setVideoController(controller);
+        if (model.videoUrl != null) {
+            video.setVisibility(View.VISIBLE);
+            video.setUrl(model.videoUrl);
+        }
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(Array2List(model));
         banner.setDelayTime(8000);
@@ -160,7 +169,7 @@ public class HistoryReleaseDetailsActivity extends BaseLoadingActivity<HistorySu
 
     @OnClick(R.id.pay)
     public void pay() {
-        startActivity(new Intent(this, PayActivity.class).putExtra("redPacketId", model.id+"").putExtra("amount", model.amount).putExtra("order", model.orderNo));
+        startActivity(new Intent(this, PayActivity.class).putExtra("redPacketId", model.id + "").putExtra("amount", model.amount).putExtra("order", model.orderNo));
     }
 
     @Override
@@ -179,5 +188,23 @@ public class HistoryReleaseDetailsActivity extends BaseLoadingActivity<HistorySu
         if (model.image5Url != null) images.add(model.image5Url);
         if (model.image6Url != null) images.add(model.image6Url);
         return images;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        video.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        video.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        video.release();
     }
 }

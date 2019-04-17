@@ -56,6 +56,7 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
 
     private String path;
     private boolean down = false;
+    private MediaVideoStateListener listener;
 
     public MediaVideo(Context context) {
         this(context, null);
@@ -100,7 +101,7 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
             @Override
             public void run() {
                 updateTime();
-                handler.postDelayed(runnable, 1000);
+                handler.postDelayed(runnable, 50);
             }
         };
 
@@ -160,26 +161,39 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
 
     @Override
     public void onPrepared(MediaPlayer mp) {
+        Log.d("TAG", "onPrepared: ");
         status = Type.PREPARED;
         updateTime();
         progress.setMax(mp.getDuration());
         allTime.setText(TimeUtils.formatTime(player.getDuration()));
+        if (listener != null) {
+            listener.onPrepared();
+        }
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+        Log.d("TAG", "onCompletion: ");
         status = Type.COMPLETED;
         Toast.makeText(context, "视频播放完毕", Toast.LENGTH_SHORT).show();
+        handler.removeCallbacks(runnable);
+        curTime.setText(TimeUtils.formatTime(player.getCurrentPosition()));
+        if (listener != null) {
+            listener.onFinish();
+        }
     }
 
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
-        Log.d("TAG", "onBufferingUpdate: " + percent);
-        progress.setSecondaryProgress(percent * mp.getDuration() / 100);
+        Log.d("TAG", "onBufferingUpdate: " + percent + ":" + status);
+//        if (status != Type.IDEL && status != Type.PREPARING) {
+//            progress.setSecondaryProgress(percent * mp.getDuration() / 100);
+//        }
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
+        Log.d("TAG", "onError: " + what + "," + extra);
         status = Type.ERROR;
         Toast.makeText(context, "播放器发生错误:" + what + "," + extra, Toast.LENGTH_SHORT).show();
         return false;
@@ -236,7 +250,10 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
         player.start();
         status = Type.STARTED;
         on_off.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_video_stop));
-        handler.postDelayed(runnable, 1000);
+        handler.postDelayed(runnable, 50);
+        if (listener != null) {
+            listener.start();
+        }
     }
 
     public void pause() {
@@ -244,6 +261,9 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
         status = Type.PAUSED;
         on_off.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_video_play));
         handler.removeCallbacks(runnable);
+        if (listener != null) {
+            listener.pause();
+        }
     }
 
     public void stop() {
@@ -266,6 +286,7 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
      * 更新进度和时间
      */
     private void updateTime() {
+        Log.d("TAG", "updateTime: "+player.getCurrentPosition());
         progress.setProgress(player.getCurrentPosition());
         curTime.setText(TimeUtils.formatTime(player.getCurrentPosition()));
     }
@@ -281,6 +302,20 @@ public class MediaVideo extends FrameLayout implements TextureView.SurfaceTextur
         }
         release();
         player = null;
+    }
+
+    public interface MediaVideoStateListener {
+        void onPrepared();
+
+        void start();
+
+        void pause();
+
+        void onFinish();
+    }
+
+    public void setMediaVideoStateListener(MediaVideoStateListener listener) {
+        this.listener = listener;
     }
 
 }

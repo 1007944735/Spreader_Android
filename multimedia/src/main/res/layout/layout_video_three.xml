@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.sgevf.multimedia.video.MediaVideo
@@ -10,4 +11,9 @@
         android:layout_height="wrap_content">
 
     </com.sgevf.multimedia.video.MediaVideo>
+
+    <com.dueeeke.videoplayer.player.IjkVideoView
+        android:id="@+id/player"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"/>
 </LinearLayout>

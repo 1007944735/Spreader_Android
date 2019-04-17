@@ -38,6 +38,7 @@ public abstract class BasicApi<T, S> implements ObserverListener<S>, ObservableL
     public BasicApi(Activity mActivity, Object mTarget, String url, UploadProgressListener listener) {
         this.mTarget = mTarget;
         params = new com.sgevf.spreader.http.entity.RequestBody();
+        params.setUploadListener(listener);
         this.mActivity = mActivity;
         Retrofit retrofit = new Retrofit.Builder()
                 .client(OKHttpManager.getClient(mActivity))

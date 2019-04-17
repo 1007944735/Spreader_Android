@@ -3,6 +3,7 @@ package com.sgevf.spreader.http.base;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.sgevf.spreader.http.base.dialog.DialogHelper;
 import com.sgevf.spreader.http.base.impl.OnLoadingDialogListener;
@@ -18,6 +19,10 @@ public abstract class BasicLoadingActivity<T> extends BasicActivity implements O
 
     private void initDefaultLoading() {
         loading = DialogHelper.initDefaultLoading(this);
+    }
+
+    protected void setUpload(View view) {
+        loading = DialogHelper.initLoading(this, view);
     }
 
     @Override
