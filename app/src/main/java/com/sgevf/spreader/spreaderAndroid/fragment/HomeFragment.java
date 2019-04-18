@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.activity.CardManagerActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.ExpandActivity;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
@@ -81,7 +82,7 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.business_2)
     public void business_2() {
-
+        startActivity(new Intent(context, CardManagerActivity.class));
     }
 
     @OnClick(R.id.business_3)

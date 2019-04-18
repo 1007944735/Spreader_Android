@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.view.CountDownDialog;
 import com.sgevf.spreader.spreaderAndroid.view.DatePickerDialog;
 
 public class DialogUtils {
@@ -61,6 +62,13 @@ public class DialogUtils {
 
     public static Dialog showSelectTime(Context context, DatePickerDialog.OnConfirmListener confirmListener) {
         DatePickerDialog dialog = new DatePickerDialog(context);
+        dialog.setConfirmListener(confirmListener);
+        dialog.show();
+        return dialog;
+    }
+
+    public static Dialog showCountDown(Context context, CountDownDialog.OnConfirmListener confirmListener) {
+        CountDownDialog dialog = new CountDownDialog(context);
         dialog.setConfirmListener(confirmListener);
         dialog.show();
         return dialog;

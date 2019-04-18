@@ -81,6 +81,8 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.CardManagerActivity" />
+        <activity android:name=".activity.CardAddActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

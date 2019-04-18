@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head_view" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_14"
+                android:background="@drawable/bg_border_white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_14"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_14">
+
+                <EditText
+                    android:id="@+id/discountRule"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入优惠活动" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_14"
+                android:background="@drawable/bg_border_white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_14"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_14">
+
+                <com.sgevf.spreader.spreaderAndroid.view.CardUseRuleView
+                    android:id="@+id/useRule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.sgevf.spreader.spreaderAndroid.view.CardUseRuleView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/start_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_14"
+                android:background="@drawable/bg_border_white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_14"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_14">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/home_start_time"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_18" />
+
+                <TextView
+                    android:id="@+id/start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/home_hint_time"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_18" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_14"
+                android:background="@drawable/bg_border_white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_14"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_14">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="有效时间"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_18" />
+
+                <TextView
+                    android:id="@+id/end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/home_hint_time"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_18" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submit"
+                style="@style/ConfirmButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_14"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:text="添加" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
