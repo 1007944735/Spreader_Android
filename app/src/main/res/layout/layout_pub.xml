@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include layout="@layout/layout_head_view" />
@@ -167,6 +167,7 @@
                 android:id="@+id/release_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_14"
                 android:background="@drawable/bg_border_white"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/padding_10"
@@ -192,6 +193,43 @@
                     android:textSize="@dimen/dimen_18" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/addCoupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_border_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_14"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_14">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="添加优惠券"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_18" />
+
+                <TextView
+                    android:id="@+id/couponCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_6"
+                    android:gravity="right"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen_18"
+                    tools:text="3张" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/icon_right" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/submit"
                 style="@style/ConfirmButton"
@@ -200,7 +238,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_14"
                 android:layout_marginEnd="@dimen/margin_10"
-                android:text="@string/home_upload"/>
+                android:text="@string/home_upload" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

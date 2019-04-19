@@ -19,6 +19,7 @@ import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.map.MapActivity;
+import com.sgevf.spreader.spreaderAndroid.model.CardListModel;
 import com.sgevf.spreader.spreaderAndroid.model.ExpandInfoModel;
 import com.sgevf.spreader.spreaderAndroid.model.ExpandPhotoModel;
 import com.sgevf.spreader.spreaderAndroid.model.PubResultModel;
@@ -30,6 +31,7 @@ import com.sgevf.spreader.spreaderAndroid.view.SuperProgressBar;
 import java.io.File;
 import java.lang.annotation.ElementType;
 import java.security.interfaces.ECKey;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,12 +53,15 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> implements 
     public TextView change;
     @BindView(R.id.text)
     public TextView text;
+    @BindView(R.id.couponCount)
+    public TextView couponCount;
 
     private ExpandInfoModel infos;
     private PoiItem poi;
     private int type = 1;
     private SuperProgressBar progress;
-    private int num=1;
+    private int num = 1;
+    private List<CardListModel.CardManagerModel> items;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +71,7 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> implements 
         new HeaderView(this).setTitle(R.string.history_release);
         infos = getIntent().getParcelableExtra("infos");
         changeTextColor(1);
-        progress=new SuperProgressBar(this);
+        progress = new SuperProgressBar(this);
         setUpload(progress);
     }
 
@@ -109,12 +114,26 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> implements 
         if (requestCode == 1000 && resultCode == 1001) {
             poi = data.getParcelableExtra("poi");
             address.setText(poi.getTitle());
+        } else if (requestCode == 2001 && resultCode == 2002) {
+            items = data.getParcelableArrayListExtra("items");
+            int num=0;
+            for(CardListModel.CardManagerModel model:items){
+                if(model.isSelected){
+                    num++;
+                }
+            }
+            couponCount.setText(items != null ? num + "张" : "");
         }
+    }
+
+    @OnClick(R.id.addCoupon)
+    public void addCoupon() {
+        startActivityForResult(new Intent(this, CardManagerActivity.class).putExtra("type", CardManagerActivity.SELECT), 2001);
     }
 
     @OnClick(R.id.submit)
     public void submit() {
-        PubTask task = new PubTask(this, this,this);
+        PubTask task = new PubTask(this, this, this);
         if (type == 1) {
             task.params.put("amount", "" + Integer.valueOf(count.getText().toString()) * Double.valueOf(price.getText().toString()));
         } else if (type == 0) {
@@ -129,14 +148,26 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> implements 
         task.params.put("pubAddress", address.getText().toString());
         task.params.put("title", infos.title);
         task.params.put("info", infos.info);
+        String cardNum="";
+        if(items!=null&&!items.isEmpty()){
+            for(int i=0;i<items.size();i++){
+                if(items.get(i).isSelected){
+                    cardNum=cardNum+items.get(i).id+",";
+                }
+            }
+            cardNum=cardNum.substring(0,cardNum.length()-1);
+        }else {
+            cardNum="-1";
+        }
+        task.params.put("cardNum",cardNum);
         if (infos.pictures != null) {
             for (ExpandPhotoModel picture : infos.pictures) {
-                task.params.put("pictures", new File(picture.path),"图片"+num);
+                task.params.put("pictures", new File(picture.path), "图片" + num);
                 num++;
             }
         }
         if (infos.video != null && infos.video.path != null) {
-            task.params.put("video", new File(infos.video.path),"视频");
+            task.params.put("video", new File(infos.video.path), "视频");
         }
         task.request();
     }
@@ -144,7 +175,7 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> implements 
     @Override
     public void onLoadFinish(PubResultModel model) {
         ToastUtils.Toast(this, "发布成功");
-        startActivity(new Intent(this, PayActivity.class).putExtra("redPacketId", model.id).putExtra("amount",model.amount));
+        startActivity(new Intent(this, PayActivity.class).putExtra("redPacketId", model.id).putExtra("amount", model.amount));
     }
 
     private void changeTextColor(int t) {
@@ -169,10 +200,10 @@ public class PubActivity extends BaseLoadingActivity<PubResultModel> implements 
     }
 
     @Override
-    public void progress(long currentBytesCount, long totalBytesCount,String name) {
-        progress.setProgress(currentBytesCount*1.0f/totalBytesCount,name);
-        Log.d("TAG", "currentBytesCount: "+currentBytesCount);
-        Log.d("TAG", "totalBytesCount: "+totalBytesCount);
-        Log.d("TAG", "num: "+num);
+    public void progress(long currentBytesCount, long totalBytesCount, String name) {
+        progress.setProgress(currentBytesCount * 1.0f / totalBytesCount, name);
+        Log.d("TAG", "currentBytesCount: " + currentBytesCount);
+        Log.d("TAG", "totalBytesCount: " + totalBytesCount);
+        Log.d("TAG", "num: " + num);
     }
 }

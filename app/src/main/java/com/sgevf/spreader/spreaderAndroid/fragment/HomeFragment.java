@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.business_2)
     public void business_2() {
-        startActivity(new Intent(context, CardManagerActivity.class));
+        startActivity(new Intent(context, CardManagerActivity.class).putExtra("type",CardManagerActivity.MANAGER));
     }
 
     @OnClick(R.id.business_3)

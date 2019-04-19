@@ -18,6 +18,7 @@ import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.http.FieldMap;
 import utils.DialogUtils;
 
 public class CardAddActivity extends BaseLoadingActivity<String> {
@@ -43,6 +44,7 @@ public class CardAddActivity extends BaseLoadingActivity<String> {
     @Override
     public void onLoadFinish(String s) {
         ToastUtils.Toast(this, "添加成功");
+        setResult(1002);
         finish();
     }
 

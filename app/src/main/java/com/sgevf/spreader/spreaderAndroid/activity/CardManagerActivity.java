@@ -2,6 +2,7 @@ package com.sgevf.spreader.spreaderAndroid.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,15 +16,19 @@ import com.sgevf.spreader.spreaderAndroid.model.CardListModel;
 import com.sgevf.spreader.spreaderAndroid.task.CardListTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CardManagerActivity extends BaseLoadingActivity<List<CardListModel.CardManagerModel>> implements AdapterView.OnItemClickListener {
+public class CardManagerActivity extends BaseLoadingActivity<List<CardListModel.CardManagerModel>> {
+    public static final String MANAGER = "manager";
+    public static final String SELECT = "select";
     @BindView(R.id.cardList)
     public ListView cardList;
     private CardManagerListAdapter adapter;
+    private String type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,36 +38,42 @@ public class CardManagerActivity extends BaseLoadingActivity<List<CardListModel.
         new HeaderView(this).setTitle("优惠券管理").setRight("添加", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CardManagerActivity.this, CardAddActivity.class));
+                startActivityForResult(new Intent(CardManagerActivity.this, CardAddActivity.class), 1001);
             }
         });
         init();
-        new CardListTask(this,this).request();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        new CardListTask(this,this).request();
     }
 
     private void init() {
-        cardList.setOnItemClickListener(this);
+        type = getIntent().getStringExtra("type");
+
+        new CardListTask(this, this).request();
     }
 
     @Override
     public void onLoadFinish(List<CardListModel.CardManagerModel> cardManagerModels) {
-        adapter = new CardManagerListAdapter(this, cardManagerModels);
+        adapter = new CardManagerListAdapter(this, cardManagerModels, type);
         cardList.setAdapter(adapter);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+    public void deleteSuccess(String s) {
+        ToastUtils.Toast(this, "删除成功");
+        new CardListTask(this, this).request();
     }
 
-    public void deleteSuccess(String s){
-        ToastUtils.Toast(this,"删除成功");
-        new CardListTask(this,this).request();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && resultCode == 1002) {
+            new CardListTask(this, this).request();
+        }
+    }
+
+    @Override
+    public void finish() {
+        List<CardListModel.CardManagerModel> items = adapter.getItems();
+        Intent intent = new Intent().putParcelableArrayListExtra("items", (ArrayList<? extends Parcelable>) items);
+        setResult(2002,intent);
+        super.finish();
     }
 }

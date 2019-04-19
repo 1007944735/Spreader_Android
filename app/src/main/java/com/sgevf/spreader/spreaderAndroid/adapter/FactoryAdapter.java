@@ -82,4 +82,8 @@ public abstract class FactoryAdapter<E> extends BaseAdapter {
     public interface ViewHolderFactory<E> {
         void init(E item, int position, FactoryAdapter<E> adapter);
     }
+
+    public List<E> getItems(){
+        return items;
+    }
 }
