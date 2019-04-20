@@ -2,6 +2,8 @@ package com.sgevf.spreader.spreaderAndroid.model;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class RedPacketDetailsModel {
     public Integer id;
     public Integer sponserId;
@@ -21,6 +23,8 @@ public class RedPacketDetailsModel {
     public String title;
     public String info;
     public String isGrab;
+
+    public List<CardListModel.CardManagerModel> list;
 
     public RedPacketDetailsModel(JSONObject obj) {
         id = obj.optInt("id");

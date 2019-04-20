@@ -198,7 +198,7 @@
         android:id="@+id/video"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <View
         android:layout_width="match_parent"
@@ -223,6 +223,14 @@
             android:layout_height="0.5dp"
             android:layout_marginBottom="@dimen/margin_10"
             android:background="@color/colorCancel" />
+
+        <com.sgevf.spreader.spreaderAndroid.view.SuperListView
+            android:id="@+id/coupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.sgevf.spreader.spreaderAndroid.view.SuperListView>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -41,11 +41,15 @@ import com.autonavi.amap.mapcore.Inner_3dMap_location;
 import com.dueeeke.videocontroller.StandardVideoController;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.activity.CardManagerActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
+import com.sgevf.spreader.spreaderAndroid.adapter.CardManagerListAdapter;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
+import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverCouponAdapter;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import com.sgevf.spreader.spreaderAndroid.map.overlay.PoiOverlay;
+import com.sgevf.spreader.spreaderAndroid.model.CardListModel;
 import com.sgevf.spreader.spreaderAndroid.model.GrabRedPacketModel;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.MapSearchLocationModel;
@@ -56,6 +60,7 @@ import com.sgevf.spreader.spreaderAndroid.task.RedPacketDetailsTask;
 import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 import com.sgevf.spreader.spreaderAndroid.view.RedPacketDialog;
+import com.sgevf.spreader.spreaderAndroid.view.SuperListView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -121,6 +126,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     ProgressBar requestLoading;
     @BindView(R.id.open)
     Button open;
+    @BindView(R.id.coupon)
+    SuperListView coupon;
 
     @BindView(R.id.video)
     IjkVideoView video;
@@ -561,8 +568,15 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         }else{
             video.setVisibility(View.GONE);
         }
+        initCoupon(model.list);
         //数据加载完才显示
         detailsLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void initCoupon(List<CardListModel.CardManagerModel> datas) {
+//        MapDiscoverCouponAdapter adapter=new MapDiscoverCouponAdapter(this,datas);
+        CardManagerListAdapter adapter = new CardManagerListAdapter(this, datas, CardManagerActivity.SELECT);
+        coupon.setAdapter(adapter);
     }
 
     /**
