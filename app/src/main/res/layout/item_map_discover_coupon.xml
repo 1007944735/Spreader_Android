@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_6"
+    android:paddingTop="3dp"
+    android:paddingRight="@dimen/padding_6"
+    android:paddingBottom="3dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_radius_coupon"
+        android:padding="@dimen/padding_14">
+
+        <TextView
+            android:id="@+id/rule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="#FF5001"
+            android:textSize="@dimen/dimen_18"
+            tools:layout_editor_absoluteX="14dp"
+            tools:text="21123132" />
+
+        <TextView
+            android:id="@+id/effective_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF5001"
+            android:textSize="@dimen/dimen_10"
+            app:layout_constraintTop_toBottomOf="@+id/rule"
+            tools:text="有效时间:123132" />
+    </android.support.constraint.ConstraintLayout>
+</RelativeLayout>

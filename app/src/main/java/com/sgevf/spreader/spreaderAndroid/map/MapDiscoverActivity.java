@@ -128,6 +128,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     Button open;
     @BindView(R.id.coupon)
     SuperListView coupon;
+    @BindView(R.id.discount)
+    LinearLayout discount;
 
     @BindView(R.id.video)
     IjkVideoView video;
@@ -574,9 +576,13 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     }
 
     private void initCoupon(List<CardListModel.CardManagerModel> datas) {
-//        MapDiscoverCouponAdapter adapter=new MapDiscoverCouponAdapter(this,datas);
-        CardManagerListAdapter adapter = new CardManagerListAdapter(this, datas, CardManagerActivity.SELECT);
-        coupon.setAdapter(adapter);
+        if(datas!=null&&!datas.isEmpty()) {
+            discount.setVisibility(View.VISIBLE);
+            MapDiscoverCouponAdapter adapter = new MapDiscoverCouponAdapter(this, datas);
+            coupon.setAdapter(adapter);
+        }else {
+            discount.setVisibility(View.GONE);
+        }
     }
 
     /**
