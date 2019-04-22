@@ -1,30 +1,19 @@
 package com.sgevf.spreader.spreaderAndroid.view;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
-import com.sgevf.spreader.spreaderAndroid.animaiton.Rotate3dAnimation;
-import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
+import com.sgevf.spreader.spreaderAndroid.adapter.FactoryAdapter;
+import com.sgevf.spreader.spreaderAndroid.model.CardListModel;
 
 import java.util.List;
 
@@ -38,6 +27,8 @@ public class RedPacketDialog extends Dialog {
     public TextView fromName;
     @BindView(R.id.money)
     public TextView money;
+    @BindView(R.id.coupon_list)
+    public SuperListView couponList;
     private Context context;
     private View view;
 
@@ -73,6 +64,10 @@ public class RedPacketDialog extends Dialog {
 
     public void setMoney(String account) {
         money.setText(account);
+    }
+
+    public void setAdapter(FactoryAdapter<? extends Object> adapter){
+        couponList.setAdapter(adapter);
     }
 
     @OnClick(R.id.exit)

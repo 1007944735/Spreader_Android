@@ -121,7 +121,7 @@
             android:background="#fa897b"
             android:text="领取"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/dimen_12" />
+            android:textSize="@dimen/dimen_12"/>
     </LinearLayout>
 
 

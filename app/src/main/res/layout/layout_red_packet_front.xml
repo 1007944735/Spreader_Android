@@ -22,11 +22,13 @@
         android:src="@mipmap/icon_expand_resource_exit" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingRight="@dimen/margin_10">
 
         <TextView
             android:id="@+id/from_name"
@@ -48,16 +50,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已存入钱包" />
+
+        <com.sgevf.spreader.spreaderAndroid.view.SuperListView
+            android:id="@+id/coupon_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent">
+
+        </com.sgevf.spreader.spreaderAndroid.view.SuperListView>
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/receive_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_10"
         android:text="查看领取详情 〉"
         android:textColor="#FCDC73"
-        android:textSize="@dimen/dimen_16"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_10"/>
+        android:textSize="@dimen/dimen_16" />
 </RelativeLayout>

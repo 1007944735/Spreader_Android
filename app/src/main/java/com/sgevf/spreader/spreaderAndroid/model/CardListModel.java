@@ -43,7 +43,9 @@ public class CardListModel implements Parcelable {
         public String discountRule;
         public String useRule;
         public String startTime;
+        public String effectiveStartTime;
         public String effectiveTime;
+        public String endTime;
         public String status;
         public String sellerName;
         public boolean isSelected = false;
@@ -53,7 +55,9 @@ public class CardListModel implements Parcelable {
             discountRule = obj.optString("discountRule");
             useRule = obj.optString("useRule");
             startTime = obj.optString("startTime");
+            effectiveStartTime = obj.optString("effectiveStartTime");
             effectiveTime = obj.optString("effectiveTime");
+            endTime = obj.optString("endTime");
             status = obj.optString("status");
             sellerName = obj.optString("sellerName");
         }

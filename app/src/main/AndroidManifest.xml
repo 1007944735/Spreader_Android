@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -42,8 +43,8 @@
         </activity>
         <activity
             android:name=".activity.HomeActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".map.MapActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
@@ -83,6 +84,9 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.CardManagerActivity" />
         <activity android:name=".activity.CardAddActivity" />
+        <activity android:name=".activity.UserCardActivity" />
+        <activity android:name=".activity.QRCodeCouponActivity" />
+        <activity android:name=".activity.QrCodeCameraActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

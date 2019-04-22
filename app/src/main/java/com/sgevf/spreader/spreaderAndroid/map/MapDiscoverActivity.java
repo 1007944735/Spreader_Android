@@ -41,11 +41,10 @@ import com.autonavi.amap.mapcore.Inner_3dMap_location;
 import com.dueeeke.videocontroller.StandardVideoController;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.sgevf.spreader.spreaderAndroid.R;
-import com.sgevf.spreader.spreaderAndroid.activity.CardManagerActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
-import com.sgevf.spreader.spreaderAndroid.adapter.CardManagerListAdapter;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverCouponAdapter;
+import com.sgevf.spreader.spreaderAndroid.adapter.RedPacketCouponAdapter;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import com.sgevf.spreader.spreaderAndroid.map.overlay.PoiOverlay;
@@ -68,7 +67,6 @@ import com.youth.banner.Transformer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -314,7 +312,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     }
 
     private void initVideo() {
-        StandardVideoController controller=new StandardVideoController(this);
+        StandardVideoController controller = new StandardVideoController(this);
         video.setVideoController(controller);
     }
 
@@ -527,10 +525,14 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     }
 
     public void grabResult(GrabRedPacketModel model) {
+        open.setEnabled(false);
+        open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
+        open.setText("已领取");
         dialog = new RedPacketDialog(this);
         dialog.show();
         dialog.setFromName(model.name);
         dialog.setMoney(model.money);
+        dialog.setAdapter(new RedPacketCouponAdapter(this, model.list));
     }
 
     public void initDetailsLayout(RedPacketDetailsModel model) {
@@ -564,10 +566,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         pathHelper.drivingPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude));
         pathHelper.busPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude), ((Inner_3dMap_location) curLocation).getCityCode());
         requestLoading.setVisibility(View.GONE);
-        if(recyclerData.get(clickPosition).videoUrl!=null) {
+        if (recyclerData.get(clickPosition).videoUrl != null) {
             video.setVisibility(View.VISIBLE);
             video.setUrl(recyclerData.get(clickPosition).videoUrl);
-        }else{
+        } else {
             video.setVisibility(View.GONE);
         }
         initCoupon(model.list);
@@ -576,11 +578,11 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     }
 
     private void initCoupon(List<CardListModel.CardManagerModel> datas) {
-        if(datas!=null&&!datas.isEmpty()) {
+        if (datas != null && !datas.isEmpty()) {
             discount.setVisibility(View.VISIBLE);
             MapDiscoverCouponAdapter adapter = new MapDiscoverCouponAdapter(this, datas);
             coupon.setAdapter(adapter);
-        }else {
+        } else {
             discount.setVisibility(View.GONE);
         }
     }

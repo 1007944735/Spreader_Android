@@ -14,8 +14,8 @@ import java.util.List;
 
 import utils.DateUtils;
 
-public class MapDiscoverCouponAdapter extends FactoryAdapter<CardListModel.CardManagerModel> {
-    public MapDiscoverCouponAdapter(Context context, List<CardListModel.CardManagerModel> items) {
+public class RedPacketCouponAdapter extends FactoryAdapter<CardListModel.CardManagerModel> {
+    public RedPacketCouponAdapter(Context context, List<CardListModel.CardManagerModel> items) {
         super(context, items);
     }
 
@@ -25,8 +25,13 @@ public class MapDiscoverCouponAdapter extends FactoryAdapter<CardListModel.CardM
     }
 
     @Override
+    public int getCount() {
+        return items.size() > 2 ? 2 : items.size();
+    }
+
+    @Override
     public int getLayoutResourceId() {
-        return R.layout.item_map_discover_coupon;
+        return R.layout.item_red_packet_coupon;
     }
 
     private class ViewHolder implements ViewHolderFactory<CardListModel.CardManagerModel> {
@@ -41,25 +46,7 @@ public class MapDiscoverCouponAdapter extends FactoryAdapter<CardListModel.CardM
         @Override
         public void init(CardListModel.CardManagerModel item, int position, FactoryAdapter<CardListModel.CardManagerModel> adapter) {
             rule.setText(item.discountRule);
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.NORMAL);
-                Date date = null;
-                date = sdf.parse(item.effectiveTime);
-                StringBuffer sb = new StringBuffer();
-                if (date.getDay() != 0) {
-                    sb.append(date.getDay() + "天");
-                }
-                if (date.getHours() != 0) {
-                    sb.append(date.getHours() + "时");
-                }
-                if (date.getMinutes() != 0) {
-                    sb.append(date.getMonth() + "分");
-                }
-                effectiveTime.setText("有效时间：" + sb.toString() + "(活动结束之后失效)");
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            effectiveTime.setText("有效时间：" + item.effectiveStartTime + "~" + item.endTime);
         }
     }
 }

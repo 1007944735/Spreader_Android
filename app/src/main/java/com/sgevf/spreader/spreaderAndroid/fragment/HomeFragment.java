@@ -14,12 +14,15 @@ import android.view.ViewGroup;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.CardManagerActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.ExpandActivity;
+import com.sgevf.spreader.spreaderAndroid.activity.QrCodeCameraActivity;
+import com.sgevf.spreader.spreaderAndroid.activity.UserCardActivity;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,7 +90,7 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.business_3)
     public void business_3() {
-
+        startActivity(new Intent(context,QrCodeCameraActivity.class));
     }
 
     @OnClick(R.id.personal_0)
@@ -102,7 +105,7 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.personal_2)
     public void personal_2() {
-
+        startActivity(new Intent(context,UserCardActivity.class));
     }
 
     @OnClick(R.id.personal_3)

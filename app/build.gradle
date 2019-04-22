@@ -5,7 +5,7 @@ android {
         spreader {
             keyAlias 'defaultkey'
             keyPassword '123456'
-            storeFile file('D:/AndroidProject/Spreader_Android/default.jks')
+            storeFile file('F:/AndroidProject/MyProject/Spreader_Android/default.jks')
             storePassword '123456'
         }
     }
@@ -57,4 +57,7 @@ dependencies {
     implementation project(':multimedia')
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'commons-codec:commons-codec:1.10'
+    implementation ('cn.yipianfengye.android:zxing-library:2.2'){
+        exclude group: 'com.android.support'
+    }
 }

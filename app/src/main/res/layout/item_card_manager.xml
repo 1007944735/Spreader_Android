@@ -25,19 +25,12 @@
             tools:text="全场8折" />
 
         <LinearLayout
+            android:id="@+id/useRule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_6"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/useRule"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -61,13 +54,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/icon_card_use_rule_delete"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/select"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/bg_gou_selector"
-        android:visibility="gone"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:visibility="gone" />
 </LinearLayout>
