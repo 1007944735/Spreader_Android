@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.amap.api.location.AMapLocation;
 import com.sgevf.multimedia.camera.CameraActivity;
@@ -16,6 +17,7 @@ import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideConfig;
+import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import com.sgevf.spreader.spreaderAndroid.map.MapLocationHelper;
 import com.sgevf.spreader.spreaderAndroid.map.MapPathPlanHelper;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
@@ -32,6 +34,8 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     private MapLocationHelper helper;
     private SuperProgressBar progress;
 
+    private ImageView imageView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,8 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
 
         progress=findViewById(R.id.progress);
-
+        imageView=findViewById(R.id.imageView);
+        GlideManager.showBlurImage(this,"http://47.103.8.72:8080/spreader/picture/pictureQ29U20190416194436.jpg",imageView);
 
     }
 

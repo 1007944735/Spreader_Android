@@ -87,6 +87,8 @@
         <activity android:name=".activity.UserCardActivity" />
         <activity android:name=".activity.QRCodeCouponActivity" />
         <activity android:name=".activity.QrCodeCameraActivity" />
+        <activity android:name=".activity.UserCardSuccessActivity" />
+        <activity android:name=".activity.BusinessScanSuccessActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

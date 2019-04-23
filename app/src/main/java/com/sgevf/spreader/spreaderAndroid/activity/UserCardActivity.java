@@ -24,8 +24,12 @@ public class UserCardActivity extends BaseLoadingActivity<UserCouponListModel> {
         setContentView(R.layout.layout_user_coupon_card);
         ButterKnife.bind(this);
         new HeaderView(this).setTitle("优惠券");
-        new UserCouponTask(this, this).request();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new UserCouponTask(this, this).request();
     }
 
     @Override

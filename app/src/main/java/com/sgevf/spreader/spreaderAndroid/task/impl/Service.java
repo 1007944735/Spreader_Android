@@ -1,15 +1,21 @@
 package com.sgevf.spreader.spreaderAndroid.task.impl;
 
 import com.sgevf.spreader.http.entity.BasicResult;
+import com.sgevf.spreader.spreaderAndroid.glide.MyAppGlideModule;
+import com.sgevf.spreader.spreaderAndroid.model.HomeAdvertisingListModel;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
+import com.sgevf.spreader.spreaderAndroid.model.SlideShowModel;
 import com.sgevf.spreader.spreaderAndroid.model.ValidateCodeModel;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 
 public interface Service {
@@ -28,6 +34,14 @@ public interface Service {
      */
     @POST("S0003")
     Observable<BasicResult<ValidateCodeModel>> getValid();
+
+    @POST("S0031")
+    @Multipart
+    Observable<BasicResult<SlideShowModel>> getSlideShow(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0032")
+    @Multipart
+    Observable<BasicResult<HomeAdvertisingListModel>> getHomeList(@PartMap Map<String, RequestBody> data);
 
 
 }

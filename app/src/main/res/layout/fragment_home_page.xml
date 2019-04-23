@@ -144,7 +144,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="暂无"
+                                android:text="扫一扫"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/dimen_18"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -193,7 +193,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="红包"
+                                android:text="发现"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/dimen_18"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -215,7 +215,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="优惠"
+                                android:text="优惠券"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/dimen_18"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -236,7 +236,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="活动"
+                                android:text="暂无"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/dimen_18"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -283,38 +283,12 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/advertising_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_6"
-                android:layout_marginRight="@dimen/margin_6"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="#000fff" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="#ff0000" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="#000fff" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="#ff0000" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="#000fff" />
-            </LinearLayout>
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

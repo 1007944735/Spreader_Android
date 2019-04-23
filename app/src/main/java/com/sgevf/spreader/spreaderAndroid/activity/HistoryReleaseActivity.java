@@ -20,16 +20,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryReleaseListModel.HistoryReleaseModel>> implements AdapterView.OnItemClickListener {
+    public static final String FROM_HOME = "home";
+    public static final String FROM_USER_CENTER = "user_center";
     @BindView(R.id.history)
     public ListView history;
     private HistoryReleaseListAdapter adapter;
 
     private List<HistoryReleaseListModel.HistoryReleaseModel> historyReleaseModels;
+    private String from;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_release);
+        from = getIntent().getStringExtra("from");
         new HeaderView(this).setTitle(R.string.history_release);
         ButterKnife.bind(this);
         init();
@@ -37,17 +41,29 @@ public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryRele
 
     private void init() {
         history.setOnItemClickListener(this);
-        new HistoryReleaseTask(this,this).request();
+        if (FROM_HOME.equals(from)) {
+            new HistoryReleaseTask(this, this).setClass("1").request();
+        } else if (FROM_USER_CENTER.equals(from)) {
+            new HistoryReleaseTask(this, this).setClass("0").request();
+        }
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(this, HistoryReleaseDetailsActivity.class).putExtra("historyDetails",historyReleaseModels.get(position)));
+        if (FROM_HOME.equals(from)) {
+            Intent intent = new Intent();
+            intent.putExtra("historyDetails", historyReleaseModels.get(position));
+            setResult(1001, intent);
+            finish();
+        } else if (FROM_USER_CENTER.equals(from)) {
+            startActivity(new Intent(this, HistoryReleaseDetailsActivity.class).putExtra("historyDetails", historyReleaseModels.get(position)));
+        }
     }
 
     @Override
     public void onLoadFinish(List<HistoryReleaseListModel.HistoryReleaseModel> historyReleaseModels) {
-        this.historyReleaseModels=historyReleaseModels;
+        this.historyReleaseModels = historyReleaseModels;
         adapter = new HistoryReleaseListAdapter(this, historyReleaseModels);
         history.setAdapter(adapter);
     }

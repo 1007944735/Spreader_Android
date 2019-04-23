@@ -10,6 +10,8 @@ import com.bumptech.glide.load.Transformation;
 import com.sgevf.spreader.spreaderAndroid.glide.transform.CircleTransform;
 import com.sgevf.spreader.spreaderAndroid.glide.transform.RoundTransform;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 public class GlideManager {
 
     public static void showImage(Context context, String url, ImageView view) {
@@ -114,5 +116,13 @@ public class GlideManager {
 
     public static void roundImage(View view, String url, ImageView target, float rx, float ry) {
         showImage(view, url, target, new RoundTransform(rx, ry));
+    }
+
+    public static void showBlurImage(Context context, String url, ImageView target) {
+        GlideApp.with(context)
+                .asBitmap()
+                .load(url)
+                .apply(new GlideConfig().init().transition(new BlurTransformation(23, 4)))
+                .into(target);
     }
 }

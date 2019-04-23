@@ -60,4 +60,5 @@ dependencies {
     implementation ('cn.yipianfengye.android:zxing-library:2.2'){
         exclude group: 'com.android.support'
     }
+    implementation 'jp.wasabeef:glide-transformations:4.0.1'
 }

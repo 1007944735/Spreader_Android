@@ -164,14 +164,6 @@ public class UserCenterFragment extends Fragment {
         }
     }
 
-//    @OnClick(R.id.nickName)
-//    public void login() {
-//        if (!UserConfig.isLogin(context)) {
-//            Intent intent = new Intent(context, LoginActivity.class);
-//            startActivity(intent);
-//        }
-//    }
-
     @OnClick(R.id.exit)
     public void exit() {
         if (UserConfig.isLogin(context)) {
@@ -179,15 +171,6 @@ public class UserCenterFragment extends Fragment {
             startActivity(new Intent(context, LoginActivity.class));
         }
     }
-
-//    @OnClick(R.id.user_center)
-//    public void userCenter() {
-//        if (UserConfig.isLogin(context)) {
-//            startActivity(new Intent(context, UserCenterActivity.class));
-//        } else {
-//            startActivity(new Intent(context, LoginActivity.class));
-//        }
-//    }
 
     @OnClick(R.id.wallet)
     public void wallet() {
@@ -201,7 +184,7 @@ public class UserCenterFragment extends Fragment {
     @OnClick(R.id.history_release)
     public void historyRelease() {
         if (UserConfig.isLogin(context)) {
-            startActivity(new Intent(context, HistoryReleaseActivity.class));
+            startActivity(new Intent(context, HistoryReleaseActivity.class).putExtra("from",HistoryReleaseActivity.FROM_USER_CENTER));
         } else {
             startActivity(new Intent(context, LoginActivity.class));
         }

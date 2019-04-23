@@ -16,6 +16,11 @@ public class HistoryReleaseTask extends BaseService<PubService, HistoryReleaseLi
         super(mActivity, mTarget);
     }
 
+    public HistoryReleaseTask setClass(String type){
+        params.put("type",type);
+        return this;
+    }
+
     @Override
     public Observable setObservable(Map<String, RequestBody> data) {
         return service.historyRelease(data);
