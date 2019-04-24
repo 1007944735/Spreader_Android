@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
+import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
 import com.sgevf.spreader.spreaderAndroid.model.HomeAdvertisingListModel;
 
 import java.util.List;
@@ -32,13 +34,19 @@ public class AdvertisingListAdapter extends RecyclerView.Adapter<AdvertisingList
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         GlideManager.roundImage(context, list.get(i).image1Url, viewHolder.image, 8f);
         viewHolder.address.setText(list.get(i).title);
         viewHolder.advertisement.setText(list.get(i).info);
-        viewHolder.message.setText(list.get(i).maxNumber + "人|" + list.get(i).amount + "元");
+        viewHolder.amount.setText(list.get(i).amount + "");
+        viewHolder.maxNumber.setText(list.get(i).maxNumber + "");
         viewHolder.duration.setText(list.get(i).startTime + "~" + list.get(i).endTime);
-
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, MapDiscoverActivity.class).putExtra("model", list.get(i)));
+            }
+        });
     }
 
     @Override
@@ -50,18 +58,21 @@ public class AdvertisingListAdapter extends RecyclerView.Adapter<AdvertisingList
         ImageView image;
         TextView address;
         TextView advertisement;
-        TextView message;
+        TextView amount;
+        TextView maxNumber;
         TextView duration;
+        View view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.view = itemView;
             image = itemView.findViewById(R.id.image);
             address = itemView.findViewById(R.id.address);
             advertisement = itemView.findViewById(R.id.advertisement);
-            message = itemView.findViewById(R.id.message);
+            amount = itemView.findViewById(R.id.amount);
+            maxNumber = itemView.findViewById(R.id.maxNumber);
             duration = itemView.findViewById(R.id.duration);
         }
-
 
     }
 }

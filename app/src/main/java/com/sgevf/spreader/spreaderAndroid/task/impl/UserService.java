@@ -55,4 +55,8 @@ public interface UserService {
     @POST("S0009")
     @Multipart
     Observable<BasicResult<String>> updatePassword(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0033")
+    @Multipart
+    Observable<BasicResult<String>> checkIsBusiness(@PartMap Map<String, RequestBody> data);
 }

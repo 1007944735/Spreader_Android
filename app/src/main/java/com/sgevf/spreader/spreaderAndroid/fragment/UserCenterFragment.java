@@ -30,6 +30,7 @@ import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import utils.WindowHelper;
 
 public class UserCenterFragment extends Fragment {
     @BindView(R.id.toolbar)
@@ -77,7 +78,7 @@ public class UserCenterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        WindowHelper.setViewPaddingTop(getActivity(), toolbar);
+        WindowHelper.setViewPaddingTop(getActivity(), toolbar);
 
 
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
+import com.sgevf.spreader.spreaderAndroid.activity.BusinessAuthActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.CardManagerActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.ExpandActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.HistoryReleaseActivity;
@@ -25,7 +28,9 @@ import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryReleaseListModel;
 import com.sgevf.spreader.spreaderAndroid.model.HomeAdvertisingListModel;
+import com.sgevf.spreader.spreaderAndroid.task.BaseService;
 import com.sgevf.spreader.spreaderAndroid.task.HomeAdvertisingListTask;
+import com.sgevf.spreader.spreaderAndroid.task.impl.UserService;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -35,11 +40,14 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import utils.WindowHelper;
 
 public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> {
     @BindView(R.id.banner)
     public Banner banner;
-    @BindView(R.id.toolbar)
+    @BindView(R.id.bar)
     public Toolbar toolbar;
     @BindView(R.id.advertising_list)
     public RecyclerView advertisingList;
@@ -67,6 +75,7 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         ButterKnife.bind(this, view);
+        WindowHelper.setViewPaddingTop(getActivity(), toolbar);
         if (getArguments() != null) {
             list = getArguments().getStringArrayList("slideshow");
         } else {
@@ -92,17 +101,80 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
 
     @OnClick(R.id.business_1)
     public void business_1() {
-        startActivity(new Intent(context, ExpandActivity.class));
+        new BaseService<UserService, String>(getActivity(), this) {
+
+            @Override
+            public void onSuccess(String s) {
+                if ("0".equals(s)) {
+                    //未注册
+                    ToastUtils.Toast(context, "未注册");
+                } else if ("1".equals(s)) {
+                    //已注册
+                    startActivity(new Intent(context, ExpandActivity.class));
+                } else if ("2".equals(s)) {
+                    //审核中
+                    ToastUtils.Toast(context, "审核中");
+                }
+
+            }
+
+            @Override
+            public Observable setObservable(Map<String, RequestBody> data) {
+                return service.checkIsBusiness(data);
+            }
+        }.request();
     }
 
     @OnClick(R.id.business_2)
     public void business_2() {
-        startActivity(new Intent(context, CardManagerActivity.class).putExtra("type", CardManagerActivity.MANAGER));
+        new BaseService<UserService, String>(getActivity(), this) {
+
+            @Override
+            public void onSuccess(String s) {
+                if ("0".equals(s)) {
+                    //未注册
+                    ToastUtils.Toast(context, "未注册");
+                } else if ("1".equals(s)) {
+                    //已注册
+                    startActivity(new Intent(context, CardManagerActivity.class).putExtra("type", CardManagerActivity.MANAGER));
+                } else if ("2".equals(s)) {
+                    //审核中
+                    ToastUtils.Toast(context, "审核中");
+                }
+
+            }
+
+            @Override
+            public Observable setObservable(Map<String, RequestBody> data) {
+                return service.checkIsBusiness(data);
+            }
+        }.request();
     }
 
     @OnClick(R.id.business_3)
     public void business_3() {
-        startActivityForResult(new Intent(context, HistoryReleaseActivity.class).putExtra("from", HistoryReleaseActivity.FROM_HOME), 1000);
+        new BaseService<UserService, String>(getActivity(), this) {
+
+            @Override
+            public void onSuccess(String s) {
+                if ("0".equals(s)) {
+                    //未注册
+                    ToastUtils.Toast(context, "未注册");
+                } else if ("1".equals(s)) {
+                    //已注册
+                    startActivityForResult(new Intent(context, HistoryReleaseActivity.class).putExtra("from", HistoryReleaseActivity.FROM_HOME), 1000);
+                } else if ("2".equals(s)) {
+                    //审核中
+                    ToastUtils.Toast(context, "审核中");
+                }
+
+            }
+
+            @Override
+            public Observable setObservable(Map<String, RequestBody> data) {
+                return service.checkIsBusiness(data);
+            }
+        }.request();
     }
 
     @OnClick(R.id.personal_0)
@@ -122,6 +194,26 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
 
     @OnClick(R.id.personal_3)
     public void personal_3() {
+
+    }
+
+    @OnClick(R.id.function_1)
+    public void function_1() {
+        startActivity(new Intent(context,BusinessAuthActivity.class));
+    }
+
+    @OnClick(R.id.function_2)
+    public void function_2() {
+
+    }
+
+    @OnClick(R.id.function_3)
+    public void function_3() {
+
+    }
+
+    @OnClick(R.id.function_4)
+    public void function_4() {
 
     }
 

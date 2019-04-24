@@ -31,13 +31,13 @@
         android:background="@drawable/bg_border_gray_bottom"
         android:orientation="horizontal" />
 
-    <com.youth.banner.Banner
-        android:id="@+id/details_banner"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/white">
 
-    </com.youth.banner.Banner>
+    </android.support.v4.view.ViewPager>
 
     <include layout="@layout/layout_head_view" />
 

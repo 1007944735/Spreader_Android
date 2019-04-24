@@ -91,7 +91,7 @@
             android:layout_marginLeft="@dimen/margin_14"
             android:layout_marginTop="@dimen/margin_30"
             android:layout_marginRight="@dimen/margin_14"
-            android:background="@drawable/bg_btn_selector"
+            android:background="@drawable/bg_btn_radius_selector"
             android:text="@string/register"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/dimen_20" />

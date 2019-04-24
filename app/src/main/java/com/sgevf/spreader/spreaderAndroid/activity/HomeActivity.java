@@ -11,23 +11,26 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
-import com.sgevf.spreader.spreaderAndroid.activity.base.BaseActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.HomeFragmentViewPagerAdapter;
 import com.sgevf.spreader.spreaderAndroid.fragment.HomeFragment;
 import com.sgevf.spreader.spreaderAndroid.fragment.UserCenterFragment;
-import com.sgevf.spreader.spreaderAndroid.map.MapDiscoverActivity;
 import com.sgevf.spreader.spreaderAndroid.model.SlideShowModel;
+import com.sgevf.spreader.spreaderAndroid.task.BaseService;
 import com.sgevf.spreader.spreaderAndroid.task.HomeSlideShowTask;
-import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
+import com.sgevf.spreader.spreaderAndroid.task.impl.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 public class HomeActivity extends BaseLoadingActivity<SlideShowModel> {
     private static final String[] subTitles = {"首页", "我"};
@@ -57,7 +60,29 @@ public class HomeActivity extends BaseLoadingActivity<SlideShowModel> {
 
     @OnClick(R.id.pub)
     public void pub() {
-        startActivity(new Intent(this, ExpandActivity.class));
+        new BaseService<UserService, String>(this, this) {
+
+            @Override
+            public void onSuccess(String s) {
+                if ("0".equals(s)) {
+                    //未注册
+                    ToastUtils.Toast(HomeActivity.this, "未注册");
+                } else if ("1".equals(s)) {
+                    //已注册
+                    startActivity(new Intent(HomeActivity.this, ExpandActivity.class));
+                } else if ("2".equals(s)) {
+                    //审核中
+                    ToastUtils.Toast(HomeActivity.this, "审核中");
+                }
+
+            }
+
+            @Override
+            public Observable setObservable(Map<String, RequestBody> data) {
+                return service.checkIsBusiness(data);
+            }
+        }.request();
+
     }
 
     @Override

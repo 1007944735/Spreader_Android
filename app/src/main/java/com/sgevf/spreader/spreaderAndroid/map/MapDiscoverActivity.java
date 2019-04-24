@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,18 +40,16 @@ import com.amap.api.services.route.RouteBusLineItem;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
 import com.autonavi.amap.mapcore.Inner_3dMap_location;
-import com.dueeeke.videocontroller.StandardVideoController;
-import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverBottomSheetAdapter;
 import com.sgevf.spreader.spreaderAndroid.adapter.MapDiscoverCouponAdapter;
 import com.sgevf.spreader.spreaderAndroid.adapter.RedPacketCouponAdapter;
-import com.sgevf.spreader.spreaderAndroid.glide.GlideImageLoader;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import com.sgevf.spreader.spreaderAndroid.map.overlay.PoiOverlay;
 import com.sgevf.spreader.spreaderAndroid.model.CardListModel;
 import com.sgevf.spreader.spreaderAndroid.model.GrabRedPacketModel;
+import com.sgevf.spreader.spreaderAndroid.model.HomeAdvertisingListModel;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.MapSearchLocationModel;
 import com.sgevf.spreader.spreaderAndroid.model.RedPacketDetailsModel;
@@ -60,9 +60,7 @@ import com.sgevf.spreader.spreaderAndroid.view.FilterOptionView;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 import com.sgevf.spreader.spreaderAndroid.view.RedPacketDialog;
 import com.sgevf.spreader.spreaderAndroid.view.SuperListView;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
+import com.sgevf.spreader.spreaderAndroid.view.VideoBannerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,8 +91,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     ImageView location;
     @BindView(R.id.error)
     TextView error;
-    @BindView(R.id.details_banner)
-    Banner detailsBanner;
+    @BindView(R.id.videoView)
+    ViewPager videoView;
     @BindView(R.id.details_layout)
     LinearLayout detailsLayout;
 
@@ -129,8 +127,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     @BindView(R.id.discount)
     LinearLayout discount;
 
-    @BindView(R.id.video)
-    IjkVideoView video;
     AMap aMap;
     MyLocationStyle myLocationStyle;
     boolean onlyOnce = true;
@@ -153,7 +149,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     private MapSearchLocationModel mslm;
     private List<MapRedResultModels.MapRedResultModel> recyclerData;
     private boolean loading = false;
-    private int clickPosition;
+    private int clickPositionId;
     private Timer timer;
     private MapPathPlanHelper pathHelper;
     private Location curLocation;
@@ -171,7 +167,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         initRecyclerView();
         initDetails();
         initResultFilter();
-        initVideo();
+        //从HomeFragment跳转过来的
+        initFromHome();
     }
 
     private void init() {
@@ -234,11 +231,11 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         //设置banner和details的高度
         final int detailsBannerHeight;
         final int screenHeight = WindowHelper.getScreenHeight(this);
-        ViewGroup.LayoutParams dp = detailsBanner.getLayoutParams();
+        ViewGroup.LayoutParams dp = videoView.getLayoutParams();
         detailsBannerHeight = (int) (screenHeight * 0.3);
         dp.height = detailsBannerHeight;
-        detailsBanner.setLayoutParams(dp);
-        detailsBanner.setTranslationY(-dp.height);
+        videoView.setLayoutParams(dp);
+        videoView.setTranslationY(-dp.height);
 
         ViewGroup.LayoutParams dlp = details.getLayoutParams();
         dlp.height = screenHeight - detailsBannerHeight;
@@ -249,7 +246,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             @Override
             public void onStateChanged(@NonNull View view, int i) {
                 if (i == BottomSheetBehavior.STATE_EXPANDED && loading) {
-                    new RedPacketDetailsTask(MapDiscoverActivity.this, MapDiscoverActivity.this).setClass(recyclerData.get(clickPosition).id, curLocation.getLongitude() + "", curLocation.getLatitude() + "").request();
+                    new RedPacketDetailsTask(MapDiscoverActivity.this, MapDiscoverActivity.this).setClass(clickPositionId, curLocation.getLongitude() + "", curLocation.getLatitude() + "").request();
                     loading = false;
                     requestLoading.setVisibility(View.VISIBLE);
                 } else if (i == BottomSheetBehavior.STATE_COLLAPSED) {
@@ -263,8 +260,8 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
             @Override
             public void onSlide(@NonNull View view, float v) {
-                detailsBanner.setTranslationY(-(1 - v) * detailsBannerHeight);
-                detailsBanner.setAlpha(v);
+                videoView.setTranslationY(-(1 - v) * detailsBannerHeight);
+                videoView.setAlpha(v);
             }
         });
     }
@@ -311,9 +308,48 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         }
     }
 
-    private void initVideo() {
-        StandardVideoController controller = new StandardVideoController(this);
-        video.setVideoController(controller);
+    private void initFromHome() {
+        HomeAdvertisingListModel.HomeAdvertingModel model = getIntent().getParcelableExtra("model");
+        if (model != null) {
+            initBanner(changeType(model));
+            loading = true;
+            clickPositionId = model.id;
+            //显示
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (detailsBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                        detailsBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                }
+            }, 500);
+
+        }
+    }
+
+    //从HomeAdvertisingListModel.HomeAdvertingModel转化到MapRedResultModels.MapRedResultModel
+    private MapRedResultModels.MapRedResultModel changeType(HomeAdvertisingListModel.HomeAdvertingModel model) {
+        MapRedResultModels.MapRedResultModel mrrm = new MapRedResultModels.MapRedResultModel();
+        mrrm.id = model.id;
+        mrrm.amount = model.amount;
+        mrrm.type = model.type;
+        mrrm.pubTime = model.pubTime;
+        mrrm.pubLongitude = model.pubLongitude;
+        mrrm.pubLatitude = model.pubLatitude;
+        mrrm.startTime = model.startTime;
+        mrrm.endTime = model.endTime;
+        mrrm.maxNumber = model.maxNumber;
+        mrrm.pubAddress = model.pubAddress;
+        mrrm.title = model.title;
+        mrrm.info = model.info;
+        mrrm.videoUrl = model.videoUrl;
+        mrrm.image1Url = model.image1Url;
+        mrrm.image2Url = model.image2Url;
+        mrrm.image3Url = model.image3Url;
+        mrrm.image4Url = model.image4Url;
+        mrrm.image5Url = model.image5Url;
+        mrrm.image6Url = model.image6Url;
+        return mrrm;
     }
 
     private void clearAllSelected() {
@@ -421,14 +457,14 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     @OnClick(R.id.open)
     public void open() {
-        new GrabRedPacketTask(this, this).setClass(recyclerData.get(clickPosition).id, curLocation.getLongitude() + "", curLocation.getLatitude() + "").request();
+        new GrabRedPacketTask(this, this).setClass(clickPositionId, curLocation.getLongitude() + "", curLocation.getLatitude() + "").request();
     }
 
     @OnClick(R.id.walk)
     public void walk() {
         //导航
         Intent intent = new Intent(this, MapNavigationActivity.class);
-        intent.putExtra("redPacketId", recyclerData.get(clickPosition).id);
+        intent.putExtra("redPacketId", clickPositionId);
 //        intent.putExtra("location",curLocation);
         intent.putExtra("tripWay", 1);
         startActivity(intent);
@@ -438,7 +474,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     public void driving() {
         //导航
         Intent intent = new Intent(this, MapNavigationActivity.class);
-        intent.putExtra("redPacketId", recyclerData.get(clickPosition).id);
+        intent.putExtra("redPacketId", clickPositionId);
 //        intent.putExtra("location",curLocation);
         intent.putExtra("tripWay", 2);
         startActivity(intent);
@@ -448,7 +484,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
     public void bus() {
         //导航
         Intent intent = new Intent(this, MapNavigationActivity.class);
-        intent.putExtra("redPacketId", recyclerData.get(clickPosition).id);
+        intent.putExtra("redPacketId", clickPositionId);
 //        intent.putExtra("location",curLocation);
         intent.putExtra("tripWay", 2);
         startActivity(intent);
@@ -462,7 +498,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         if (!onlyOnce) {
             new MapSearchTask(this, this).setClass(curLocation.getLongitude() + "", curLocation.getLatitude() + "", mslm.orderType, mslm.redPacketType, mslm.number, mslm.amount).request();
         }
-        video.resume();
     }
 
     @Override
@@ -478,7 +513,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             timer.cancel();
             timer = null;
         }
-        video.release();
     }
 
     @Override
@@ -486,7 +520,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         super.onPause();
         //暂停地图绘制
         mapView.onPause();
-        video.pause();
     }
 
     @Override
@@ -566,12 +599,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         pathHelper.drivingPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude));
         pathHelper.busPathPlan(curLocation.getLongitude(), curLocation.getLatitude(), Double.valueOf(model.pubLongitude), Double.valueOf(model.pubLatitude), ((Inner_3dMap_location) curLocation).getCityCode());
         requestLoading.setVisibility(View.GONE);
-        if (recyclerData.get(clickPosition).videoUrl != null) {
-            video.setVisibility(View.VISIBLE);
-            video.setUrl(recyclerData.get(clickPosition).videoUrl);
-        } else {
-            video.setVisibility(View.GONE);
-        }
         initCoupon(model.list);
         //数据加载完才显示
         detailsLayout.setVisibility(View.VISIBLE);
@@ -687,7 +714,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         initBanner(recyclerData.get(position));
         //设置loading为true，请求后台，加载detailsLayout数据
         loading = true;
-        clickPosition = position;
+        clickPositionId = recyclerData.get(position).id;
         //显示
         if (detailsBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
             detailsBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -702,14 +729,9 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         if (data.image4Url != null) images.add(data.image4Url);
         if (data.image5Url != null) images.add(data.image5Url);
         if (data.image6Url != null) images.add(data.image6Url);
-        detailsBanner.setImages(images);
-        detailsBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        detailsBanner.setImageLoader(new GlideImageLoader());
-        detailsBanner.setBannerAnimation(Transformer.Default);
-        detailsBanner.isAutoPlay(true);
-        detailsBanner.setDelayTime(8000);
-        detailsBanner.setIndicatorGravity(BannerConfig.CENTER);
-        detailsBanner.start();
+
+        VideoBannerViewAdapter adapter=new VideoBannerViewAdapter(this,data.videoUrl,images);
+        videoView.setAdapter(adapter);
     }
 
     @Override
@@ -720,7 +742,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
             initBanner(recyclerData.get(p));
             //设置loading为true，请求后台，加载detailsLayout数据
             loading = true;
-            clickPosition = p;
+            clickPositionId = recyclerData.get(p).id;
         }
         redPacketBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         detailsBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);

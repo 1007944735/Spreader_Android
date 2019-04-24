@@ -60,6 +60,10 @@ public class MapRedResultModels implements Parcelable {
         public String image5Url;
         public String image6Url;
 
+        public MapRedResultModel() {
+
+        }
+
         public MapRedResultModel(JSONObject obj) {
             id = obj.optInt("id");
             amount = obj.optDouble("amount");

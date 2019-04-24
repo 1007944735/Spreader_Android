@@ -1,50 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_12"
-    android:layout_marginTop="@dimen/margin_6"
-    android:layout_marginRight="@dimen/margin_12"
-    android:layout_marginBottom="@dimen/margin_6"
+    android:layout_margin="@dimen/margin_6"
     android:background="@drawable/bg_radius_white"
+    android:foreground="@drawable/fg_ripple_general"
     android:orientation="vertical"
     android:padding="@dimen/margin_6">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="150dp"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
         android:layout_marginBottom="@dimen/margin_4"
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="#2f2f2f"
-        android:textSize="@dimen/dimen_18" />
+        android:textSize="@dimen/dimen_18"
+        tools:text="三零客机从拉克丝" />
 
     <TextView
         android:id="@+id/advertisement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_2"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textColor="#484848" />
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#787878"
-        android:textSize="@dimen/dimen_12" />
+        android:lineSpacingExtra="5dp"
+        android:textColor="#484848"
+        tools:text="哦阿瑟东就卡死了大家阿喀琉斯都快散架了看得见啊两款手机登陆咔叽顺口溜的就埃里克森简单快乐骄傲两款手机的绿卡就是的离开机阿里山可见度绿卡聚少离多卡卡是了解拉开就" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#a8a8a8"
-        android:textSize="@dimen/dimen_12" />
+        android:textSize="@dimen/dimen_12"
+        tools:text="2019-04-16 19:49:00~2019-07-08 19:49:00" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/margin_6"
+        android:layout_marginBottom="@dimen/margin_6"
+        android:background="@color/colorCancel" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/icon_home_advertising_person" />
+
+        <TextView
+            android:id="@+id/maxNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:textColor="#333333"
+            tools:text="300" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/icon_home_advertising_money" />
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:textColor="#333333"
+            tools:text="90000.0" />
+    </LinearLayout>
 </LinearLayout>

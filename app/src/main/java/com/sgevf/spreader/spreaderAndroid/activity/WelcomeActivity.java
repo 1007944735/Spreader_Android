@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,6 +15,7 @@ import com.sgevf.multimedia.camera.CameraActivity;
 import com.sgevf.multimedia.video.VideoThreeActivity;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
+import com.sgevf.spreader.spreaderAndroid.adapter.AdvertisingListAdapter;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideConfig;
@@ -24,6 +26,10 @@ import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.task.InitTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 import com.sgevf.spreader.spreaderAndroid.view.SuperProgressBar;
+import com.sgevf.spreader.spreaderAndroid.view.VideoBannerViewAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -33,8 +39,7 @@ import permissions.dispatcher.RuntimePermissions;
 public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     private MapLocationHelper helper;
     private SuperProgressBar progress;
-
-    private ImageView imageView;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +52,15 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
 
         progress=findViewById(R.id.progress);
-        imageView=findViewById(R.id.imageView);
-        GlideManager.showBlurImage(this,"http://47.103.8.72:8080/spreader/picture/pictureQ29U20190416194436.jpg",imageView);
+
+        viewPager=findViewById(R.id.viewPager);
+        List<String> images=new ArrayList<>();
+        images.add("http://47.103.8.72:8080/spreader/picture/pictureNb0S20190417100425.jpg");
+        images.add("http://47.103.8.72:8080/spreader/picture/pictureNb0S20190417100425.jpg");
+        images.add("http://47.103.8.72:8080/spreader/picture/pictureNb0S20190417100425.jpg");
+        images.add("http://47.103.8.72:8080/spreader/picture/pictureNb0S20190417100425.jpg");
+        VideoBannerViewAdapter adapter=new VideoBannerViewAdapter(this,null,images);
+        viewPager.setAdapter(adapter);
 
     }
 

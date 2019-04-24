@@ -56,7 +56,7 @@
     </style>
 
     <style name="ConfirmButton">
-        <item name="android:background">@drawable/bg_btn_selector</item>
+        <item name="android:background">@drawable/bg_btn_radius_selector</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/dimen_20</item>
     </style>

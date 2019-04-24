@@ -194,12 +194,6 @@
         android:layout_height="10dp"
         android:background="@color/colorBackground" />
 
-    <com.dueeeke.videoplayer.player.IjkVideoView
-        android:id="@+id/video"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:visibility="gone" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"

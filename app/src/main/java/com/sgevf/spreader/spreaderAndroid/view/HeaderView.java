@@ -27,7 +27,7 @@ public class HeaderView implements View.OnClickListener {
         title = activity.findViewById(R.id.title);
         right = activity.findViewById(R.id.right);
         rightIcon = activity.findViewById(R.id.rightIcon);
-//        WindowHelper.setViewPaddingTop(activity, toolbar);
+        WindowHelper.setViewPaddingTop(activity, toolbar);
         toolbar.setNavigationOnClickListener(this);
     }
 
