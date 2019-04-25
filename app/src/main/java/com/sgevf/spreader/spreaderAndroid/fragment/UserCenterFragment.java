@@ -79,8 +79,6 @@ public class UserCenterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         WindowHelper.setViewPaddingTop(getActivity(), toolbar);
-
-
     }
 
     @Override
@@ -97,8 +95,13 @@ public class UserCenterFragment extends Fragment {
             userName.setText(UserConfig.getUserName(context));
             nickName.setText(UserConfig.getNickName(context));
             String p = UserConfig.getUserPhone(context);
-            if (!TextUtils.isEmpty(p))
+            if (!TextUtils.isEmpty(p)&&phone.length()>=7) {
                 phone.setText(p.substring(0, 3) + "****" + p.substring(7));
+            }else if(phone.length()>=4){
+                phone.setText(p.substring(0, 3) + "****");
+            }else {
+                phone.setText(p);
+            }
             exit.setVisibility(View.VISIBLE);
         } else {
             unLogin.setVisibility(View.VISIBLE);
@@ -154,9 +157,11 @@ public class UserCenterFragment extends Fragment {
         if (requestCode == 1000 && resultCode == 1001) {
             //昵称
             nickName.setText(d);
+            UserConfig.setNickName(context,d);
         } else if (requestCode == 2000 && resultCode == 2001) {
             //手机号
             phone.setText(d);
+            UserConfig.setUserPhone(context,d);
         } else if (requestCode == 3000 && resultCode == 3001) {
             //密码
             UserConfig.setLoginStatus(context, false);

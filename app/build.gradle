@@ -60,4 +60,5 @@ dependencies {
     }
     implementation 'jp.wasabeef:glide-transformations:4.0.1'
     implementation project(':banner')
+    implementation 'com.smartTop:jd-address:1.0.3'
 }

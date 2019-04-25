@@ -6,6 +6,7 @@ import com.sgevf.spreader.spreaderAndroid.model.HistorySurplusModel;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.PubResultModel;
 import com.sgevf.spreader.spreaderAndroid.model.RedPacketDetailsModel;
+import com.sgevf.spreader.spreaderAndroid.model.UploadFileModel;
 
 import java.util.Map;
 
@@ -40,4 +41,8 @@ public interface PubService {
     @POST("S0023")
     @Multipart
     Observable<BasicResult<String>> cancelPub(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0034")
+    @Multipart
+    Observable<BasicResult<UploadFileModel>> uploadFile(@PartMap Map<String, RequestBody> data);
 }

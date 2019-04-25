@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_14"
+        android:paddingRight="@dimen/padding_14"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="6"
+                android:gravity="center_vertical"
+                android:hint="所在地区"
+                android:minHeight="48dp"
+                android:textColor="#FF2A2A2A"
+                android:textSize="@dimen/dimen_14" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icon_right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorCancel" />
+
+        <EditText
+            android:id="@+id/address_details"
+            android:paddingTop="@dimen/padding_4"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:hint="详细地址:如道路，门牌号，小区，楼栋号，单元室等"
+            android:gravity="start"
+            android:textSize="@dimen/dimen_14"/>
+    </LinearLayout>
+</LinearLayout>

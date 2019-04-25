@@ -48,7 +48,6 @@
         <activity android:name=".map.MapActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.UserCenterActivity" />
         <activity android:name=".activity.WalletActivity" />
         <activity android:name=".activity.HistoryReleaseActivity" />
         <activity android:name=".activity.UpdateUserActivity" />
@@ -90,6 +89,9 @@
         <activity android:name=".activity.UserCardSuccessActivity" />
         <activity android:name=".activity.BusinessScanSuccessActivity" />
         <activity android:name=".activity.BusinessAuthActivity" />
+        <activity android:name=".activity.AddressSelectorActivity" />
+        <activity android:name=".activity.UploadBusinessSuccessActivity" />
+        <activity android:name=".activity.BusinessInfoActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

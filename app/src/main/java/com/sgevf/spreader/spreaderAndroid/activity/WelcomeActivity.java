@@ -3,29 +3,23 @@ package com.sgevf.spreader.spreaderAndroid.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.amap.api.location.AMapLocation;
-import com.sgevf.multimedia.camera.CameraActivity;
-import com.sgevf.multimedia.video.VideoThreeActivity;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.base.BaseLoadingActivity;
-import com.sgevf.spreader.spreaderAndroid.adapter.AdvertisingListAdapter;
 import com.sgevf.spreader.spreaderAndroid.config.HttpConfig;
 import com.sgevf.spreader.spreaderAndroid.config.UserConfig;
 import com.sgevf.spreader.spreaderAndroid.glide.GlideConfig;
-import com.sgevf.spreader.spreaderAndroid.glide.GlideManager;
 import com.sgevf.spreader.spreaderAndroid.map.MapLocationHelper;
-import com.sgevf.spreader.spreaderAndroid.map.MapPathPlanHelper;
 import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.task.InitTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 import com.sgevf.spreader.spreaderAndroid.view.SuperProgressBar;
+import com.sgevf.spreader.spreaderAndroid.view.UploadImageView;
 import com.sgevf.spreader.spreaderAndroid.view.VideoBannerViewAdapter;
 
 import java.util.ArrayList;
@@ -40,6 +34,7 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     private MapLocationHelper helper;
     private SuperProgressBar progress;
     private ViewPager viewPager;
+    private UploadImageView image;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +56,7 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         images.add("http://47.103.8.72:8080/spreader/picture/pictureNb0S20190417100425.jpg");
         VideoBannerViewAdapter adapter=new VideoBannerViewAdapter(this,null,images);
         viewPager.setAdapter(adapter);
-
+        image=findViewById(R.id.image);
     }
 
     private void init() {
@@ -138,4 +133,12 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         UserConfig.setPublicKey(this, initModel.publicKey);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==UploadImageView.REQUEST_CODE){
+            image.uploadFile();
+        }
+    }
 }

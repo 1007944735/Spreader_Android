@@ -28,8 +28,15 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:visibility="visible">
 
     </android.support.v4.view.ViewPager>
+
+    <com.sgevf.spreader.spreaderAndroid.view.UploadImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="#ff0"/>
 
 </LinearLayout>

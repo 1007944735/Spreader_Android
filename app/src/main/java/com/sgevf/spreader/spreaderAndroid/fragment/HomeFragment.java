@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.sgevf.spreader.http.utils.ToastUtils;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.BusinessAuthActivity;
+import com.sgevf.spreader.spreaderAndroid.activity.BusinessInfoActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.CardManagerActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.ExpandActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.HistoryReleaseActivity;
@@ -107,13 +108,18 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
             public void onSuccess(String s) {
                 if ("0".equals(s)) {
                     //未注册
-                    ToastUtils.Toast(context, "未注册");
+                    startActivity(new Intent(context, BusinessAuthActivity.class));
+                    ToastUtils.Toast(context, "商家未注册");
                 } else if ("1".equals(s)) {
                     //已注册
                     startActivity(new Intent(context, ExpandActivity.class));
                 } else if ("2".equals(s)) {
                     //审核中
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
                     ToastUtils.Toast(context, "审核中");
+                } else if ("3".equals(s)) {
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "审核不通过");
                 }
 
             }
@@ -133,15 +139,19 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
             public void onSuccess(String s) {
                 if ("0".equals(s)) {
                     //未注册
-                    ToastUtils.Toast(context, "未注册");
+                    startActivity(new Intent(context, BusinessAuthActivity.class));
+                    ToastUtils.Toast(context, "商家未注册");
                 } else if ("1".equals(s)) {
                     //已注册
                     startActivity(new Intent(context, CardManagerActivity.class).putExtra("type", CardManagerActivity.MANAGER));
                 } else if ("2".equals(s)) {
                     //审核中
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
                     ToastUtils.Toast(context, "审核中");
+                } else if ("3".equals(s)) {
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "审核不通过");
                 }
-
             }
 
             @Override
@@ -159,13 +169,18 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
             public void onSuccess(String s) {
                 if ("0".equals(s)) {
                     //未注册
-                    ToastUtils.Toast(context, "未注册");
+                    startActivity(new Intent(context, BusinessAuthActivity.class));
+                    ToastUtils.Toast(context, "商家未注册");
                 } else if ("1".equals(s)) {
                     //已注册
                     startActivityForResult(new Intent(context, HistoryReleaseActivity.class).putExtra("from", HistoryReleaseActivity.FROM_HOME), 1000);
                 } else if ("2".equals(s)) {
                     //审核中
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
                     ToastUtils.Toast(context, "审核中");
+                } else if ("3".equals(s)) {
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "审核不通过");
                 }
 
             }
@@ -199,12 +214,62 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
 
     @OnClick(R.id.function_1)
     public void function_1() {
-        startActivity(new Intent(context,BusinessAuthActivity.class));
+        new BaseService<UserService, String>(getActivity(), this) {
+
+            @Override
+            public void onSuccess(String s) {
+                if ("0".equals(s)) {
+                    //未注册
+                    startActivity(new Intent(context, BusinessAuthActivity.class));
+                } else if ("1".equals(s)) {
+                    //已注册
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "已注册");
+                } else if ("2".equals(s)) {
+                    //审核中
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "审核中");
+                } else if ("3".equals(s)) {
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "审核不通过");
+                }
+            }
+
+            @Override
+            public Observable setObservable(Map<String, RequestBody> data) {
+                return service.checkIsBusiness(data);
+            }
+        }.request();
     }
 
     @OnClick(R.id.function_2)
     public void function_2() {
+        new BaseService<UserService, String>(getActivity(), this) {
 
+            @Override
+            public void onSuccess(String s) {
+                if ("0".equals(s)) {
+                    //未注册
+                    startActivity(new Intent(context, BusinessAuthActivity.class));
+                    ToastUtils.Toast(context, "未注册");
+                } else if ("1".equals(s)) {
+                    //已注册
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                } else if ("2".equals(s)) {
+                    //审核中
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "审核中");
+                } else if ("3".equals(s)) {
+                    startActivity(new Intent(context, BusinessInfoActivity.class));
+                    ToastUtils.Toast(context, "审核不通过");
+                }
+            }
+
+            @Override
+            public Observable setObservable(Map<String, RequestBody> data) {
+                return service.checkIsBusiness(data);
+            }
+        }.request();
     }
 
     @OnClick(R.id.function_3)

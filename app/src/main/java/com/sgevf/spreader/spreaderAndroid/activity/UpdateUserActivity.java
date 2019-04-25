@@ -54,7 +54,7 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
                             public void onClick(View v) {
                                 String nickname = input.getText().toString().trim();
                                 data = nickname;
-                                new UpdateInfoTask(UpdateUserActivity.this, this).setClass(type + "", nickname, "").request();
+                                new UpdateInfoTask(UpdateUserActivity.this, UpdateUserActivity.this).setClass(type + "", nickname, "").request();
                             }
                         });
                 input.setVisibility(View.VISIBLE);
@@ -69,7 +69,7 @@ public class UpdateUserActivity extends BaseLoadingActivity<String> {
                             public void onClick(View v) {
                                 String phone = input.getText().toString().trim();
                                 data = phone;
-                                new UpdateInfoTask(UpdateUserActivity.this, this).setClass(type + "", "", phone).request();
+                                new UpdateInfoTask(UpdateUserActivity.this, UpdateUserActivity.this).setClass(type + "", "", phone).request();
                             }
                         });
                 input.setVisibility(View.VISIBLE);

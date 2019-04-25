@@ -270,8 +270,10 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:drawableTop="@mipmap/icon_home_function_2"
+                        android:foreground="@drawable/fg_ripple_general"
                         android:gravity="center"
-                        android:text="暂无"
+                        android:text="商家信息"
                         android:textColor="#333333"
                         android:textSize="@dimen/dimen_10" />
 
@@ -280,6 +282,7 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:foreground="@drawable/fg_ripple_general"
                         android:gravity="center"
                         android:text="暂无"
                         android:textColor="#333333"
@@ -290,6 +293,7 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:foreground="@drawable/fg_ripple_general"
                         android:gravity="center"
                         android:text="暂无"
                         android:textColor="#333333"

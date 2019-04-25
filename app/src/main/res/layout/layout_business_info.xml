@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,8 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,6 +18,7 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/padding_14"
             android:paddingRight="@dimen/padding_14">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,15 +33,14 @@
                     android:textColor="#FF2A2A2A"
                     android:textSize="@dimen/dimen_16" />
 
-                <EditText
+                <TextView
                     android:id="@+id/business_name"
-                    style="@style/EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="请输入商家品牌名"
                     android:paddingTop="@dimen/padding_16"
                     android:paddingBottom="@dimen/padding_16"
-                    android:textSize="@dimen/dimen_16" />
+                    android:textSize="@dimen/dimen_16"
+                    tools:hint="请输入商家品牌名" />
             </LinearLayout>
 
             <View
@@ -62,17 +62,11 @@
                     android:textColor="#FF2A2A2A"
                     android:textSize="@dimen/dimen_16" />
 
-                <com.sgevf.spreader.spreaderAndroid.view.UploadImageView
+                <ImageView
                     android:id="@+id/business_logo"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@mipmap/icon_head_image_default"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:hint="(点头像修改)"
-                    android:textSize="@dimen/dimen_12"/>
+                    android:src="@mipmap/icon_head_image_default" />
             </LinearLayout>
 
             <View
@@ -94,15 +88,14 @@
                     android:textColor="#FF2A2A2A"
                     android:textSize="@dimen/dimen_16" />
 
-                <EditText
+                <TextView
                     android:id="@+id/business_phone"
-                    style="@style/EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="请输入联系电话"
                     android:paddingTop="@dimen/padding_16"
                     android:paddingBottom="@dimen/padding_16"
-                    android:textSize="@dimen/dimen_16" />
+                    android:textSize="@dimen/dimen_16"
+                    tools:hint="请输入联系电话" />
             </LinearLayout>
 
             <View
@@ -126,21 +119,13 @@
 
                 <TextView
                     android:id="@+id/business_address"
-                    style="@style/EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="请选择商家地址"
                     android:paddingTop="@dimen/padding_16"
                     android:paddingBottom="@dimen/padding_16"
-                    android:textSize="@dimen/dimen_16" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/icon_right" />
+                    android:textSize="@dimen/dimen_16"
+                    tools:hint="请选择商家地址" />
             </LinearLayout>
 
             <View
@@ -162,16 +147,15 @@
                     android:textColor="#FF2A2A2A"
                     android:textSize="@dimen/dimen_16" />
 
-                <EditText
+                <TextView
                     android:id="@+id/business_content"
-                    style="@style/EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="请输入经营范围"
                     android:paddingTop="@dimen/padding_16"
                     android:paddingBottom="@dimen/padding_16"
-                    android:textSize="@dimen/dimen_16" />
+                    android:textSize="@dimen/dimen_16"
+                    tools:hint="请输入经营范围" />
             </LinearLayout>
 
             <View
@@ -193,16 +177,45 @@
                     android:textColor="#FF2A2A2A"
                     android:textSize="@dimen/dimen_16" />
 
-                <EditText
+                <TextView
                     android:id="@+id/busienss_credit"
-                    style="@style/EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="请输入经营范围"
                     android:paddingTop="@dimen/padding_16"
                     android:paddingBottom="@dimen/padding_16"
+                    android:textSize="@dimen/dimen_16"
+                    tools:hint="请输入经营范围" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorCancel" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="审核状态"
+                    android:textColor="#FF2A2A2A"
                     android:textSize="@dimen/dimen_16" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="@dimen/padding_16"
+                    android:paddingBottom="@dimen/padding_16"
+                    android:textSize="@dimen/dimen_16"
+                    tools:hint="请输入经营范围" />
             </LinearLayout>
 
             <View
@@ -214,134 +227,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
-                android:text="上传证件"
+                android:text="证件信息"
                 android:textColor="#FF2A2A2A"
                 android:textSize="16sp" />
 
+
+            <ImageView
+                android:id="@+id/idcard_front"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:scaleType="fitCenter"
+                tools:src="@mipmap/icon_case_idcard_front" />
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="（身份证上所有信息清晰可见，必须能看清证件照；五官清晰可见，建议未化妆。）"
-                android:textColor="#FF999999"
-                android:textSize="14sp" />
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="身份正面"
+                android:textColor="#FF333333"
+                android:textSize="12sp" />
 
-            <LinearLayout
+
+            <ImageView
+                android:id="@+id/idcard_back"
                 android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:scaleType="fitCenter"
+                tools:src="@mipmap/icon_case_idcard_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="身份背面"
+                android:textColor="#FF333333"
+                android:textSize="12sp" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="104dp"
-                        android:src="@mipmap/icon_case_idcard_front" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="参考示例"
-                        android:textColor="#FF333333"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <com.sgevf.spreader.spreaderAndroid.view.UploadImageView
-                    android:id="@+id/idcard_front"
-                    android:layout_width="0dp"
-                    android:layout_height="104dp"
-                    android:layout_marginLeft="@dimen/margin_14"
-                    android:layout_weight="1"
-                    android:src="@mipmap/icon_idcard_front" />
-            </LinearLayout>
-
-            <LinearLayout
+            <ImageView
+                android:id="@+id/business_license"
                 android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:scaleType="fitCenter"
+                tools:src="@mipmap/icon_case_idcard_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="104dp"
-                        android:src="@mipmap/icon_case_idcard_back" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="参考示例"
-                        android:textColor="#FF333333"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <com.sgevf.spreader.spreaderAndroid.view.UploadImageView
-                    android:id="@+id/idcard_back"
-                    android:layout_width="0dp"
-                    android:layout_height="104dp"
-                    android:layout_marginLeft="@dimen/margin_14"
-                    android:layout_weight="1"
-                    android:src="@mipmap/icon_idcard_back" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="104dp"
-                        android:src="@mipmap/icon_case_idcard_back" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="参考示例"
-                        android:textColor="#FF333333"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <com.sgevf.spreader.spreaderAndroid.view.UploadImageView
-                    android:id="@+id/idcard_license"
-                    android:layout_width="0dp"
-                    android:layout_height="104dp"
-                    android:layout_marginLeft="@dimen/margin_14"
-                    android:layout_weight="1"
-                    android:src="@mipmap/icon_business_license" />
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="营业执照"
+                android:textColor="#FF333333"
+                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/bg_btn_selector"
-        android:text="立即认证"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dimen_16" />
 </LinearLayout>
