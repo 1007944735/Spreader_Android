@@ -1,6 +1,7 @@
 package com.sgevf.spreader.spreaderAndroid.map;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -625,7 +626,7 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         for (MapRedResultModels.MapRedResultModel model : data) {
             poiOverlay.addMapMarker(new MapMarker.Builder()
                     .position(Double.valueOf(model.pubLatitude), Double.valueOf(model.pubLongitude))
-//                    .icon(BitmapFactory.decodeResource(getResources(),R.mipmap.icon_map_rede_packet))
+                    .icon(BitmapFactory.decodeResource(getResources(),R.mipmap.icon_map_red_packet_coordinate))
                     .anchor(0.5f, 0.5f)
                     .build());
         }

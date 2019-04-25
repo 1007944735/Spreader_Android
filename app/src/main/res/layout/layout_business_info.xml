@@ -215,7 +215,8 @@
                     android:paddingTop="@dimen/padding_16"
                     android:paddingBottom="@dimen/padding_16"
                     android:textSize="@dimen/dimen_16"
-                    tools:hint="请输入经营范围" />
+                    tools:hint="请输入经营范围"
+                    android:textColor="@color/colorWarning"/>
             </LinearLayout>
 
             <View
