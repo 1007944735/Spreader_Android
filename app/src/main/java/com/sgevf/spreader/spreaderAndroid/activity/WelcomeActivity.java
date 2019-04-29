@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.ImageView;
 
 import com.amap.api.location.AMapLocation;
 import com.sgevf.spreader.spreaderAndroid.R;
@@ -18,6 +21,8 @@ import com.sgevf.spreader.spreaderAndroid.model.InitModel;
 import com.sgevf.spreader.spreaderAndroid.task.InitTask;
 import com.sgevf.spreader.spreaderAndroid.view.HeaderView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -25,15 +30,40 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
     private MapLocationHelper helper;
+    @BindView(R.id.welcome_img)
+    ImageView welcomeImg;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_welcome);
-        new HeaderView(this).setTitle("欢迎");
+        ButterKnife.bind(this);
         HttpConfig.init(getApplicationContext());
         init();
         initMap();
         WelcomeActivityPermissionsDispatcher.getMultiPermissionWithCheck(this);
+
+        AlphaAnimation aa = new AlphaAnimation(0.1f, 1.0f);
+        aa.setDuration(2000);
+        welcomeImg.startAnimation(aa);
+
+        aa.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                skip();
+            }
+        });
     }
 
     private void init() {
@@ -55,8 +85,9 @@ public class WelcomeActivity extends BaseLoadingActivity<InitModel> {
         helper.startOnceLocation();
     }
 
-    public void skip(final View view) {
+    public void skip() {
         startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA})

@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_head_view" />
-
-    <Button
+    <ImageView
+        android:id="@+id/welcome_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="skip"
-        android:text="跳转" />
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/bg_welcome_img"/>
 
 </LinearLayout>
