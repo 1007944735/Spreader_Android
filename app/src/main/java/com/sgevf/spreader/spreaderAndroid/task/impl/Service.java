@@ -36,12 +36,10 @@ public interface Service {
     Observable<BasicResult<ValidateCodeModel>> getValid();
 
     @POST("S0031")
-    @Multipart
-    Observable<BasicResult<SlideShowModel>> getSlideShow(@PartMap Map<String, RequestBody> data);
+    Observable<BasicResult<SlideShowModel>> getSlideShow();
 
     @POST("S0032")
-    @Multipart
-    Observable<BasicResult<HomeAdvertisingListModel>> getHomeList(@PartMap Map<String, RequestBody> data);
+    Observable<BasicResult<HomeAdvertisingListModel>> getHomeList();
 
 
 }

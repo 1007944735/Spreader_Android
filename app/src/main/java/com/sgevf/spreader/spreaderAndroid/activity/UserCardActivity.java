@@ -34,7 +34,11 @@ public class UserCardActivity extends BaseLoadingActivity<UserCouponListModel> {
 
     @Override
     public void onLoadFinish(UserCouponListModel userCouponListModel) {
-        UserCouponListAdapter adapter = new UserCouponListAdapter(this, userCouponListModel.list);
-        userCouponCards.setAdapter(adapter);
+        if(!userCouponListModel.list.isEmpty()) {
+            UserCouponListAdapter adapter = new UserCouponListAdapter(this, userCouponListModel.list);
+            userCouponCards.setAdapter(adapter);
+        }else {
+
+        }
     }
 }

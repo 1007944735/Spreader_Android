@@ -18,7 +18,7 @@ public class HomeAdvertisingListTask extends BaseService<Service, HomeAdvertisin
 
     @Override
     public Observable setObservable(Map<String, RequestBody> data) {
-        return service.getHomeList(data);
+        return service.getHomeList();
     }
 
     @Override

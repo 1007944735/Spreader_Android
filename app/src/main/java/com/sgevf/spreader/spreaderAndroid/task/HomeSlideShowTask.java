@@ -18,7 +18,7 @@ public class HomeSlideShowTask extends BaseService<Service, SlideShowModel> {
 
     @Override
     public Observable setObservable(Map<String, RequestBody> data) {
-        return service.getSlideShow(data);
+        return service.getSlideShow();
     }
 
     @Override
