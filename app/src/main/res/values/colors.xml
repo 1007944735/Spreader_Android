@@ -19,6 +19,7 @@
     <color name="colorWarning">#FAA732</color>
     <color name="colorDanger">#DA4F49</color>
     <color name="colorLink">#0088CC</color>
+    <color name="colorBtn">#fa897b</color>
     <!--禁用颜色-->
     <color name="colorDisable">#EFF3F8</color>
     <color name="colorPress">#C43643</color>

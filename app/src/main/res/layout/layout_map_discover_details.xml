@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -118,7 +119,7 @@
             android:id="@+id/open"
             android:layout_width="50dp"
             android:layout_height="27dp"
-            android:background="#fa897b"
+            android:background="@drawable/bg_map_btn_receive_selector"
             android:text="领取"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/dimen_12"/>

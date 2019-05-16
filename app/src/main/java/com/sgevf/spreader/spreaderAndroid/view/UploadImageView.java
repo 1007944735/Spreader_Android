@@ -9,8 +9,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -100,8 +102,13 @@ public class UploadImageView extends android.support.v7.widget.AppCompatImageVie
         Intent intent = new Intent();
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         String fileName = System.currentTimeMillis() + ".jpg";
-        filePath = Environment.getExternalStoragePublicDirectory("").getPath() + "/" + fileName;
-        Uri fileUri = Uri.fromFile(new File(filePath));
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/camera/" + fileName;
+        Uri fileUri=null;
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+            fileUri= FileProvider.getUriForFile(context,context.getApplicationContext().getPackageName() + ".provider",new File(filePath));
+        }else {
+            fileUri = Uri.fromFile(new File(filePath));
+        }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         ((Activity) context).startActivityForResult(intent, code == 0 ? REQUEST_CODE : code);
     }

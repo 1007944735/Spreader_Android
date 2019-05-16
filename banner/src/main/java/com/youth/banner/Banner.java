@@ -534,7 +534,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             if (parent != null) {
                 parent.removeAllViews();
             }
-            container.addView(imageViews.get(position));
+            container.addView(view);
 
             if (bannerListener != null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -570,19 +570,22 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             mOnPageChangeListener.onPageScrollStateChanged(state);
         }
 //        Log.i(tag,"currentItem: "+currentItem);
+
+        Log.d("TAG", "onPageScrollStateChanged: " + state);
+        Log.d("TAG", "currentItem: " + currentItem);
         switch (state) {
             case 0://No operation
                 if (currentItem == 0) {
-                    viewPager.setCurrentItem(count, false);
-                } else if (currentItem == count + 1) {
+                    viewPager.setCurrentItem(videoUrl!=null?count+1:count, false);
+                } else if (currentItem == (videoUrl!=null?count+2:count + 1)) {
                     viewPager.setCurrentItem(1, false);
                 }
                 break;
             case 1://start Sliding
-                if (currentItem == count + 1) {
+                if (currentItem == (videoUrl!=null?count+2:count + 1)) {
                     viewPager.setCurrentItem(1, false);
                 } else if (currentItem == 0) {
-                    viewPager.setCurrentItem(count, false);
+                    viewPager.setCurrentItem(videoUrl!=null?count+1:count, false);
                 }
                 break;
             case 2://end Sliding
@@ -612,8 +615,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             indicatorImages.get((position - 1 + count) % count).setImageResource(mIndicatorSelectedResId);
             lastPosition = position;
         }
-        if (position == 0) position = count;
-        if (position > count) position = 1;
+        if(videoUrl==null) {
+            if (position == 0) position = count;
+            if (position > count) position = 1;
+        }else {
+            if (position == 0) position = count+1;
+            if (position > count+1) position = 1;
+        }
         switch (bannerStyle) {
             case BannerConfig.CIRCLE_INDICATOR:
                 break;
@@ -631,7 +639,6 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 bannerTitle.setText(titles.get(position - 1));
                 break;
         }
-
     }
 
     @Deprecated

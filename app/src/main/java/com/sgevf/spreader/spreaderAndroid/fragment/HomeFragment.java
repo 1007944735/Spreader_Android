@@ -92,6 +92,11 @@ public class HomeFragment extends BaseLoadingFragment<HomeAdvertisingListModel> 
         banner.setImages(list);
         banner.setDelayTime(8000);
         banner.start();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         new HomeAdvertisingListTask(getActivity(), this).request();
     }
 

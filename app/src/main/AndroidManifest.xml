@@ -97,6 +97,15 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="e0e0598747f459dceaae2f15d8aa281a"></meta-data>
+
+        <provider
+            android:authorities="com.sgevf.spreader.spreaderAndroid.provider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>

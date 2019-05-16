@@ -560,7 +560,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
 
     public void grabResult(GrabRedPacketModel model) {
         open.setEnabled(false);
-        open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
         open.setText("已领取");
         dialog = new RedPacketDialog(this);
         dialog.show();
@@ -581,12 +580,10 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         long ct = new Date().getTime();
         if ("1".equals(model.isGrab)) {
             open.setEnabled(false);
-            open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
             open.setText("已领取");
             timer = new Timer(et - ct, 1000, true);
         } else {
             open.setEnabled(true);
-            open.setBackgroundColor(Color.parseColor("#fa897b"));
             open.setText("领取");
             timer = new Timer(et - ct, 1000, false);
         }
@@ -841,7 +838,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         @Override
         public void onTick(long millisUntilFinished) {
             if (!isGrab && !open.isEnabled()) {
-                open.setBackgroundColor(Color.parseColor("#fa897b"));
                 open.setEnabled(true);
             }
 
@@ -868,7 +864,6 @@ public class MapDiscoverActivity extends BaseLoadingActivity<MapRedResultModels>
         public void onFinish() {
             if (!isGrab) {
                 remainingTime.setText("活动已结束");
-                open.setBackgroundColor(getResources().getColor(R.color.colorDisable));
                 open.setEnabled(false);
                 open.setText("领取");
             }

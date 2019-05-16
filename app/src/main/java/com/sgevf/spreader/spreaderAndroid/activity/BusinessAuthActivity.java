@@ -2,6 +2,7 @@ package com.sgevf.spreader.spreaderAndroid.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.widget.EditText;
 import android.widget.TextView;
