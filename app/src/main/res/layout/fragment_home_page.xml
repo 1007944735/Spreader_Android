@@ -282,19 +282,18 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:drawableTop="@mipmap/icon_home_building"
                         android:foreground="@drawable/fg_ripple_general"
                         android:gravity="center"
                         android:text="建设中"
                         android:textColor="#333333"
                         android:textSize="@dimen/dimen_10" />
+                    <!--android:drawableTop="@mipmap/icon_home_building"-->
 
                     <TextView
                         android:id="@+id/function_4"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:drawableTop="@mipmap/icon_home_building"
                         android:foreground="@drawable/fg_ripple_general"
                         android:gravity="center"
                         android:text="建设中"

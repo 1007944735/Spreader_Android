@@ -3,6 +3,7 @@ package com.sgevf.spreader.spreaderAndroid.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -32,6 +33,7 @@ public class UploadImageView extends android.support.v7.widget.AppCompatImageVie
     private Boolean uploading = false;
     private Context context;
     private String filePath;
+    private Uri fileUri;
     private float width;
     private float height;
     private Paint progress;
@@ -103,13 +105,16 @@ public class UploadImageView extends android.support.v7.widget.AppCompatImageVie
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         String fileName = System.currentTimeMillis() + ".jpg";
         filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/camera/" + fileName;
-        Uri fileUri=null;
+        File file=new File(filePath);
+        if(!file.getParentFile().exists())
+            file.getParentFile().mkdirs();
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-            fileUri= FileProvider.getUriForFile(context,context.getApplicationContext().getPackageName() + ".provider",new File(filePath));
+            fileUri= FileProvider.getUriForFile(context,context.getApplicationContext().getPackageName() + ".provider",file);
         }else {
-            fileUri = Uri.fromFile(new File(filePath));
+            fileUri = Uri.fromFile(file);
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         ((Activity) context).startActivityForResult(intent, code == 0 ? REQUEST_CODE : code);
     }
 
