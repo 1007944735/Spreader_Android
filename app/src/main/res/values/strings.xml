@@ -26,6 +26,7 @@
     <string name="home_slip_user_center">个人中心</string>
     <string name="home_slip_wallet">钱包</string>
     <string name="home_slip_history_release">历史推广信息</string>
+    <string name="home_slip_history_statistic">统计</string>
 
     <string name="home_unit_pieces">个</string>
     <string name="home_unit_yuan">元</string>

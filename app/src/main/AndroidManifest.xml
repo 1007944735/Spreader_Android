@@ -92,6 +92,7 @@
         <activity android:name=".activity.AddressSelectorActivity" />
         <activity android:name=".activity.UploadBusinessSuccessActivity" />
         <activity android:name=".activity.BusinessInfoActivity" />
+        <activity android:name=".activity.HistoryStatisticActivity" />
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data

@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryReleaseListModel.HistoryReleaseModel>> implements AdapterView.OnItemClickListener {
     public static final String FROM_HOME = "home";
     public static final String FROM_USER_CENTER = "user_center";
+    public static final String FROM_STATISTIC="statisic";
     @BindView(R.id.history)
     public ListView history;
     private HistoryReleaseListAdapter adapter;
@@ -45,6 +46,8 @@ public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryRele
             new HistoryReleaseTask(this, this).setClass("1").request();
         } else if (FROM_USER_CENTER.equals(from)) {
             new HistoryReleaseTask(this, this).setClass("0").request();
+        } else if(FROM_STATISTIC.equals(from)){
+            new HistoryReleaseTask(this, this).setClass("0").request();
         }
 
     }
@@ -58,6 +61,8 @@ public class HistoryReleaseActivity extends BaseLoadingActivity<List<HistoryRele
             finish();
         } else if (FROM_USER_CENTER.equals(from)) {
             startActivity(new Intent(this, HistoryReleaseDetailsActivity.class).putExtra("historyDetails", historyReleaseModels.get(position)));
+        } else if(FROM_STATISTIC.equals(from)){
+            startActivity(new Intent(this, HistoryStatisticActivity.class).putExtra("historyDetails", historyReleaseModels.get(position)));
         }
     }
 

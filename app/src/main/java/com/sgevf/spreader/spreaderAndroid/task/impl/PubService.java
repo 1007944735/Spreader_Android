@@ -2,6 +2,7 @@ package com.sgevf.spreader.spreaderAndroid.task.impl;
 
 import com.sgevf.spreader.http.entity.BasicResult;
 import com.sgevf.spreader.spreaderAndroid.model.HistoryReleaseListModel;
+import com.sgevf.spreader.spreaderAndroid.model.HistoryStatisticListModel;
 import com.sgevf.spreader.spreaderAndroid.model.HistorySurplusModel;
 import com.sgevf.spreader.spreaderAndroid.model.MapRedResultModels;
 import com.sgevf.spreader.spreaderAndroid.model.PubResultModel;
@@ -45,4 +46,8 @@ public interface PubService {
     @POST("S0034")
     @Multipart
     Observable<BasicResult<UploadFileModel>> uploadFile(@PartMap Map<String, RequestBody> data);
+
+    @POST("S0037")
+    @Multipart
+    Observable<BasicResult<HistoryStatisticListModel>> historyStatistic(@PartMap Map<String, RequestBody> data);
 }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.sgevf.spreader.spreaderAndroid.R;
 import com.sgevf.spreader.spreaderAndroid.activity.BindAlipayActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.HistoryReleaseActivity;
+import com.sgevf.spreader.spreaderAndroid.activity.HistoryStatisticActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.HomeActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.LoginActivity;
 import com.sgevf.spreader.spreaderAndroid.activity.RegisterActivity;
@@ -191,6 +192,15 @@ public class UserCenterFragment extends Fragment {
     public void historyRelease() {
         if (UserConfig.isLogin(context)) {
             startActivity(new Intent(context, HistoryReleaseActivity.class).putExtra("from",HistoryReleaseActivity.FROM_USER_CENTER));
+        } else {
+            startActivity(new Intent(context, LoginActivity.class));
+        }
+    }
+
+    @OnClick(R.id.history_statistic)
+    public void staistic(){
+        if (UserConfig.isLogin(context)) {
+            startActivity(new Intent(context, HistoryReleaseActivity.class).putExtra("from",HistoryReleaseActivity.FROM_STATISTIC));
         } else {
             startActivity(new Intent(context, LoginActivity.class));
         }
